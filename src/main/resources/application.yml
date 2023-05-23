@@ -1,0 +1,35 @@
+server:
+  port: 8090
+# MySQL8 ??
+spring:
+  freemarker:
+    cache: false
+  config:
+    import:
+      - optional:classpath:custom.yml   # optional: ??? ???? ??? ?? ???
+  datasource:
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    url: ${LOCAL_DB_URL}
+    username: ${LOCAL_DB_ID}
+    password: ${LOCAL_DB_PW}
+    #url:  jdbc:mysql://localhost:3306/metasu?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    #username: root
+    #password: a123
+
+
+  # ??? SQL ?? ??
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+    # hibernate ??
+    database: mysql
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+      naming.strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      naming.physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans:  true
