@@ -13,6 +13,6 @@ public class ItemController {
 
     @GetMapping("/main")
     public String view(Model model) {
-        return "/item/itemTest";
+        return "/item/itemDetail";
     }
 }

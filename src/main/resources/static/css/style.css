@@ -165,13 +165,13 @@ ol {
 	font-weight: 600;
 	padding: 12px 30px 10px;
 	color: #ffffff;
-	background: #ca1515;
+	background: #00a8e3;
 }
 
 .site-btn {
 	font-size: 14px;
 	color: #ffffff;
-	background: #ca1515;
+	background: #00a8e3;
 	font-weight: 600;
 	border: none;
 	text-transform: uppercase;
@@ -412,7 +412,7 @@ ol {
 	bottom: 0;
 	width: 100%;
 	height: 2px;
-	background: #ca1515;
+	background: #00a8e3;
 	content: "";
 	-webkit-transition: all, 0.5s;
 	-o-transition: all, 0.5s;
@@ -1722,13 +1722,13 @@ ol {
 .product__details__price {
 	font-size: 30px;
 	font-weight: 600;
-	color: #ca1515;
+	color: #00a8e3;
 	margin-bottom: 30px;
 }
 
 .product__details__price span {
 	font-size: 18px;
-	color: #b1b0b0;
+	color: #00a8e3;
 	text-decoration: line-through;
 	margin-left: 10px;
 	display: inline-block;
@@ -1788,7 +1788,7 @@ ol {
 	display: inline-block;
 	font-size: 14px;
 	color: #ffffff;
-	background: #ca1515;
+	background: #00a8e3;
 	font-weight: 600;
 	text-transform: uppercase;
 	padding: 14px 30px 15px;
