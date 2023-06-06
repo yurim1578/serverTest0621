@@ -23,5 +23,14 @@ public class MemberController {
   public String Login(Model model) {
     return "/member/login";
   }
+
+
+
+  //정수기 카테고리
+  @GetMapping("/category")
+  public String Category(Model model) { return "/member/category"; }
+  //정수기 카테고리
+  @GetMapping("/my-page")
+  public String MyPage(Model model) { return "/member/my-page"; }
 }
 

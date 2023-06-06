@@ -9,7 +9,7 @@ setTimeout(() => {
   container.classList.add('sign-in')
 }, 200)
 
-//phoneNum
+//phoneNum 입력할때 자동하이픈 들어가게하기
 var autoHypenPhone = function(str){
       str = str.replace(/[^0-9]/g, '');
       var tmp = '';
