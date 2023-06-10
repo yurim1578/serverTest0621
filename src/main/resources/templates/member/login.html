@@ -8,43 +8,43 @@
 
 </head>
 <body>
+<div id="container" class="container" >
 
-<div id="container" class="container">
     <!-- FORM SECTION -->
     <div class="row">
         <!-- SIGN UP :id, 주소, 전화번호-->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-up">
+                <form action class="form sign-up" >
                     <div class="input-group">
-                        <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        <!--                        <i class='bx bxs-user'></i>-->
+                        <input type="text" placeholder="Username" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-id'></i>
-                        <input type="text" placeholder="Id">
+                        <!--                        <i class='bx bxs-id'></i>-->
+                        <input type="text" placeholder="Id" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-address'></i>
-                        <input type="text" placeholder="address">
+                        <!--                        <i class='bx bxs-address'></i>-->
+                        <input type="text" placeholder="address" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-phone'></i>
-                        <input type="text" id="phoneNum" placeholder="phoneNum" maxlength="13">
+                        <!--                        <i class='bx bxs-phone'></i>-->
+                        <input type="text" id="phoneNum" placeholder="phoneNum" maxlength="13" required>
                     </div>
 
 
                     <div class="input-group">
-                        <i class='bx bx-mail-send'></i>
-                        <input type="email" placeholder="Email">
+                        <!--                        <i class='bx bx-mail-send'></i>-->
+                        <input type="email" placeholder="Email" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        <!--                        <i class='bx bxs-lock-alt'></i>-->
+                        <input type="password" placeholder="Password" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Confirm password">
+                        <!--                        <i class='bx bxs-lock-alt'></i>-->
+                        <input type="password" placeholder="Confirm password" required>
                     </div>
                     <button>
                         Sign up
@@ -54,7 +54,7 @@
                         이미 계정이있나요?   <b onclick="toggle()" class="pointer">로그인</b>
                     </h5>
                     </p>
-                </div>
+                </form>
             </div>
 
         </div>
@@ -62,14 +62,14 @@
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-in">
+                <form class="form sign-in">
                     <div class="input-group">
-                        <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        <!--                        <i class='bx bxs-user'></i>-->
+                        <input type="text" placeholder="Username" required>
                     </div>
                     <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        <!--                        <i class='bx bxs-lock-alt'></i>-->
+                        <input type="password" placeholder="Password" required>
                     </div>
                     <button>
                         Sign in
@@ -80,11 +80,11 @@
                     </p>
                     <p>
                     <h5>
-                       계정이 없나요? <b onclick="toggle()" class="pointer">회원가입</b>
+                        계정이 없나요? <b onclick="toggle()" class="pointer">회원가입</b>
                     </h5>
 
                     </p>
-                </div>
+                </form>
             </div>
             <div class="form-wrapper">
 
