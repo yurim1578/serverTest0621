@@ -1,12 +1,17 @@
 package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Contract extends EssentialDate {
     @Id
     private String contractNo;               // 계약 번호

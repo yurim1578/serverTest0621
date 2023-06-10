@@ -1,12 +1,17 @@
 package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@Getter
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewImg extends EssentialDate implements Serializable {
     @Id
     @OneToOne
