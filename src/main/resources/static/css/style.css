@@ -1315,7 +1315,7 @@ ol {
 }
 
 .sidebar__categories {
-	margin-bottom: 50px;
+	margin: 50px;
 }
 
 .sidebar__categories .section-title {
@@ -3680,9 +3680,15 @@ ol {
 		font-size: 24px;
 	}
 
+     .fakeimg {
+       height: 200px;
+       background: #aaa;
+     }
 
 
-
+    .my-5{
+    margin-top:0px;
+    }
 
 
 }
