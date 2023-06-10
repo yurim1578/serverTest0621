@@ -11,16 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
-public class MemberController {
+public class MyPageController {
   @Autowired
   private MemberRepository memberRepository;
 
-  //회원가입
-
-  //로그인
-  @GetMapping("/login")
-  public String Login(Model model) {
-    return "member/login";
-  }
+  //my-page
+  @GetMapping("/my-page")
+  public String MyPage(Model model) { return "member/my-page"; }
 }
 

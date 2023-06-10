@@ -1,10 +1,13 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link href="/css/member.css" rel="stylesheet">
+
+
 
 </head>
 <body>
@@ -15,7 +18,7 @@
         <!-- SIGN UP :id, 주소, 전화번호-->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <form action class="form sign-up" >
+                <form  class="form sign-up" action="/member/register">
                     <div class="input-group">
                         <!--                        <i class='bx bxs-user'></i>-->
                         <input type="text" placeholder="Username" required>
@@ -46,9 +49,36 @@
                         <!--                        <i class='bx bxs-lock-alt'></i>-->
                         <input type="password" placeholder="Confirm password" required>
                     </div>
-                    <button>
-                        Sign up
-                    </button>
+
+
+<!--                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--                        Launch demo modal-->
+<!--                    </button>-->
+
+<!--                    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                        <div class="modal-dialog">-->
+<!--                            <div class="modal-content">-->
+<!--                                <div class="modal-header">-->
+<!--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                </div>-->
+<!--                                <div class="modal-body">-->
+<!--                                    ...-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                                    <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <!-- Button trigger modal -->
+                    <button type="button" onclick="openModal()" style="margin-top: 50px;">Sign Up</button>
+
+
+
                     <p>
                     <h5>
                         이미 계정이있나요?   <b onclick="toggle()" class="pointer">로그인</b>
@@ -62,7 +92,7 @@
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
-                <form class="form sign-in">
+                <form class="form sign-in"  >
                     <div class="input-group">
                         <!--                        <i class='bx bxs-user'></i>-->
                         <input type="text" placeholder="Username" required>
@@ -72,7 +102,7 @@
                         <input type="password" placeholder="Password" required>
                     </div>
                     <button>
-                        Sign in
+                        로그인
                     </button>
                     <p>
                         <b>아이디 찾기</b>   |
@@ -98,9 +128,8 @@
         <!-- SIGN IN CONTENT -->
         <div class="col align-items-center flex-col">
             <div class="text sign-in">
-                <h2 class="welcome">
-                    뭐라 넣지….
-                </h2> <br>
+<!--                <h2 class="welcome">-->
+<!--                </h2> <br>-->
                 <h2 class="welcome2">
                     META-SU
                 </h2>
@@ -125,9 +154,38 @@
     </div>
     <!-- END CONTENT SECTION -->
 </div>
+
+<!-- Button trigger modal -->
+<button type="button" onclick="openModal()" class="btn">Launch Modal</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">회원가입에 성공하였습니다!</h3>
+                <button type="button" onclick="closeModal()" class="close">&times;</button>
+            </div>
+<!--            <div class="modal-body">
+                <p>This is the content of the modal.</p>
+            </div>-->
+            <div class="modal-footer">
+                <button type="button" onclick="closeModal()" class="btn btn-secondary">홈으로</button>
+                <button type="button" onclick="closeModal()" class="btn btn-secondary">로그인하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+
 </body>
 
-<script src="/js/member.js"></script>
+<script src="/js/member.js">
+
+
+</script>
 </html>
 
 

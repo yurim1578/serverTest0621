@@ -7,7 +7,20 @@
 <th:block layout:fragment="content">
 
 <body>
-
+<body>
+<div th:if="${not #lists.isEmpty(items)}">
+    <div th:each="item : ${items}">
+        <div>
+            <span th:if="${item != null}" th:text="${item.itemName}">Item Name</span>
+            <!-- Add more fields as needed -->
+        </div>
+    </div>
+</div>
+<div th:unless="${not #lists.isEmpty(items)}">
+    <p>No items found.</p>
+</div>
+</body>
+s
 
 <!-- Page Preloder -->
 <div id="preloaded">
@@ -272,7 +285,11 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="img/shop/shop-1.jpg">
-                                <div class="label new">New</div>
+
+
+
+
+                            <div class="label new">New</div>
                                 <ul class="product__hover">
                                     <li><a href="img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     <li><a href="#"><span class="icon_heart_alt"></span></a></li>
@@ -288,7 +305,8 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
-                                <div class="product__price">$ 59.0</div>
+
+                                <div class="product__price" >$ 59.0</div>
                             </div>
                         </div>
                     </div>
@@ -355,6 +373,7 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                                 <div class="product__price">$ 59.0</div>
+
                             </div>
                         </div>
                     </div>
