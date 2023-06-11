@@ -5,10 +5,12 @@ import com.project.metasu.util.domain.EssentialDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "item_master")
 public class ItemMaster extends EssentialDate {
     @Id
     private String itemCode;                   // 상품 코드

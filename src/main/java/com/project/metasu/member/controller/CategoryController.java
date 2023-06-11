@@ -31,7 +31,7 @@ public class CategoryController {
   @GetMapping("/category")
   public String showCategoryItems(Model model) {
     List<ItemMaster> items = itemRepository.findAll();
-    model.addAttribute("items", items);
+    model.addAttribute("item", items);
     return "member/category";
   }
 

@@ -6,12 +6,13 @@
       layout:decorate="~{layout/default}">
 <th:block layout:fragment="content">
 
+
 <body>
-<body>
+<!--//////카테고리에 상품전체출력///////-->
 <div th:if="${not #lists.isEmpty(items)}">
     <div th:each="item : ${items}">
         <div>
-            <span th:if="${item != null}" th:text="${item.itemName}">Item Name</span>
+            <span th:if="${item != null}" th:text="${item.item_code}">Item Name</span>
             <!-- Add more fields as needed -->
         </div>
     </div>
@@ -19,37 +20,15 @@
 <div th:unless="${not #lists.isEmpty(items)}">
     <p>No items found.</p>
 </div>
-</body>
-s
 
-<!-- Page Preloder -->
-<div id="preloaded">
-    <div class="loader"></div>
-</div>
 
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <ul class="offcanvas__widget">
-        <li><span class="icon_search search-switch"></span></li>
-        <li><a href="#"><span class="icon_heart_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-        <li><a href="#"><span class="icon_bag_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-    </ul>
-    <div class="offcanvas__logo">
-        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__auth">
-        <a href="#">Login</a>
-        <a href="#">Register</a>
-    </div>
-</div>
-<!-- Offcanvas Menu End -->
+
+<!--&lt;!&ndash; Page Preloder &ndash;&gt;-->
+<!--<div id="preloaded">-->
+<!--    <div class="loader"></div>-->
+<!--</div>-->
+
+
 
 
 <!-- Breadcrumb Begin -->
@@ -81,85 +60,84 @@ s
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
                                     <div class="card-heading active">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Women</a>
+                                        <a data-toggle="collapse" data-target="#collapseOne">기능</a>
                                     </div>
                                     <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">냉온정수기</a></li>
+                                                <li><a href="#">냉정수기</a></li>
+                                                <li><a href="#">온정수기</a></li>
+                                                <li><a href="#">정수전용</a></li>
+                                                <li><a href="#">얼음</a></li>
+                                                <li><a href="#">탄산</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">Men</a>
+                                        <a data-toggle="collapse" data-target="#collapseTwo">형태</a>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">데스크탑</a></li>
+                                                <li><a href="#">빌트인</a></li>
+                                                <li><a href="#">스탠드</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseThree">Kids</a>
+                                        <a data-toggle="collapse" data-target="#collapseThree">부가기능</a>
                                     </div>
                                     <div id="collapseThree" class="collapse" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">크기</a></li>
+                                                <li><a href="#">무개</a></li>
+                                                <li><a href="#">제조사</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFour">Accessories</a>
+                                        <a data-toggle="collapse" data-target="#collapseFour">정수방식</a>
                                     </div>
                                     <div id="collapseFour" class="collapse" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">탱크형</a></li>
+                                                <li><a href="#">직수형</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFive">Cosmetic</a>
+                                        <a data-toggle="collapse" data-target="#collapseFive">관리방식</a>
                                     </div>
                                     <div id="collapseFive" class="collapse" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul>
-                                                <li><a href="#">Coats</a></li>
-                                                <li><a href="#">Jackets</a></li>
-                                                <li><a href="#">Dresses</a></li>
-                                                <li><a href="#">Shirts</a></li>
-                                                <li><a href="#">T-shirts</a></li>
-                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">자기관리</a></li>
+                                                <li><a href="#">방문관리</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-heading">
+                                        <a data-toggle="collapse" data-target="#collapseFive">렌탈/구매</a>
+                                    </div>
+                                    <div id="collapseSix" class="collapse" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <ul>
+                                                <li><a href="#">렌탈</a></li>
+                                                <li><a href="#">구매</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -328,6 +306,7 @@ s
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                 </div>
+
                                 <div class="product__price">$ 49.0</div>
                             </div>
                         </div>
