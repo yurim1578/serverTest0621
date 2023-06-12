@@ -32,4 +32,7 @@ public class ItemMaster extends EssentialDate {
     private LocalDateTime itemMakeDate;        // 제조일
     @Column(nullable=false)
     private String itemFrom;                   // 제조사
+
+    @Column(nullable=false)
+    private String itemMasterImg;              // 대표 이미지
 }
