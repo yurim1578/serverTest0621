@@ -28,7 +28,7 @@ public class MyPageController {
     return "member/mypage";
   }
 
-
+/*
   @GetMapping("/products")
   public String showProductsPage() {
     // 사용중인 제품 페이지로 이동하는 로직을 작성합니다.
@@ -82,6 +82,8 @@ public class MyPageController {
     // 회원 탈퇴 페이지로 이동하는 로직을 작성합니다.
     return "delete-account";
   }
+  */
+
 }
 
 
