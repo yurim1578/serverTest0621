@@ -16,18 +16,11 @@ public class MemberController {
   private MemberRepository memberRepository;
 
   //회원가입
+
   //로그인
   @GetMapping("/login")
   public String Login(Model model) {
-    return "/member/login";
+    return "member/login";
   }
-
-
-  //정수기 카테고리
-  @GetMapping("/category")
-  public String Category(Model model) { return "/member/category"; }
-  //my-page
-  @GetMapping("/my-page")
-  public String MyPage(Model model) { return "/member/my-page"; }
 }
 

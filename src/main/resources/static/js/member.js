@@ -1,3 +1,6 @@
+
+
+//Main
 let container = document.getElementById('container')
 
 toggle = () => {
@@ -8,6 +11,24 @@ toggle = () => {
 setTimeout(() => {
   container.classList.add('sign-in')
 }, 200)
+
+//Modal
+function openModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    var modal = document.getElementById("myModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
 
 
 // 유효성검사 Example starter JavaScript for disabling form submissions if there are invalid fields

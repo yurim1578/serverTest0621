@@ -16,9 +16,10 @@ import javax.validation.constraints.NotNull;
 public class OrderMaster extends EssentialDate {
     @Id
     private String orderNo;                                        // 주문 번호
+
     @ManyToOne
-    @JoinColumn(name="memberId", nullable = false)
-    private Member memberId;                                       // 고객 아이디
+    @JoinColumn(name="memberId",nullable=false)
+    private Member memberId;    // 고객 아이디
     @ManyToOne
     @JoinColumn(name = "contractNo", nullable=false)
     private Contract contractNo;                                   // 계약 번호
