@@ -8,7 +8,7 @@
 
 
 <body>
-<!--//////카테고리에 상품전체출력///////-->
+<!--//////카테고리에 상품전체출력///db연결실패한거...////-->
 <div th:if="${not #lists.isEmpty(items)}">
     <div th:each="item : ${items}">
         <div>
@@ -20,15 +20,13 @@
 <div th:unless="${not #lists.isEmpty(items)}">
     <p>No items found.</p>
 </div>
-
+<!--db연결실패한거...////-->
 
 
 <!--&lt;!&ndash; Page Preloder &ndash;&gt;-->
 <!--<div id="preloaded">-->
 <!--    <div class="loader"></div>-->
 <!--</div>-->
-
-
 
 
 <!-- Breadcrumb Begin -->

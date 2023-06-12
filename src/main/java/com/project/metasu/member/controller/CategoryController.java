@@ -27,13 +27,15 @@ public class CategoryController {
   public String Category(Model model) { return "member/category"; }
 */
 
-  //카테고리에 상품전체출력???????
+
+//////카테고리에 상품전체출력///db연결실패한컨트롤러...---
   @GetMapping("/category")
   public String showCategoryItems(Model model) {
     List<ItemMaster> items = itemRepository.findAll();
     model.addAttribute("item", items);
     return "member/category";
   }
+//db연결실패한거...---////
 
   }
 

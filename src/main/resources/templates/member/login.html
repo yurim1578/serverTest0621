@@ -15,39 +15,39 @@
 
     <!-- FORM SECTION -->
     <div class="row">
-        <!-- SIGN UP 회원가입-->
+        <!-- SIGN UP :id, 주소, 전화번호-->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
                 <form  class="form sign-up" action="/member/register">
                     <div class="input-group">
                         <!--                        <i class='bx bxs-user'></i>-->
-                        <input type="text" placeholder="Username" id="username" required>
+                        <input type="text" placeholder="Username" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-id'></i>-->
-                        <input type="text" placeholder="Id" id="id" required>
+                        <input type="text" placeholder="Id" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-address'></i>-->
-                        <input type="text" placeholder="address" id="address" required>
+                        <input type="text" placeholder="address" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-phone'></i>-->
-                        <input type="text" id="phoneNum" placeholder="phoneNum" id="phoneNum" maxlength="13" required>
+                        <input type="text" id="phoneNum" placeholder="phoneNum" maxlength="13" required>
                     </div>
 
 
                     <div class="input-group">
                         <!--                        <i class='bx bx-mail-send'></i>-->
-                        <input type="email" placeholder="Email" id="email" required>
+                        <input type="email" placeholder="Email" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-lock-alt'></i>-->
-                        <input type="password" placeholder="Password" id="password" required>
+                        <input type="password" placeholder="Password" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-lock-alt'></i>-->
-                        <input type="password" placeholder="Confirm password" id="password2" required>
+                        <input type="password" placeholder="Confirm password" required>
                     </div>
 
 
@@ -75,9 +75,7 @@
 <!--                        </div>-->
 <!--                    </div>-->
                     <!-- Button trigger modal -->
-                    <button button id="btn-save" class="btn btn-primary" type="button" onclick="openModal()" style="margin-top: 50px;">
-                        회원가입 완료
-                    </button>
+                    <button type="button" onclick="openModal()" style="margin-top: 50px;">Sign Up</button>
 
 
 
@@ -165,12 +163,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">회원가입에 성공하였습니다!</h3>
+                <h5 class="modal-title">Modal Title</h5>
                 <button type="button" onclick="closeModal()" class="close">&times;</button>
             </div>
-<!--            <div class="modal-body">
-                <p>This is the content of the modal.</p>
-            </div>-->
+            <div class="modal-body">
+                <p>success</p>
+            </div>
             <div class="modal-footer">
                 <button type="button" onclick="closeModal()" class="btn btn-secondary">홈으로</button>
                 <button type="button" onclick="closeModal()" class="btn btn-secondary">로그인하기</button>
