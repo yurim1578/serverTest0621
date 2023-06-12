@@ -13,9 +13,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemDetailId implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "itemCode", nullable=false)
-    private ItemMaster itemCode;          // 상품 코드
+    private String itemCode;          // 상품 코드
     @Column(nullable=false)
-    private String itemColorCode;         // 상품 색상 코드
+    private String itemColorCode;     // 상품 색상 코드
 }

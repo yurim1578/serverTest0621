@@ -5,10 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -16,7 +13,18 @@ import javax.persistence.IdClass;
 @IdClass(WishListId.class)
 public class WishList {
     @Id
-    private Member memberId;        // 고객 아이디
+    private String memberId;    // 고객 아이디
+
+    @MapsId("memberId")
+    @ManyToOne
+    @JoinColumn(name = "memberId", nullable = false, insertable = false, updatable = false)
+    private Member member;
+
     @Id
-    private ItemMaster itemCode;    // 상품 코드
+    private String itemCode;    // 상품 코드
+
+    @MapsId("itemCode")
+    @ManyToOne
+    @JoinColumn(name = "itemCode", nullable = false, insertable = false, updatable = false)
+    private ItemMaster itemMaster;
 }

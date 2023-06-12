@@ -15,7 +15,14 @@ import javax.persistence.*;
 @IdClass(ItemDetailId.class)
 public class ItemDetail extends EssentialDate {
     @Id
-    private ItemMaster itemCode; // 상품 코드
+    private String itemCode;        // 상품 코드
+
+    @MapsId("itemCode")
+    @ManyToOne
+    // @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemCode", nullable = false, insertable = false, updatable = false)
+    private ItemMaster itemMaster;
+
     @Id
-    private String itemColorCode; // 상품 색상 코드
+    private String itemColorCode;   // 상품 색상 코드
 }

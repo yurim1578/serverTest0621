@@ -19,7 +19,7 @@ public class OrderMaster extends EssentialDate {
 
     @ManyToOne
     @JoinColumn(name="memberId",nullable=false)
-    private Member memberId;    // 고객 아이디
+    private Member memberId;                                       // 고객 아이디
     @ManyToOne
     @JoinColumn(name = "contractNo", nullable=false)
     private Contract contractNo;                                   // 계약 번호

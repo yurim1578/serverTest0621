@@ -14,11 +14,22 @@ import javax.validation.constraints.NotNull;
 @IdClass(OrderDetailId.class)
 public class OrderDetail extends EssentialDate {
     @Id
-    private OrderMaster orderNo;                // 주문 번호
+    private String orderNo;                  // 주문 번호
+
+    @MapsId("orderNo")
+    @ManyToOne
+    @JoinColumn(name = "orderNo", nullable = false, insertable = false, updatable = false)
+    private OrderMaster orderMaster;
+
     @Id
-    private ItemStock itemBarcode;              // 상품 바코드
+    private String itemBarcode;              // 상품 바코드
+
+    @MapsId("itemBarcode")
+    @ManyToOne
+    @JoinColumn(name = "itemBarcode", nullable = false, insertable = false, updatable = false)
+    private ItemStock itemStock;
 
     @ManyToOne
     @JoinColumn(name = "rentalNo")
-    private Rental rental_no;                   // 렌탈 번호
+    private Rental rental_no;                 // 렌탈 번호
 }

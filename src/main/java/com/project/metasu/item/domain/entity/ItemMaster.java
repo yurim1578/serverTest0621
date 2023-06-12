@@ -1,16 +1,17 @@
 package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Getter
 @Entity
-@Table(name = "item_master")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemMaster extends EssentialDate {
     @Id
     private String itemCode;                   // 상품 코드
@@ -32,7 +33,10 @@ public class ItemMaster extends EssentialDate {
     private LocalDateTime itemMakeDate;        // 제조일
     @Column(nullable=false)
     private String itemFrom;                   // 제조사
-
     @Column(nullable=false)
     private String itemMasterImg;              // 대표 이미지
+
+    /*@OneToMany(mappedBy = "itemCode", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<ItemDetail> itemDetails = new ArrayList<>();*/
 }

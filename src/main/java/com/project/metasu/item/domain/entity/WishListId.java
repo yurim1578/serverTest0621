@@ -13,11 +13,7 @@ import java.io.Serializable;
 @Data
 @Embeddable
 public class WishListId implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "memberId", nullable=false)
-    private Member memberId;                     // 고객 아이디
 
-    @ManyToOne
-    @JoinColumn(name = "itemCode", nullable=false)
-    private ItemMaster itemCode;                 // 상품 코드
+    private String memberId;     // 고객 아이디
+    private String itemCode;     // 상품 코드
 }

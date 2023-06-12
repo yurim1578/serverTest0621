@@ -16,20 +16,34 @@ import javax.validation.constraints.NotNull;
 @IdClass(CartId.class)
 public class Cart extends EssentialDate {
     @Id
-    private Member memberId; // 고객 아이디
-    @Id
-    private ItemMaster itemCode; // 상품 코드
+    private String itemCode;      // 상품 코드
+
+    @MapsId("itemCode")
+    @ManyToOne
+    @JoinColumn(name = "itemCode", nullable = false, insertable = false, updatable = false)
+    private ItemMaster itemMaster;
+
     @Id
     private String itemColorCode; // 상품 색상 코드
 
+    @Id
+    private String memberId;      // 고객 아이디
+
+    @MapsId("memberId")
+    @ManyToOne
+    @JoinColumn(name = "memberId", nullable = false, insertable = false, updatable = false)
+    private Member member;
+
     @Column(nullable=false)
-    private int cartQty; // 장바구니 수량
+    private int cartQty;          // 장바구니 수량
 
     @Builder
-    public Cart(Member memberId, ItemMaster itemCode, String itemColorCode, int cartQty) {
-        this.memberId = memberId;
-        this.itemCode = itemCode;
+    public Cart(ItemMaster itemMaster, String itemColorCode, Member member, int cartQty) {
+        this.itemCode = itemMaster.getItemCode();
+        this.itemMaster = itemMaster;
         this.itemColorCode = itemColorCode;
+        this.memberId = member.getMemberId();
+        this.member = member;
         this.cartQty = cartQty;
     }
     public void setCartQty(int cartQty) {
