@@ -25,21 +25,18 @@ public class Member extends EssentialDate {
     @Column(nullable=false)
     private String memberPhone;
     @Column(nullable=false)
-    private String memberZipCode;
-    @Column(nullable=false)
     private String memberAddr1;
     private String memberAddr2;
     @Column(nullable=false)
     private String memberAuth;
 
     @Builder
-    public Member(String memberId, String memberPw, String memberName, String memberEmail, String memberPhone, String memberZipCode, String memberAddr1, String memberAddr2, String memberAuth) {
+    public Member(String memberId, String memberPw, String memberName, String memberEmail, String memberPhone, String memberAddr1, String memberAddr2, String memberAuth) {
         this.memberId = memberId;
         this.memberPw = memberPw;
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.memberPhone = memberPhone;
-        this.memberZipCode = memberZipCode;
         this.memberAddr1 = memberAddr1;
         this.memberAddr2 = memberAddr2;
         this.memberAuth = memberAuth;

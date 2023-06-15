@@ -1,10 +1,13 @@
 package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.member.domain.entity.Member;
+import com.project.metasu.util.domain.CommonCodeDetail;
+import com.project.metasu.util.domain.CommonCodeMaster;
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review extends EssentialDate {
-    @Id
-    private int reviewNo;                        // 리뷰 번호
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long reviewNo;                        // 리뷰 번호
     @ManyToOne
     @JoinColumn(name = "itemCode", nullable=false)
     private ItemMaster itemCode;                 // 상품 코드
@@ -31,4 +34,6 @@ public class Review extends EssentialDate {
     private String adminContents;                // 관리자 답글
     @Column(nullable=false)
     private int reviewScore;                     // 리뷰 별점
+    private String reviewMasterImg;              // 리뷰 마스터 이미지
+
 }

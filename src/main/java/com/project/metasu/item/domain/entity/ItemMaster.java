@@ -34,6 +34,8 @@ public class ItemMaster extends EssentialDate {
     @Column(nullable=false)
     private String itemFrom;                   // 제조사
     @Column(nullable=false)
+    private String item_desc;                  // 상품 상세설명
+    @Column(nullable=false)
     private String itemMasterImg;              // 대표 이미지
 
     /*@OneToMany(mappedBy = "itemCode", fetch = FetchType.LAZY)

@@ -14,9 +14,7 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 public class CommonCodeDetailId implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "code", nullable=false)
-    private CommonCodeMaster code;
+    private String code;
     @Column(nullable=false)
     private String subCode;
 }

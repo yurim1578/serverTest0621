@@ -23,8 +23,6 @@ public class Contract extends EssentialDate {
     @Column(nullable=false)
     private String contractEmail;            // 계약자 이메일
     @Column(nullable=false)
-    private String contractZipCode;          // 계약자 우편번호
-    @Column(nullable=false)
     private String contractAddr1;            // 계약자 주소
     private String contractAddr2;            // 계약자 상세주소
     private String contractRecieve;          // 계약 영수증
