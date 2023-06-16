@@ -26,58 +26,30 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="product__details__pic">
-                    <div class="product__details__pic__left product__thumb nice-scroll">
-                        <a class="pt active" href="#product-1">
-                            <img src="img/product/details/thumb-1.jpg" alt="">
+                    <div class="product__details__pic__left product__thumb nice-scroll" id="itemImgs">
+                      <a class="pt" href="#product-1" id="itemImg1">
+                            <img th:src="${img.itemImg1}" alt="">
                         </a>
-                        <a class="pt" href="#product-2">
-                            <img src="img/product/details/thumb-2.jpg" alt="">
+                        <a class="pt" href="#product-2" id="itemImg2">
+                            <img th:src="${img.itemImg2}" alt="">
                         </a>
-                        <a class="pt" href="#product-3">
-                            <img src="img/product/details/thumb-3.jpg" alt="">
-                        </a>
-                        <a class="pt" href="#product-4">
-                            <img src="img/product/details/thumb-4.jpg" alt="">
+                        <a class="pt" href="#product-3" id="itemImg3">
+                            <img th:src="${img.itemImg3}" alt="">
                         </a>
                     </div>
                     <div class="product__details__slider__content">
                         <div class="product__details__pic__slider owl-carousel">
-                            <img data-hash="product-1" class="product__big__img" src="img/product/details/product-1.jpg" alt="">
-                            <img data-hash="product-2" class="product__big__img" src="img/product/details/product-3.jpg" alt="">
-                            <img data-hash="product-3" class="product__big__img" src="img/product/details/product-2.jpg" alt="">
-                            <img data-hash="product-4" class="product__big__img" src="img/product/details/product-4.jpg" alt="">
+                            <img data-hash="product-1" id="itemBigImg1" class="product__big__img" th:src="${img.itemImg1}" alt="">
+                            <img data-hash="product-2" id="itemBigImg2" class="product__big__img" th:src="${img.itemImg2}" alt="">
+                            <img data-hash="product-3" id="itemBigImg3" class="product__big__img" th:src="${img.itemImg3}" alt="">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="product__details__text">
-                    <h3>Essential structured blazer <span>Brand: SKMEIMore Men Watches from SKMEI</span></h3>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <span>( 138 reviews )</span>
-                    </div>
-                    <div class="product__details__price">$ 75.0 <span>$ 83.0</span></div>
-                    <p>Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit, sed quia consequuntur
-                        magni lores eos qui ratione voluptatem sequi nesciunt.</p>
-                    <div class="product__details__button">
-                        <div class="quantity">
-                            <span>Quantity:</span>
-                            <div class="pro-qty">
-                                <input type="text" value="1">
-                            </div>
-                        </div>
-                        <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
-                        <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__details__widget">
+                    <span th:text="${post.itemName}" style="font-size: larger; font-weight: bold;"></span>
+                    <div class="product__details__widget" style="margin-top: 4px;">
                         <ul>
                             <li>
                                 <span>Availability:</span>
@@ -91,48 +63,74 @@
                             </li>
                             <li>
                                 <span>Available color:</span>
-                                <div class="color__checkbox">
-                                    <label for="red">
-                                        <input type="radio" name="color__radio" id="red" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="black">
-                                        <input type="radio" name="color__radio" id="black">
-                                        <span class="checkmark black-bg"></span>
-                                    </label>
-                                    <label for="grey">
-                                        <input type="radio" name="color__radio" id="grey">
-                                        <span class="checkmark grey-bg"></span>
+                                <div class="color__checkbox" th:each="itemDetail : ${detail}">
+                                    <label th:for="${itemDetail}">
+                                        <input type="radio" name="color__radio" th:id="${itemDetail}" />
+                                        <span th:class="'checkmark ' + ${itemDetail + '-bg'}"></span>
                                     </label>
                                 </div>
-                            </li>
-                            <li>
-                                <span>Available size:</span>
-                                <div class="size__btn">
-                                    <label for="xs-btn" class="active">
-                                        <input type="radio" id="xs-btn">
-                                        xs
-                                    </label>
-                                    <label for="s-btn">
-                                        <input type="radio" id="s-btn">
-                                        s
-                                    </label>
-                                    <label for="m-btn">
-                                        <input type="radio" id="m-btn">
-                                        m
-                                    </label>
-                                    <label for="l-btn">
-                                        <input type="radio" id="l-btn">
-                                        l
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Promotions:</span>
-                                <p>Free shipping</p>
+                                <input type="hidden" value="" id="choiceColor"/>
                             </li>
                         </ul>
                     </div>
+                    <hr>
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">렌탈</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">구매</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="tab-tab-box">
+                                <div>
+                                  <button id="btnVisit" class="ren-btn">방문관리</button>
+                                  <button id="btnSelf" class="ren-btn">자가관리</button>
+                                </div>
+                                <div>
+                                  <button id="btn6Year" class="ren-btn">6년약정</button>
+                                  <button id="btn3Year" class="ren-btn">3년약정</button>
+                                </div>
+                              </div>
+                              
+                            <div class="product__details__button">
+                                <a href="#" class="cart-btn">
+                                    <span class="icon_bag_alt"></span>
+                                    Go to order</a>
+                                <ul>
+                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                    <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                            <div class="tab-tab-box">
+                            <div class="product__details__price">  ￦<span id="itemPrice" th:text="${post.itemPrice}"></span></div>  
+                                    <span id="totalPrice"></span>
+                                      <div class="quantity">
+                                        <span>Quantity:</span>
+                                        <div class="pro-qty">
+                                          <input type="text" id="quantityInput" value="1">
+                                        </div>
+                                      </div>
+                           
+                                    
+                                <div class="product__details__button">
+                                    <a href="#" class="cart-btn">
+                                        <span class="icon_bag_alt"></span>
+                                        Add to cart</a>
+                                    <ul>
+                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                                        <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="col-lg-12">
@@ -145,7 +143,7 @@
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" onclick="sendReview('createdDate');"  role="tab">Reviews ( 2 )</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -164,127 +162,38 @@
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>Specification</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                            <input type="hidden" id="itemCode" th:value="${post.itemCode}"/>
+                            <div style="font-weight : bold;">모델명</div>
+                            <span th:text="${post.itemName}"></span>
+                            <div style="font-weight : bold;">크기</div>
+                            <span th:text="${post.itemSize}"></span>
+                            <div style="font-weight : bold;">탱크용량</div>
+                            <span th:text="${post.itemTankCapacity}"></span>
+                            <div style="font-weight : bold;">설치방식</div>
+                            <span th:text="${post.itemIntalType}"></span>
+                            <div style="font-weight : bold;">직수방식</div>
+                            <span th:text="${post.itemWaterMethod}"></span>
+                            <div style="font-weight : bold;">제조사</div>
+                            <span th:text="${post.itemFrom}"></span>
                         </div>
-                        <div class="tab-pane" id="tabs-3" role="tabpanel">
-                            <h6>Reviews ( 2 )</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="related__title">
-                    <h5>RELATED PRODUCTS</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-1.jpg">
-                        <div class="label new">New</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Buttons tweed blazer</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-2.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-2.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Flowy striped skirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 49.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-3.jpg">
-                        <div class="label stockout">out of stock</div>
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-3.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Cotton T-Shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg="img/product/related/rp-4.jpg">
-                        <ul class="product__hover">
-                            <li><a href="img/product/related/rp-4.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Slim striped pocket shirt</a></h6>
-                        <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product__price">$ 59.0</div>
+                       <!-- 리뷰  -->                    
+                       <div class="tab-pane" id="tabs-3" role="tabpanel">
+                        <div class="reviewSortNav" align="right">
+                            포토리뷰
+                            <input type="checkbox" id="photoReview" onclick="sendReview('');" style="border: 0; background: white;"><br/>
+                            <input type="button" id="createdDate" onclick="sendReview('createdDate');" value="최신순" style="border: 0; background: white;">|
+                           <input type="button" id="reviewScore" onclick="sendReview('reviewScore');"  value="별점순"   style="border: 0; background: white;">|
+                      </div>
+                      <!-- 리뷰 리스트  -->
+                      <span id="reviewPage"></span>
+                  <!-- 더보기 -->
+                    
+                      <div class="viewMore" style="text-align: center;">
+                            <input type="button" id="reviewMore" value="view more" style="border: 0; background: white;" data-page="1">
+                      </div>
+
+                  
+                  <!-- 리뷰 끝  -->
                     </div>
                 </div>
             </div>
@@ -292,62 +201,302 @@
     </div>
 </section>
 <!-- Product Details Section End -->
+<script th:src="@{/js/main.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+</th:block>
+<th:block layout:fragment="script">
+<script type="text/javascript">
 
-<!-- Instagram Begin -->
-<div class="instagram">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Instagram End -->
+    const cp = $(location).attr('origin'); //contextPath
+    var memberId = 'hye'; // todo: 로그인 합칠때 memberId 받아오기
+
+    // 리뷰
+    function sendReview(sortValue, page){
+        var url = cp + '/item/reviewOfItemCode';
+        var itemCode = $('#itemCode').val();
+        var param = {itemCode:itemCode, sortValue:sortValue};
+        param.page = page ? Number(page) : 0;
+
+        $.ajax({
+            type:"POST",
+            url:url,
+            data:param,
+            async: false,	//동기식으로 변환
+            success:function(args){
+                $('#reviewMore').attr('data-order', sortValue);
+                const totalPage = $('#reviewPage').find('.reviewTotal:last').val(); // total 페이지 저장
+
+                if(page == null) {                  
+                    $('#reviewPage').html(args);                        // 페이지가 없으면 
+                } else {                                                // 페이지가 있으면 데이터 append
+                    $('#reviewPage').append(args);
+                }       
+
+                if(page && (Number(totalPage)-1) == page) {             // page는 0부터 시작하기때문에 totalPage-1 일때 
+                    $('.viewMore').hide();                              // 더보기 버튼 hide
+                } else {
+                    $('.viewMore').show();                    
+                    $('#reviewMore').attr('data-page', param.page + 1); //더보기 버튼을 클릭했을때 page+1
+                }
+                
+                $('.reviewSortNav input').css("font-weight", "");
+                $('#' + sortValue).css("font-weight", "bold");          //선택한 정렬 볼드체			
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });       
+    }
+
+   $(document).ready(function() {
+
+    $('#btnSelf').click(function() {
+      var param = {
+        // 계약자 정보
+        contractReq: {
+          contractName: "John Doe",
+          contractPhone: "123-456-7890",
+          contractEmail: "john@example.com",
+          contractAddr1: "123 Main St",
+          contractAddr2: "Apt 4B"
+        },
+        deliveryReq: {
+
+        }
+      };
+      $.ajax({
+        type: "POST",
+        url: "/item/test",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+      }).done(function(resp) {
+        console.log(resp);
+      }).fail(function(error) {
+        alert(error);
+      });
+
+      /*$.post("/item/test", param, function(args){
+        console.log(args);
+      })*/
+    });
+
+    
+    // 초기 페이지 로딩 시 기본 설정
+    $('#btnVisit, #btn6Year').addClass('active');
+
+    // 자가관리와 방문관리 버튼에 대한 클릭 이벤트 핸들러
+    $('#btnSelf').click(function() {
+        $('#btnVisit').removeClass('active');
+        $(this).addClass('active');
+
+        var renData = $(this).text();
+
+    });
+
+    $('#btnVisit').click(function() {
+        $('#btnSelf').removeClass('active');
+        $(this).addClass('active');
+
+        var renData = $(this).text();
+    
+    });
+
+    // 6년약정과 3년약정 버튼에 대한 클릭 이벤트 핸들러
+    $('#btn6Year').click(function() {
+        $('#btn3Year').removeClass('active');
+        $(this).addClass('active');
+
+        var renData = $(this).text();
+    
+    });
+
+    $('#btn3Year').click(function() {
+        $('#btn6Year').removeClass('active');
+        $(this).addClass('active');
+
+        var renData = $(this).text();
+
+    });
+
+
+    $('input[name="color__radio"]').click(function() {
+        var itemColorCode = $(this).attr('id'); // 선택된 색상 가져오기
+        var itemCode = $('#itemCode').val();
+    
+        $.ajax({
+        type: 'POST',
+        url: cp + '/item/findItemColorCodeImg',
+        data: { itemColorCode: itemColorCode, itemCode:itemCode },
+        success: function(data) {
+
+            //todo: (for문 사용)
+
+            $('#itemImg1').find('img').attr('src',data.itemImg1);
+            $('#itemImg2').find('img').attr('src',data.itemImg2);
+            $('#itemImg3').find('img').attr('src',data.itemImg3);
+
+            $('#itemBigImg1').attr('src',data.itemImg1);
+            $('#itemBigImg2').attr('src',data.itemImg2);
+            $('#itemBigImg3').attr('src',data.itemImg3);
+    
+            
+            $('#choiceColor').val(itemColorCode); // 바뀐 itemColorCode 저장 
+        },
+        error: function(xhr, status, error) {
+            
+            console.error(error);
+        }
+        });
+    });
+
+
+    $('.cart-btn').click(function() {
+        var itemColorCode = $('#choiceColor').val(); 
+        var itemCode = $('#itemCode').val();
+        var qty = $('#quantityInput').val();
+ 
+       if(itemColorCode==''){
+            alert('상품 색상을 선택하세요!');
+       }else{
+
+        var chkParam = {
+            itemCode:itemCode,
+            itemColorCode:itemColorCode,
+            memberId:memberId
+        }
+
+        var setParam = {
+            itemCode:itemCode,
+            itemColorCode:itemColorCode,
+            memberId:memberId,
+            cartQty:qty
+        }
+
+        var chkUrl = cp + '/item/chkCart';
+        var setUrl = cp + '/item/addCart';
+        $.post(chkUrl,chkParam,function(args){
+            if(args == true){
+                if(!confirm('장바구니에 동일한 상품이 존재합니다. 추가하시겠습니까?')) {
+                    return;
+                }
+            }
+            $.post(setUrl,setParam,function(args){
+                if(args=="200"){
+                    if(confirm("장바구니에 추가되었습니다! 장바구니로 이동하시겠습니까?")){
+                        location.href = cp + "/item/cart/" + memberId;
+                    }
+                }else{
+                    alert("장바구니 추가 error");
+                }
+            });
+        });
+
+       }        
+
+    }); 
+
+    // 더보기 눌렀을때
+    $('#reviewMore').on('click', function() {
+        const sortValue = $('#reviewMore').attr('data-order'); // 정렬 파라미터 저장
+        const page = $('#reviewMore').attr('data-page');       // page num
+        sendReview(sortValue, page);                            
+    });
+    
+
+});
+
+</script>
+</th:block>
+<th:block layout:fragment="css">
+<style>
+.product__details__text .nav::before, .product__details__text .nav::after {
+    top: 55px;
+}
+
+.nav-pills {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-item {
+  margin-right: 10px;
+}
+
+.nav-pills .nav-item button.nav-link {
+  font-size: 15px;
+  width: 118px;
+  height: 40px;
+  border-radius: 26px;
+  background: #f2f2f2;
+}
+
+.nav-pills .nav-item button.nav-link.active {
+  color: white;
+  background: #00a8e3;
+}
+
+.nav-link {
+  padding: 10px 15px; /* 가로로 약간 늘리기 */
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  transition: all 0.3s ease;
+  line-height: 1.5; /* 세로로 조금 늘리기 */
+}
+
+.nav-link:hover {
+  background-color: #e6e6e6;
+}
+
+.nav-link.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.tab-content {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.tab-tab-box{
+    background: #E8F5FF;
+    height: 150px;
+    margin-bottom: 17px;
+}
+
+.ren-btn.active {
+  font-size: 15px;
+  width: 118px;
+  height: 40px;
+  border-radius: 26px;
+  background: #f2f2f2;
+  margin-right: 10px;
+  margin-top: 19px;
+  margin-left: 12px;
+  margin-bottom: 10px;
+  border: solid 2px #000000;
+  color: #000000;
+}
+
+
+.ren-btn{
+    font-size: 15px;
+    width: 118px;
+    height: 40px;
+    border-radius: 26px;
+    background: #f2f2f2;
+    margin-right: 10px;
+    border: none;
+    color: #aaaaaa;
+    margin-top: 19px;
+    margin-left: 12px;
+    margin-bottom: 10px;
+}
+
+
+</style>
 </th:block>
 </html>

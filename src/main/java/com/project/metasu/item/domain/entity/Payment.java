@@ -2,6 +2,7 @@ package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,14 @@ public class Payment extends EssentialDate {
     @Column(nullable=false)
     private String paymentStatus;            // 결제 상태
 
+    @Builder
+    public Payment(String paymentNo, String paymentType, String paymentCreditNumber, String paymentAccount, String paymentBank, int paymentAmount, String paymentStatus) {
+        this.paymentNo = paymentNo;
+        this.paymentType = paymentType;
+        this.paymentCreditNumber = paymentCreditNumber;
+        this.paymentAccount = paymentAccount;
+        this.paymentBank = paymentBank;
+        this.paymentAmount = paymentAmount;
+        this.paymentStatus = paymentStatus;
+    }
 }

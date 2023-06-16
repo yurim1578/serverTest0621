@@ -3,6 +3,7 @@ package com.project.metasu.item.domain.entity;
 import com.project.metasu.util.converter.BooleanToYnConverter;
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,5 +32,17 @@ public class Rental extends EssentialDate {
     @Column(nullable=false)
     private LocalDateTime RentalEndDate;                        // 렌탈 종료일
     @Column(nullable=false)
-    private String RentalStatus;                                // 렌탈 상태 코드
+    private String RentalStatus;
+
+    @Builder
+    public Rental(String rentalNo, String rentalPayAutoDate, Boolean rentalRentalPayAutoYn, String rentalPeriod, LocalDateTime rentalStartDate, LocalDateTime rentalEndDate, String rentalStatus) {
+        RentalNo = rentalNo;
+        RentalPayAutoDate = rentalPayAutoDate;
+        RentalRentalPayAutoYn = rentalRentalPayAutoYn;
+        RentalPeriod = rentalPeriod;
+        RentalStartDate = rentalStartDate;
+        RentalEndDate = rentalEndDate;
+        RentalStatus = rentalStatus;
+    }
+
 }
