@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<th:block layout:fragment="content">
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" data-section="section1">
+                    <h6 class="coupon__link"><span class="icon_tag_alt"></span> <a href="#">Have a coupon?</a> Click
+                    here to enter your code.</h6>
+                </div>
+            </div>
+            <form action="#" class="checkout__form">
+                <div class="row" style="width: 100%;">
+                    <div class="col-lg-7">
+                        <h5>계약자</h5>
+                        <div class="row" style="padding-left: 0;"  data-section="constractSection">
+                            <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
+                            <div class="col-lg-12">
+                                <div class="checkout__form__input">
+                                    <span style="color: #212529;font-weight: 500;">Name <font color="#ca1515">*</font></span>
+                                    <div class="checkout__form__checkbox">
+                                        <label for="conAcc" style="display: inline;float: right;">
+                                            주문자 정보와 동일
+                                            <input type="checkbox" id="conAcc">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <input type="text" id="conName" th:value="${member.memberName}" placeholder="Enter your Name">
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="checkout__form__input">
+                                    <p>Phone <span>*</span></p>
+                                    <input type="text" id="conPhone" th:value="${member.memberPhone}" placeholder="Enter your Phone">
+                                    <span></span>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Email <span>*</span></p>
+                                    <input type="text" id="conEmail" th:value="${member.memberEmail}" placeholder="Enter your Email">
+                                    <span></span>
+                                </div>
+                                <div class="checkout__form__input">
+                                    <p>Address <span>*</span></p>
+                                    <input type="text" id="conAddr1" th:value="${member.memberAddr1}" placeholder="Street Address" readonly>
+                                    <input type="text" id="conAddr2" th:value="${member.memberAddr2}" placeholder="Apartment. suite, unite ect ( optinal )">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    <div class="col-lg-5">
+                        <div class="checkout__order">
+                            <h5>Your order</h5>
+                            <div class="checkout__order__product">
+                                <ul>
+                                    <li>
+                                        <span class="top__text">Product</span>
+                                        <span class="top__text">Color</span>
+                                        <span class="top__text">Qty</span>
+                                        <span class="top__text">Price</span>
+                                    </li>
+                                    <div th:each="carts : ${cart}">  
+                                        <span id="itemName" th:text="${carts.item_name}"></span>
+                                        <span id="cartQty" th:text="${carts.cart_qty}"></span>
+                                        <span id="itemSubTotalPrice" th:text="'￦ ' + ${carts.item_price * carts.cart_qty}"></span><br>
+                                        <span id="itemColorCodeName" th:text="${carts.item_color_code_name}" style="font-size: small;"></span>
+                                    </div>
+                                </ul>
+                            </div>
+                            <div class="checkout__order__total">
+                                <ul>
+                                    <li>Total <span> </span></li>
+                                </ul>
+                            </div>
+                            <button type="button" class="site-btn">Place oder</button>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 100%; margin-top: 50px;" data-section="deliverySection">
+                        <div class="col-lg-6">
+                            <h5>배달지 정보</h5>
+                            <div class="row" style="padding-left: 0;">
+                                <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
+                                <div class="col-lg-12">
+                                    <div class="checkout__form__input">
+                                        <span style="color: #212529;font-weight: 500;">Name <font color="#ca1515">*</font></span>
+                                        <div class="checkout__form__checkbox">
+                                            <label for="delAcc" style="display: inline;float: right;">
+                                                주문자 정보와 동일
+                                                <input type="checkbox" id="delAcc">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <input type="text" id="delName" th:value="${member.memberName}" placeholder="Enter your Name">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="checkout__form__input">
+                                        <p>Phone <span>*</span></p>
+                                        <input type="text" id="delPhone" th:value="${member.memberPhone}" placeholder="Enter your Phone">
+                                        <span></span>
+                                    </div>
+                                    <div class="checkout__form__input">
+                                        <p>Email <span>*</span></p>
+                                        <input type="text" id="delEmail" th:value="${member.memberEmail}" placeholder="Enter your Email">
+                                        <span></span>
+                                    </div>
+                                    <div class="checkout__form__input">
+                                        <p>Address <span>*</span></p>
+                                        <input type="text" id="delAddr1" th:value="${member.memberAddr1}" placeholder="Street Address" readonly>
+                                        <input type="text" id="delAddr2" th:value="${member.memberAddr2}" placeholder="Apartment. suite, unite ect ( optinal )">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <h5>설치 희망일</h5>
+                            	<!-- 달력 -->
+								<div class="sec_cal" style="margin-left: -50px; height: 220px;" >
+                                    <div class="cal_nav" style="font-size: 23px; margin-bottom: -34px; margin-left: 133px;"
+                                    >
+                                      <a href="javascript:;" class="nav-btn go-prev" style="margin-left: 80px;"
+                                      >prev</a>
+                                      <div class="year-month" value=""></div>
+                                      <input type="hidden" id="yearMonth" value="">
+                                      <a href="javascript:;" class="nav-btn go-next" style="margin-left: 2px;"
+                                      >next</a>
+                                    </div>
+                                    <div class="cal_wrap" style="margin-left: 198px;">
+                                      <div class="days" style="width: 175px; height: 0px;">
+                                        <div class="day" style="width:28px;">MON</div>
+                                        <div class="day" style="width:28px;">TUE</div>
+                                        <div class="day" style="width:28px;">WED</div>
+                                        <div class="day" style="width:28px;">THU</div>
+                                        <div class="day" style="width:28px;">FRI</div>
+                                        <div class="day" style="width:28px;">SAT</div>
+                                        <div class="day" style="width:28px;">SUN</div>
+                                      </div>
+                                      <div class="dates"></div>
+                                    </div>
+                                  </div>
+                                <div>
+                                    <input type="hidden" id="installDate" value="">
+                                     <select name="설치 시간" id="installTime">
+                                        <option value="T1">9:00~10:00</option>
+                                        <option value="T2">10:00~11:00</option>
+                                        <option value="T3">11:00~12:00</option>
+                                        <option value="T4">14:00~15:00</option>
+                                        <option value="T5">15:00~16:00</option>
+                                     </select>
+                               </div>
+                        </div>
+
+                    </div>
+                </div>
+                </form>
+            </div>
+        </section>
+        <!-- Checkout Section End -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- 다음 주소 API -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- 아임포트 결제 API -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    </th:block>
+    <th:block layout:fragment="script">
+    <script>
+    var phoneRegex = /^\d{3}-\d{3,4}-\d{4}$/;								//폰번호 정규식(010-1234-1234)
+	var emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;	//이메일 정규식(abc@gmail.com)
+    var oldDate = null; // 선택한 DELEVERY DATE 저장
+    const cp = $(location).attr('origin'); //contextPath
+
+    $(document).ready(function() {
+    var total = 0;
+    $('.checkout__form__checkbox input').prop("checked", true); 
+    $('.checkout__order__product #itemSubTotalPrice').each(function() {
+        var price = parseFloat($(this).text().replace('￦ ', ''));
+        total += price;
+    });
+
+    $('.checkout__order__total span').text(total); //'￦ ' + 
+
+    // 달력
+    calendarInit();
+
+    // 설치 시간에 대한 옵션 선택시
+    $('#installTime').change(function() {
+    
+     var installTimeCode = $(this).val();
+     var installDate = $('#installDate').val();
+
+    if(oldDate != null){                             // 설치일을 선택하면
+        var url = cp + "/item/chkInstallDate";    
+	    var params = {
+                    installDate:installDate,         // 설치 날짜
+                    installTimeCode:installTimeCode  // 설치 시간
+                };
+
+      $.post(url,params,function(status){
+		if(status == true){                                 // 설치 예약된 정보가 있다면
+            alert("이미 마감되었습니다 다시 선택해주세요!");
+            $(oldDate).removeAttr('style');                 // date 선택 해제
+            oldDate = null;
+            $("#installTime")[0].selectedIndex = 0;         // time 선택 해제     
+        }
+	});	
+
+    }else{
+        alert("설치일을 선택해주세요!");
+    }
+    
+    });
+});
+
+
+    //배달일 선택하면 색상 변하기
+    function deliverDate(day){ // 일일
+        var YearMonth = $("#yearMonth").val(); //월 구하기
+        var newDate = "#choose" + day;
+        	
+		$(oldDate).removeAttr('style'); 
+		$(newDate).attr("style","background: #BEEFFF;");
+	    oldDate = newDate;
+        $('#installDate').val(YearMonth + String(day)); // 선택한 배달일 저장 
+        
+
+	}
+
+
+function calendarInit() {
+
+// 날짜 정보 가져오기
+var date = new Date(); // 현재 날짜(로컬 기준) 가져오기
+var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
+var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
+var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
+
+var thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+// 달력에서 표기하는 날짜 객체
+
+
+var currentYear = thisMonth.getFullYear(); // 달력에서 표기하는 연
+var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
+var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
+
+// kst 기준 현재시간
+// console.log(thisMonth);
+
+// 캘린더 렌더링
+renderCalender(thisMonth);
+
+
+function renderCalender(thisMonth) {
+
+        // 렌더링을 위한 데이터 정리
+        currentYear = thisMonth.getFullYear();
+        currentMonth = thisMonth.getMonth();
+        currentDate = thisMonth.getDate();
+
+        // 이전 달의 마지막 날 날짜와 요일 구하기
+        var startDay = new Date(currentYear, currentMonth, 0);
+        var prevDate = startDay.getDate();
+        var prevDay = startDay.getDay();
+
+        // 이번 달의 마지막날 날짜와 요일 구하기
+        var endDay = new Date(currentYear, currentMonth + 1, 0);
+        var nextDate = endDay.getDate();
+        var nextDay = endDay.getDay();
+
+        // console.log(prevDate, prevDay, nextDate, nextDay);
+
+        // 현재 월 표기
+        $('.year-month').text(currentYear + '.' + (currentMonth + 1));
+
+        // 현재 년도와 달 db에 저장하기위한 데이터로 변환
+        var year = String(currentYear);
+        var month = String(currentMonth + 1).padStart(2, '0');
+        var yearMonth = year + month;
+        $('#yearMonth').attr('value', yearMonth);
+
+        // 렌더링 html 요소 생성
+        calendar = document.querySelector('.dates')
+        calendar.innerHTML = '';
+        
+        // 지난달
+        for (var i = prevDate - prevDay + 1; i <= prevDate; i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day prev disable">' + i + '</div>'
+        }
+        // 이번달
+        for (var i = 1; i <= nextDate; i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day current" id="choose' + i + '" onclick="deliverDate('+ i + ');">' + i + '</div>'
+        }
+        // 다음달
+        for (var i = 1; i <= (7 - nextDay == 7 ? 0 : 7 - nextDay); i++) {
+            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
+        }
+
+        // 오늘 날짜 표기
+        if (today.getMonth() == currentMonth) {
+            todayDate = today.getDate();
+            var currentMonthDate = document.querySelectorAll('.dates .current');
+            currentMonthDate[todayDate -1].classList.add('today');
+
+        }
+    }
+
+
+    // 이전달로 이동
+    $('.go-prev').on('click', function() {
+        thisMonth = new Date(currentYear, currentMonth - 1, 1);
+        renderCalender(thisMonth);
+    });
+
+    // 다음달로 이동
+    $('.go-next').on('click', function() {
+        thisMonth = new Date(currentYear, currentMonth + 1, 1);
+        renderCalender(thisMonth); 
+    });
+}
+
+    function validation(){       
+            // 입력정보 validation
+            // 이름 확인
+            $('input[id=conName], input[id=delName]').keyup(function() {
+                    $(this).next().text("");							// 입력되는 순간 경고메세지 초기화
+            });
+    
+                // 핸드폰 번호 형식 확인
+                $('input[id=conPhone], input[id=delPhone]').keyup(function() {
+                    if(phoneRegex.test($(this).val())){					// 정규식에 맞으면
+                        $(this).next().text("");
+                    } else {
+                        $(this).next().text("010-XXXX-XXXX 형식으로 입력하세요");
+                    }
+                });
+
+                // 이메일 형식 확인
+                $('input[id=conEmail], input[id=delEmail]').keyup(function() {
+                    if(emailRegex.test($(this).val())){					// 정규식에 맞으면
+                        $(this).next().text("");
+                    } else {
+                        
+                        $(this).next().text("이메일 형식에 맞추어 입력하세요");
+                    }
+                });
+
+                // 주소 창 클릭 시
+                $('input[id=conAddr1], input[id=delAddr1]').keyup(function() {
+                    var temp = $(this);									// ajax 내부에서 click시의 this가 적용되지않으므로 미리 저장
+                    new daum.Postcode({
+                        oncomplete: function(data) {
+                            temp.val(data.address);
+                            temp.next().focus();
+                        }
+                    }).open();
+                });
+
+                $('input[id=conAddr2], input[id=delAddr2]').keyup(function() {
+                    var value = $(this).val();
+                    if (value.trim() === "") {
+                        $(this).next().text("상세주소를 입력하세요");
+                        $(this).next().text("");
+                    }
+                });
+    }
+
+
+ 
+    $(function(){
+
+        var memberName = $('#conName').val();
+        var memberPhone = $('#conPhone').val();
+        var memberEmail = $('#conEmail').val();
+        var memberAddr1 = $('#conAddr1').val();
+        var memberAddr2 = $('#conAddr2').val();
+
+        // 체크박스 '주문자 정보와 동일'을 클릭 시
+        $('.checkout__form__checkbox #conAcc').click(function(){
+
+            // 체크 표시 설정 시 session 정보와 동일화 시킴
+            if($(this).prop("checked")) {
+                $('#conName').val(memberName);
+                $('#conPhone').val(memberPhone);
+                $('#conEmail').val(memberEmail);
+                $('#conAddr1').val(memberAddr1);
+                $('#conAddr2').val(memberAddr2);
+                $(this).closest('.row[data-section="constractSection"]').find('.checkout__form__input span').text(""); // validation() 후 남아있는 경고 text 초기화
+            
+            } else {
+                // 체크 표시 해제 시 모든 text칸 빈값으로 초기화
+                $(this).closest('.row[data-section="constractSection"]').find('.checkout__form__input input').val("");
+                $(this).closest('.row[data-section="constractSection"]').find('.checkout__form__input').children("input").each(function(i) {
+                    $(this).next().text("");
+                 
+                });
+            }
+        });
+
+        $('.checkout__form__checkbox #delAcc').click(function(){
+
+            // 체크 표시 설정 시 session 정보와 동일화 시킴
+            if($(this).prop("checked")) {
+                $('#delName').val(memberName);
+                $('#delPhone').val(memberPhone);
+                $('#delEmail').val(memberEmail);
+                $('#delAddr1').val(memberAddr1);
+                $('#delAddr2').val(memberAddr2);
+                $(this).closest('.row[data-section="constractSection"]').find('.checkout__form__input span').text(""); // validation() 후 남아있는 경고 text 초기화
+
+            } else {
+                // 체크 표시 해제 시 모든 text칸 빈값으로 초기화
+                // 체크 표시 해제 시 모든 text칸 빈값으로 초기화
+                $(this).closest('.row[data-section="deliverySection"]').find('.checkout__form__input input').val("");
+                $(this).closest('.row[data-section="deliverySection"]').find('.checkout__form__input').children("input").each(function(i) {
+                    $(this).next().text("");
+                });
+            }
+            });
+
+           // 다음주소 API
+            $('input[id=conAddr1], input[id=delAddr1]').click(function(){
+            var temp = $(this);									       // ajax 내부에서 click시의 this가 적용되지않으므로 미리 저장
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    temp.val(data.address);
+                    temp.next().focus();
+                }
+            }).open();
+        });
+
+        validation();
+
+                // 주문 버튼 클릭 시(최종)
+                $('.site-btn').click(function(){
+                    var result = true;
+               
+                    // 빈 칸이 있는 경우 경고메세지 출력
+                    $('.checkout__form__input').children("input").each(function(i){
+                        if(!$(this).val()) {		
+                            // <p>태그 안의 맨 앞 텍스트만 가져오게 설정	
+                            $(this).next().text( $(this).parent().children().first().contents().first().text() + "를(을) 입력하세요!");
+                            // 경고메세지가 하나라도 있다면
+                            result = false;
+                        }
+                    });
+
+                    if(result) {
+                        IMP.init("imp17939014"); 
+                        IMP.request_pay({
+                            pg : 'inicis',
+                            pay_method : 'card',
+                            merchant_uid : 'merchant_' + new Date().getTime(),	
+                            name: "메타수",
+                            amount: 10,
+                            buyer_email: "hyehellohi@gmail.com",
+                            buyer_name: "METASU",
+                            buyer_tel: "01088588032",
+                            buyer_addr: "서울특별시 종로구 ",
+                            buyer_postcode: "1004"
+                        }, function(rsp) {
+                            if (rsp.success) {
+                                var param = {
+                                    // 사용자 정보
+                                    memberReq: {
+                                        memberId:  'hye'   
+                                    },
+                                    // 계약자 정보
+                                    contractReq: {
+                                        contractName:  $('#conName').val(),
+                                        contractPhone: $('#conPhone').val(),
+                                        contractEmail: $('#conEmail').val(),
+                                        contractAddr1: $('#conAddr1').val(),
+                                        contractAddr2: $('#conAddr2').val()
+                                    },
+                                    // 배달자 정보
+                                    deliveryReq: {
+                                        deliveryName:  $('#delName').val(),
+                                        deliveryPhone: $('#delPhone').val(),
+                                        deliveryEmail: $('#delEmail').val(),
+                                        deliveryAddr1: $('#delAddr1').val(),
+                                        deliveryAddr2:  $('#delAddr2').val(),
+                                        installDate: $('#installDate').val(),
+                                        installTimeCode: $('#installTime').val()
+                                    },
+                                    // 결제 정보
+                                    payReq: {
+                                        paymentNo: rsp.pg_tid,
+                                        paymentType: rsp.pay_method,
+                                        paymentCreditNumber: rsp.card_number,
+                                        paymentBank:  rsp.card_name,
+                                        paymentAmount: $('.checkout__order__total span').text(),
+                                        paymentStatus: 'PS'
+                                    },
+                                      // 주문 정보
+                                      orderMasterReq: {
+                                        orderDiscountYn: false,
+                                        orderAmount: $('.checkout__order__total span').text(),
+                                        orderStatus:  'OS',
+                                    }
+
+                            };
+                            $.ajax({
+                                type: "POST",
+                                url: "/item/addPayment",
+                                data: JSON.stringify(param),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json"
+                            }).done(function(resp) {
+                                console.log(resp);
+                                debugger;
+                            }).fail(function(error) {
+                                alert(error);
+                            });
+
+                            } else {
+                                alert(rsp.error_msg);
+                            }
+                        });
+                    } 
+                });
+    });
+
+        </script>
+    </th:block>

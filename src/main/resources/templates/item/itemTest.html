@@ -8,7 +8,18 @@
     </th:block>
 
     <th:block layout:fragment="css">
-        <style></style>
+        <style>
+
+            .container {
+              border: 1px solid #000000; /* 전체 테두리에 선을 추가합니다 */
+              padding: 10px; /* 내부 여백을 조절합니다 */
+            }
+
+            .nav-tabs {
+              justify-content: flex-start; /* 탭을 왼쪽으로 정렬합니다 */
+            }
+
+        </style>
     </th:block>
 
     <th:block layout:fragment="script">

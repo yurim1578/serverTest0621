@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<th:block layout:fragment="content">
+<!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <span>Shopping cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Cart Section Begin -->
+    <section class="shop-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <tr th:each="dto : ${dto2}">
+                                    <td class="cart__product__item">
+                                        <img th:src="${dto.item_master_img}" alt="" style="width: 80px;">
+                                        <div class="cart__product__item__title">
+                                            <input type="hidden" id="itemCode" th:value="${dto.item_code}">
+                                            <input type="hidden" id="itemColorCode" th:value="${dto.item_color_code}">
+                                            <h6 th:text="${dto.item_name}"></h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price" th:text="${dto.item_price}"></td>
+                                    <td class="cart__quantity">
+                                        <div class="pro-qty">
+                                            <input class="dec qtybtn" type="button" value="-">
+                                            <input type="text" class="cartQtyValue" th:value="${dto.cart_qty}">
+                                            <input class="inc qtybtn" type="button" value="+" >
+                                        </div>
+                                    </td>
+                                    <td class="cart__total" th:text="${dto.item_price * dto.cart_qty}"></td>
+                                    <td class="cart__close"><span class="icon_close"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn">
+                        <a href="#">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-2">
+                    <div class="cart__total__procced">
+                        <ul>
+                            <li>Total <span></span></li>
+                        </ul>
+                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Shop Cart Section End -->
+<!-- <script th:src="@{/js/main.js}"></script> -->
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+</th:block>
+<th:block layout:fragment="script">
+<script>
+const cp = $(location).attr('origin'); //contextPath
+var memberId = 'hye'; // todo: 로그인 합칠때 memberId 받아오기
+$(document).ready(function() {  
+   
+  // 수량 버튼 이벤트 처리
+  $('.qtybtn').on('click', function() {
+    var input = $(this).siblings('.cartQtyValue'); //this
+    var oldQty = parseInt(input.val());                                     // 장바구니 테이블에 있던 그대로의 변경 전 수량 데이터
+    var itemPriceFixed = $(this).closest('tr').find('.cart__price').text(); // 상품 1개에 대한 고정 금액
+    var totalPrice = $(this).closest('tr').find('.cart__total').text();     // 수량을 변경하는 상품에 대한 totalPrice
+    var itemCode = $(this).closest('tr').find('#itemCode').val();
+    var itemColorCode =$(this).closest('tr').find('#itemColorCode').val();
+    var url = cp + '/item/addCart';
+    var cartQty;
+    if ($(this).hasClass('inc')) {
+        var newQty = parseFloat(oldQty) + 1;
+        cartQty = 1;
+    } else {
+        if (oldQty > 1) {
+                var newQty = parseFloat(oldQty) - 1; 
+            } else {
+                newQty = 1; // 1보다 작으면 1로 유지
+            }
+
+            cartQty = -1;
+    }
+
+    var param = {
+                    itemCode:itemCode,
+                    itemColorCode:itemColorCode,
+                    memberId:memberId,
+                    cartQty:cartQty
+                };
+    var qtybtnElement = $(this);
+
+   $.post(url,param,function(args){
+        //db 업데이트 성공했을시
+        if(args=='200'){
+            input.val(newQty); // 변경한 수량으로 치환
+            qtybtnElement.closest('.cart__quantity').siblings('.cart__total').text(itemPriceFixed * newQty); // 수량 변경한 상품의 total 금액 변경 
+            calculateTotalPrice();
+        }else{
+            alert('update error');
+        }		                      
+    });	
+
+  
+});
+   
+  // 총 가격 계산
+  function calculateTotalPrice() {
+    var total = 0;
+    $('.cart__total').each(function() {
+      total += parseFloat($(this).text());
+    });
+
+    $('.cart__total__procced span').text(total);
+  }
+
+  // 페이지 로드 시 총 가격 계산
+  calculateTotalPrice();
+
+
+  //삭제 icon_close
+  $('.icon_close').on('click', function() {
+        
+        var url = cp + '/item/deleteCart'; 
+        var itemCode = $(this).closest('tr').find('#itemCode').val();
+        var itemColorCode = $(this).closest('tr').find('#itemColorCode').val();
+        var param = {
+                    itemCode:itemCode,
+                    itemColorCode:itemColorCode,
+                    memberId:memberId,
+                };
+        var iconClose = $(this); // 삭제할 아이콘
+        $.post(url,param,function(args){
+        //db 업데이트 성공했을시
+        if(args=='200'){
+            iconClose.closest('tr').remove();
+            calculateTotalPrice();
+        }else{
+            alert('delete error');
+        }		                      
+    });	
+  });
+
+    //결제 버튼 클릭시 결제 페이지로 이동
+    $('.primary-btn').on('click', function() {
+
+        location.href = cp + '/item/payment/' + memberId ;
+    });
+
+});
+
+</script>
+</th:block>
+
+<th:block layout:fragment="css">
+</th:block>
+</html>

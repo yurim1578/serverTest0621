@@ -5,10 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Entity
@@ -23,8 +22,6 @@ public class Contract extends EssentialDate {
     @Email
     @Column(nullable=false)
     private String contractEmail;            // 계약자 이메일
-    @Column(nullable=false)
-    private String contractZipCode;          // 계약자 우편번호
     @Column(nullable=false)
     private String contractAddr1;            // 계약자 주소
     private String contractAddr2;            // 계약자 상세주소

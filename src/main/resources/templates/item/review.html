@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+        <div th:each="dto, status : ${reviewDto.content}">
+            <th:block th:if="${status.index % 2 == 0}">
+                <div class="blog__comment__item">
+                    <div class="blog__comment__item__pic">
+                    
+                    </div>
+                    <div class="blog__comment__item__text">
+                        <input type="hidden" class="reviewNum" th:value="${dto.reviewNo}">
+                        <h6 th:text="${dto.memberId.memberId}"></h6>
+                        <p class="reviewOption" style="font: -webkit-small-control;display: none;">option : ${dto.item_code}<br/></p>
+                        <div class="rating">
+                            <span th:each="i : ${#numbers.sequence(1, dto.reviewScore)}" class="fa fa-star"></span>
+                            <span th:if="${dto.reviewScore < 5}">
+                                <span th:each="i : ${#numbers.sequence(1, 5 - dto.reviewScore)}" class="fa fa-star-o"></span>
+                            </span>
+                        </div>
+                        <p th:text="${dto.reviewContents}">
+                            <input type="button" class="reviewDetail" data-chk="show" value="..more"
+                                   style="border: 0; background: white; font-size: smaller; color: #cccccc;">
+                        </p>
+                        <p class="reviewDetailImg" style="display: none;">
+                        <div>
+                            <img th:src="${dto.reviewMasterImg}" alt=""  style="width: 100px;">
+                        </div>
+                        </p>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i><span th:text="${dto.createdDate}"></span></li>
+                            <li><i class="fa fa-heart"></i><span></span></li>
+                            <li><i class="fa fa-share"></i> 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:if="${status.index % 2 != 0}">
+                <div class="blog__comment__item blog__comment__item--reply">
+                    <div class="blog__comment__item__pic">
+                        <div>
+                            
+                        </div>
+                    </div>
+                    <div class="blog__comment__item__text" style="margin-top: 18px;">
+                        <input type="hidden" class="reviewNum" th:value="${dto.reviewNo}">
+                        <h6 th:text="${dto.memberId.memberId}"></h6>
+                        <p class="reviewOption" style="font: -webkit-small-control;display: none;">option : ${dto.item_code}<br/></p>
+                        <div class="rating">
+                            <span th:each="i : ${#numbers.sequence(1, dto.reviewScore)}" class="fa fa-star"></span>
+                            <span th:if="${dto.reviewScore < 5}">
+                                <span th:each="i : ${#numbers.sequence(1, 5 - dto.reviewScore)}" class="fa fa-star-o"></span>
+                            </span>
+                        </div>
+                        <p th:text="${dto.reviewContents}">
+                            <input type="button" class="reviewDetail" data-chk="show" value="..more"
+                                   style="border: 0; background: white; font-size: smaller; color: #cccccc;">
+                        </p>
+                        <p class="reviewDetailImg" style="display: none;">
+                        <div>
+                            <img th:src="${dto.reviewMasterImg}" alt=""  style="width: 100px;">
+                        </div>
+                        </p>
+                        <ul>
+                            <li><i class="fa fa-clock-o"></i><span th:text="${dto.createdDate}"></span></li>
+                            <li><i class="fa fa-heart"></i><span></span></li>
+                            <li><i class="fa fa-share"></i> 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+        <input type="hidden" class="reviewTotal" th:value="${reviewDto.totalPages}" />
+    </th:block>
+</html>
