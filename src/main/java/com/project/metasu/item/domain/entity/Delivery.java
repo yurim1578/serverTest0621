@@ -2,12 +2,13 @@ package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -26,8 +27,19 @@ public class Delivery extends EssentialDate {
     @Column(nullable=false)
     private String deliveryStatus;             // 배달 상태코드
     @Column(nullable=false)
-    private LocalDateTime deliveryStartDate;   // 배달 시작일
-    private LocalDateTime deliveryEndDate;     // 배달 종료일
+    private LocalDate installDate;             // 원하는 설치 날짜
+    @Column(nullable=false)
+    private String installTimeCode;             // 원하는 설치 시간
 
-
+    @Builder
+    public Delivery(String deliveryNo, String deliveryName, String deliveryPhone, String deliveryAddr1, String deliveryAddr2, String deliveryStatus, LocalDate installDate, String installTimeCode) {
+        this.deliveryNo = deliveryNo;
+        this.deliveryName = deliveryName;
+        this.deliveryPhone = deliveryPhone;
+        this.deliveryAddr1 = deliveryAddr1;
+        this.deliveryAddr2 = deliveryAddr2;
+        this.deliveryStatus = "IP"; // 설치 대기
+        this.installDate = installDate;
+        this.installTimeCode = installTimeCode;
+    }
 }

@@ -1,6 +1,8 @@
 package com.project.metasu.item.controller;
 
 import com.project.metasu.item.domain.entity.ItemMaster;
+import com.project.metasu.item.dto.in.RentalReq;
+import com.project.metasu.item.dto.out.RentalRes;
 import com.project.metasu.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,12 +53,31 @@ public class ItemController {
     }
 
     // 장바구니에서 결제페이지 이동
-    @GetMapping("/payment/{memberId}")
-    public String payment(@PathVariable("memberId") String memberId, Model model) {
+    @GetMapping("/salesOrder/{memberId}")
+    public String salesOrder(@PathVariable("memberId") String memberId, Model model) {
         ResponseEntity memberDto = itemService.findByMember(memberId);      // member 정보
         ResponseEntity cartDto = itemService.findAllByMemberId(memberId);   // 장바구니 정보
         model.addAttribute("member", memberDto.getBody());
         model.addAttribute("cart", cartDto.getBody());
+        return "/item/checkout";
+    }
+
+    // 렌탈 선택시 결제페이지 이동
+    @PostMapping("/rentalOrder/{memberId}")
+    public String rentalOrder(@PathVariable("memberId") String memberId,RentalReq req, Model model) {
+        Map<String,Object> itemDto = itemService.findByRentalOrderInfo(req.getItemCode(), req.getItemColorCode());
+
+        RentalRes rentalRes = RentalRes.builder()
+                .itemCode(req.getItemCode())
+                .itemColorCode(req.getItemColorCode())
+                .memberId(req.getMemberId())
+                .rentalPeriod(req.getRentalPeriod())
+                .rentalPayAutoDate(req.getRentalPayAutoDate())
+                .itemName(String.valueOf(itemDto.get("item_name")))
+                .itemColorCodeName(String.valueOf(itemDto.get("item_color_code_name")))
+                .itemPrice((Integer) itemDto.get("item_price"))
+                .build();
+        model.addAttribute("rentalDto", rentalRes);
         return "/item/checkout";
     }
 

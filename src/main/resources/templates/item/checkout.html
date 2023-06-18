@@ -79,12 +79,24 @@
                                         <span class="top__text">Qty</span>
                                         <span class="top__text">Price</span>
                                     </li>
-                                    <div th:each="carts : ${cart}">  
-                                        <span id="itemName" th:text="${carts.item_name}"></span>
-                                        <span id="cartQty" th:text="${carts.cart_qty}"></span>
-                                        <span id="itemSubTotalPrice" th:text="'￦ ' + ${carts.item_price * carts.cart_qty}"></span><br>
-                                        <span id="itemColorCodeName" th:text="${carts.item_color_code_name}" style="font-size: small;"></span>
+                                    <div th:if="${#maps.isEmpty(rentalDto)}">
+                                        <div th:each="carts : ${cart}">  
+                                            <span id="itemName" th:text="${carts.item_name}"></span>
+                                            <span id="cartQty" th:text="${carts.cart_qty}"></span>
+                                            <span id="itemSubTotalPrice" th:text="'￦ ' + ${carts.item_price * carts.cart_qty}"></span><br>
+                                            <span id="itemColorCodeName" th:text="${carts.item_color_code_name}" style="font-size: small;"></span>
+                                            <input type="hidden" id="itemCode" th:value="${carts.item_code}">
+                                            <input type="hidden" id="itemColorCode" th:value="${carts.item_color_code}">
+                                        </div>
                                     </div>
+                                    <!--<div th:if="${#maps.isNotEmpty(rentalDto)}">
+                                            <span id="itemName" th:text="${carts.item_name}"></span>
+                                            <span id="cartQty" th:text="${carts.cart_qty}"></span>
+                                            <span id="itemSubTotalPrice" th:text="'￦ ' + ${carts.item_price * carts.cart_qty}"></span><br>
+                                            <span id="itemColorCodeName" th:text="${carts.item_color_code_name}" style="font-size: small;"></span>
+                                            <input type="hidden" id="itemCode" th:value="${carts.item_code}">
+                                            <input type="hidden" id="itemColorCode" th:value="${carts.item_color_code}">
+                                    </div>-->
                                 </ul>
                             </div>
                             <div class="checkout__order__total">
@@ -515,13 +527,17 @@ function renderCalender(thisMonth) {
                                         paymentAmount: $('.checkout__order__total span').text(),
                                         paymentStatus: 'PS'
                                     },
-                                      // 주문 정보
+                                    // 주문 마스터 정보
                                       orderMasterReq: {
                                         orderDiscountYn: false,
                                         orderAmount: $('.checkout__order__total span').text(),
-                                        orderStatus:  'OS',
+                                        orderStatus:  'OS'
+                                    },
+                                    // 바코드 정보
+                                    itemStockReq: {
+                                        itemCode: $('#itemCode').val(),
+                                        itemColorCode: $('#itemColorCode').val(),
                                     }
-
                             };
                             $.ajax({
                                 type: "POST",

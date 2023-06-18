@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public interface ItemService {
     ResponseEntity findItem(String itemCode);
@@ -18,6 +19,7 @@ public interface ItemService {
     ResponseEntity deleteCart(String itemCode, String itemColorCode, String memberId);
     ResponseEntity findByMember(String memberId);
     ResponseEntity findAllByMemberId(String memberId);
+    Map<String,Object> findByRentalOrderInfo(String itemCode, String itemColorCode);
     // ResponseEntity findReviewByItemCode(String itemCode, String sortValue);
     ResponseEntity findByItemCode(String itemCode, String sortValue, Pageable pageable);
     Boolean chkInstallDate(LocalDate installDate, String installTimeCode);

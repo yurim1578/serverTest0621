@@ -20,13 +20,13 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
     List<Map<String,Object>> findCart(@Param("memberId") String memberId);
 
     void deleteByItemCodeAndItemColorCodeAndMemberId(String itemCode, String itemColorCode, String memberId);
+    void deleteByMemberId(String memberId);
 
     @Query(value = "select c.item_code, c.item_color_code, cd.sub_code_name as item_color_code_name , c.cart_qty, m.item_price, m.item_name "
             + "from cart c left join item_master m on c.item_code = m.item_code "
             + "left join item_img i on c.item_code = i.item_code and c.item_color_code = i.item_color_code "
             + "left join common_code_detail cd on c.item_color_code = cd.sub_code "
-            + "WHERE c.member_id = :memberId", nativeQuery = true)
+            + "WHERE cd.code = 'IC' and c.member_id = :memberId", nativeQuery = true)
     List<Map<String,Object>> findAllByMemberId(@Param("memberId") String memberId);
-
 
 }

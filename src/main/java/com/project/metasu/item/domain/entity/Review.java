@@ -1,5 +1,6 @@
 package com.project.metasu.item.domain.entity;
 
+import com.project.metasu.item.dto.ReviewDTO;
 import com.project.metasu.member.domain.entity.Member;
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
@@ -12,9 +13,8 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review extends EssentialDate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewNo;                        // 리뷰 번호
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long reviewNo;                       // 리뷰 번호
     @ManyToOne
     @JoinColumn(name = "itemCode", nullable=false)
     private ItemMaster itemCode;                 // 상품 코드
@@ -35,7 +35,7 @@ public class Review extends EssentialDate {
     private String reviewMasterImg;    // 리뷰 대표 이미지
 
     //마이- ReviewDTO 객체를 인자로 받는 생성자를 추가
-    public Review(com.project.metasu.item.dto.ReviewDTO reviewDTO) {
+    public Review(ReviewDTO reviewDTO) {
         this.itemCode = reviewDTO.getItemCode();
         this.itemColorCode = reviewDTO.getItemColorCode();
         this.memberId = reviewDTO.getMemberId();

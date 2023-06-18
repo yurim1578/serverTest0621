@@ -17,9 +17,12 @@ public class ItemStock extends EssentialDate {
     @Id
     private String itemBarcode;                                  // 상품 바코드(일련번호)
 
+    private String itemCode;
+    @MapsId("itemCode")
     @ManyToOne
     @JoinColumn(name = "itemCode", nullable=false)
-    private ItemMaster itemCode;                                 // 상품 코드
+    private ItemMaster itemMaster;                                 // 상품 코드
+
     @Column(nullable=false)
     private String itemColorCode;                                // 상품 색상 코드
     @Convert(converter = BooleanToYnConverter.class)
@@ -28,11 +31,17 @@ public class ItemStock extends EssentialDate {
     private LocalDateTime salesDate;                             // 상품 판매일
 
     @Builder
-    public ItemStock(String itemBarcode, ItemMaster itemCode, String itemColorCode, Boolean salesYn, LocalDateTime salesDate) {
+    public ItemStock(String itemBarcode, ItemMaster itemMaster, String itemColorCode, Boolean salesYn, LocalDateTime salesDate) {
         this.itemBarcode = itemBarcode;
-        this.itemCode = itemCode;
+        this.itemCode = itemMaster.getItemCode();
         this.itemColorCode = itemColorCode;
         this.salesYn = salesYn;
         this.salesDate = salesDate;
+    }
+
+    // 재고 판매여부 Y로 변경
+    public void setSalesYn(Boolean salesYn) {
+        this.salesYn = salesYn;
+        this.salesDate = LocalDateTime.now();
     }
 }

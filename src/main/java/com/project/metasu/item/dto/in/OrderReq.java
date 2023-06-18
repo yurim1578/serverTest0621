@@ -37,9 +37,4 @@ public class OrderReq {
     public void setOrderQty(int orderQty) {
         this.orderQty = orderQty;
     }
-
-
-    public OrderMaster toEntity(ItemMaster itemMaster, String itemColorCode, Member member, Integer orderQty, String itemBarcode) {
-        return null;
-    }
 }
