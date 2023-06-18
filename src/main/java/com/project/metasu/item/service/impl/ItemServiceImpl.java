@@ -2,14 +2,13 @@ package com.project.metasu.item.service.impl;
 
 import com.project.metasu.item.domain.entity.*;
 import com.project.metasu.item.dto.in.CartReq;
-import com.project.metasu.item.dto.in.OrderReq;
 import com.project.metasu.item.dto.in.PaymentReq;
 import com.project.metasu.item.dto.out.ItemImgRes;
 import com.project.metasu.item.dto.out.MemberRes;
 import com.project.metasu.item.repository.*;
 import com.project.metasu.item.service.ItemService;
 import com.project.metasu.member.domain.entity.Member;
-import com.project.metasu.member.repository.MemberRepository;
+import com.project.metasu.member.repository.AdminMemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,7 +23,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     private final ItemMasterRepository itemMasterRepository;
     private final ItemDetailRepository itemDetailRepository;
     private final ItemImgRepository itemImgRepository;
-    private final MemberRepository memberRepository;
+    private final AdminMemberRepository adminMemberRepository;
     private final CartRepository cartRepository;
     private final ReviewRepository reviewRepository;
 
@@ -107,7 +105,7 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("ItemMaster not found"));
         ItemDetail id = itemDetailRepository.findByItemCodeAndItemColorCode(req.getItemCode(), req.getItemColorCode())
                 .orElseThrow(() -> new IllegalArgumentException("ItemDetail not found"));
-        Member m = memberRepository.findById(req.getMemberId())
+        Member m = adminMemberRepository.findById(req.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
         Cart cartDto = cartRepository.findByItemCodeAndItemColorCodeAndMemberId(im.getItemCode(),id.getItemColorCode(),m.getMemberId())
                 .orElse(Cart.builder().itemMaster(im).itemColorCode(id.getItemColorCode()).member(m).build());
@@ -132,7 +130,7 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("ItemMaster not found"));
         ItemDetail id = itemDetailRepository.findByItemCodeAndItemColorCode(itemCode,itemColorCode)
                 .orElseThrow(() -> new IllegalArgumentException("ItemDetail not found"));
-        Member m = memberRepository.findById(memberId)
+        Member m = adminMemberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
         cartRepository.deleteByItemCodeAndItemColorCodeAndMemberId(im.getItemCode(),id.getItemColorCode(),m.getMemberId());
 
@@ -143,7 +141,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public ResponseEntity findByMember(String memberId) {
-        Member member = memberRepository.findById(memberId)
+        Member member = adminMemberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("member not found"));;
         MemberRes res = MemberRes.builder()
                 .memberName(member.getMemberName())
@@ -157,7 +155,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity findAllByMemberId(String memberId) {
-        Member member = memberRepository.findById(memberId)
+        Member member = adminMemberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("member not found"));
         List<Map<String,Object>> list = cartRepository.findAllByMemberId(memberId);
         return ResponseEntity.ok(list);
