@@ -161,6 +161,13 @@ public class ItemServiceImpl implements ItemService {
         return ResponseEntity.ok(list);
     }
 
+    // 렌탈시 주문목록에서 보여줘야할 추가 정보들
+    @Override
+    public  Map<String,Object> findByRentalOrderInfo(String itemCode, String itemColorCode) {
+        Map<String,Object> data = itemMasterRepository.findByRentalOrderInfo(itemCode,itemColorCode);
+        return data;
+    }
+
     // 특정상품에 대한 모든 리뷰
   /*  @Override
     @Transactional
@@ -181,8 +188,8 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public ResponseEntity findByItemCode(String itemCode, String sortValue, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 2, Sort.by(Sort.Direction.DESC, sortValue));
-        Page<Review> reviewDto = reviewRepository.findByItemCodeItemCode(itemCode, pageable);
-        return ResponseEntity.ok(reviewDto);
+        // Page<Review> reviewDto = reviewRepository.findByItemCodeItemCode(itemCode, pageable);
+        return ResponseEntity.ok(null);
     }
 
     @Override
@@ -192,42 +199,42 @@ public class ItemServiceImpl implements ItemService {
         return result;
     }
 
-  /*  @Override
-    @Transactional
-    public ResponseEntity addOrder(OrderReq req) {
-        // 아이템 바코드
-        List<Map<String,Object>> itemBarcodeDto = itemStockRepository.findByItemBarcode(req.getItemCode(), req.getItemColorCode(),req.getSalesYn(),req.getOrderQty());
-        // 고객 아이디
-        Member m = memberRepository.findById(req.getMemberId())
-                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
-        Cart cartDto = cartRepository.findByItemCodeAndItemColorCodeAndMemberId(im.getItemCode(),id.getItemColorCode(),m.getMemberId())
-                .orElse(Cart.builder().itemMaster(im).itemColorCode(id.getItemColorCode()).member(m).build());
-        cartRepository.save(cartDto);
-        return ResponseEntity.ok(HttpStatus.OK.value());
-    }*/
-
     @Override
     @Transactional
     public ResponseEntity addPayment(PaymentReq req) {
+        Rental rental = req.getRentalReq() != null ? rentalRepository.save(req.getRentalReq().toEntity()) : null;
 
         OrderMaster orderMaster = orderMasterRepository.save(OrderMaster.builder()
                 .orderNo("O_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
                 .member(req.getMemberReq())
                 .contract(contractRepository.save(req.getContractReq().toEntity()))
                 .delivery(deliveryRepository.save(req.getDeliveryReq().toEntity()))
-                .rental(req.getRentalReq() != null ? rentalRepository.save(req.getRentalReq().toEntity()) : null)
+                .rental(rental)
                 .payment(paymentRepository.save(req.getPayReq().toEntity()))
                 .orderDiscountYn(req.getOrderMasterReq().getOrderDiscountYn())
                 .orderAmount(req.getOrderMasterReq().getOrderAmount())
                 .orderStatus(req.getOrderMasterReq().getOrderStatus())
                 .build());
 
-                /* orderDetailRepository.save(OrderDetail.builder()
-                .orderNo(req.getOrderMasterReq().getOrderNo())
-                .orderMaster(req.getOrderMasterReq().toEntity())
-                .itemBarcode(itemStockRepository.findByItemBarcode(req.getOrderMasterReq().toEntity(),req.))
-                .build());
-*/
+        if(rental == null){ // 구매로 주문했을때
+            List<ItemStock> itemStockList = itemStockRepository.findByItemBarcode(req.getMemberReq().getMemberId());
+            List<OrderDetail> orderDetails = itemStockList.stream()
+                    .map(itemStock -> OrderDetail.builder()
+                            .orderMaster(orderMaster)
+                            .itemStock(itemStock)
+                            .build())
+                    .collect(Collectors.toList());
+            List<OrderDetail> savedOrderDetails = orderDetailRepository.saveAll(orderDetails);
+        }else{ // 렌탈로 주문했을때
+            OrderDetail orderDetail = orderDetailRepository.save(OrderDetail.builder()
+                    .orderMaster(orderMaster)
+                    .itemStock(itemStockRepository.findTop1ByItemCodeAndItemColorCodeAndSalesYn(req.getItemStockReq().getItemCode(), req.getItemStockReq().getItemColorCode(), false))
+                    .rental(rental)
+                    .build());
+        }
+
+        cartRepository.deleteByMemberId(req.getMemberReq().getMemberId()); //카트 삭제
+
         return ResponseEntity.ok(HttpStatus.OK.value());
     }
 

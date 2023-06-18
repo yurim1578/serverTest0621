@@ -2,12 +2,11 @@ package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Getter
@@ -30,5 +29,18 @@ public class Contract extends EssentialDate {
     @Column(nullable=false)
     private String contractStatus;           // 계약 상태코드
 
-
+    /*public makeName(String name) {
+        return name + LocalDateTime;
+    }*/
+    @Builder
+    public Contract(String contractNo, String contractName, String contractPhone, String contractEmail, String contractAddr1, String contractAddr2, String contractRecieve, String contractStatus) {
+        this.contractNo = contractNo;
+        this.contractName = contractName;
+        this.contractPhone = contractPhone;
+        this.contractEmail = contractEmail;
+        this.contractAddr1 = contractAddr1;
+        this.contractAddr2 = contractAddr2;
+        this.contractRecieve = contractRecieve;
+        this.contractStatus = contractStatus;
+    }
 }

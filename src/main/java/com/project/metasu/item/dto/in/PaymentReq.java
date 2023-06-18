@@ -19,6 +19,10 @@ public class PaymentReq {
     private PayReq payReq;
     private OrderMasterReq orderMasterReq;
     private Member memberReq;
+    private OrderDetail orderDetailReq;
+    private ItemStock ItemStockReq;
+    private Integer orderQty;
+
     @Getter
     public static class ContractReq {
         private String contractNo = "C_" + LocalDateTime.now();
@@ -65,8 +69,6 @@ public class PaymentReq {
 
         }
     }
-
-
 
     @Getter
     public static class RentalReq {
@@ -122,14 +124,36 @@ public class PaymentReq {
         private Integer orderAmount;
         private String orderStatus;
 
-        public OrderMaster toEntity() {
+        /*public OrderMaster toEntity() {
             return OrderMaster.builder()
                 .orderNo(this.getOrderNo())
                 .orderDiscountYn(this.getOrderDiscountYn())
                 .orderAmount(this.getOrderAmount())
                 .orderStatus(this.getOrderStatus())
                 .build();
+        }*/
+    }
+
+    @Getter
+    public static class OrderDetailReq {
+        private OrderMaster orderMaster;
+        private ItemStock itemStock;
+        private Rental rental;
+
+        public OrderDetail toEntity() {
+            OrderDetail build = OrderDetail.builder()
+                    .orderMaster(this.getOrderMaster())
+                    .itemStock(this.getItemStock())
+                    .rental(this.getRental())
+                    .build();
+            return build;
+
         }
+    }
+    @Getter
+    public static class ItemStockReq {
+          private String itemCode;
+          private String itemColorCode;
     }
 
     @Getter

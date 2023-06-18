@@ -25,8 +25,14 @@ public class Payment extends EssentialDate {
     @Column(nullable=false)
     private String paymentStatus;            // 결제 상태
 
+    private String rentalNo;                 // 렌탈 번호
+    @MapsId("rentalNo")
+    @ManyToOne
+    @JoinColumn(name = "rentalNo", nullable = false, insertable = false, updatable = false)
+    private Rental rental;
+
     @Builder
-    public Payment(String paymentNo, String paymentType, String paymentCreditNumber, String paymentAccount, String paymentBank, int paymentAmount, String paymentStatus) {
+    public Payment(String paymentNo, String paymentType, String paymentCreditNumber, String paymentAccount, String paymentBank, int paymentAmount, String paymentStatus, Rental rental) {
         this.paymentNo = paymentNo;
         this.paymentType = paymentType;
         this.paymentCreditNumber = paymentCreditNumber;
@@ -34,5 +40,7 @@ public class Payment extends EssentialDate {
         this.paymentBank = paymentBank;
         this.paymentAmount = paymentAmount;
         this.paymentStatus = paymentStatus;
+        this.rentalNo = rental == null ? null : rental.getRentalNo();
+        this.rental = rental;
     }
 }

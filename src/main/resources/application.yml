@@ -8,8 +8,8 @@ server:
       force: true
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
+  #main:
+  #  allow-bean-definition-overriding: true
   freemarker:
     cache: false
   config:

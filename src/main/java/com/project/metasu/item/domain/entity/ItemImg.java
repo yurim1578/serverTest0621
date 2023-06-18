@@ -2,6 +2,7 @@ package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

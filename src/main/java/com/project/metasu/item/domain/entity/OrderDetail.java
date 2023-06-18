@@ -29,16 +29,20 @@ public class OrderDetail extends EssentialDate {
     @JoinColumn(name = "itemBarcode", nullable = false, insertable = false, updatable = false)
     private ItemStock itemStock;
 
+    private String rentalNo;
+    @MapsId("rentalNo")
     @ManyToOne
     @JoinColumn(name = "rentalNo")
-    private Rental rental_no;                 // 렌탈 번호
+    private Rental rental;                 // 렌탈 번호
 
     @Builder
-    public OrderDetail(String orderNo, OrderMaster orderMaster, String itemBarcode, ItemStock itemStock, Rental rental_no) {
-        this.orderNo = orderNo;
+    public OrderDetail(OrderMaster orderMaster, ItemStock itemStock, Rental rental) {
         this.orderMaster = orderMaster;
-        this.itemBarcode = itemBarcode;
+        this.orderNo = orderMaster.getOrderNo();
+        itemStock.setSalesYn(true); // item_stock 재고 판매 여부 N에서 Y로 변경
         this.itemStock = itemStock;
-        this.rental_no = rental_no;
+        this.itemBarcode = itemStock.getItemBarcode();
+        this.rentalNo = rental == null ? null : rental.getRentalNo();
+        this.rental = rental;
     }
 }
