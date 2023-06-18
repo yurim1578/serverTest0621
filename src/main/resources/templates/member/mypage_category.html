@@ -151,8 +151,13 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">세로로할까 가로로할까</p>
+                                    <h5 class="card-title">상품 이름이뜨게</h5>
+                                    <p class="card-text">대표이미지,상품코드,상품가격,직수방식이 뜨게</p>
+                                    <!-- items로부터 각 상품에 대한 정보를 가져와 표시 -->
+                                    <tr th:each="item : ${items}">
+                                        <td th:text="${item.itemCode}"></td>
+                                        <td th:text="${item.itemName}"></td>
+                                        <td th:text="${item.itemPrice}"></td>
 <!--                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>-->
                                 </div>
                             </div>
@@ -172,5 +177,6 @@
     </div>-->
 </div>
 </div>
+    </div>
 </body>
 </html>

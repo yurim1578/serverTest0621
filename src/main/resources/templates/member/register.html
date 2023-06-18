@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="/css/member.css" rel="stylesheet">
+</head>
+<body>
+<div id="container" class="container">
+    <div class="row">
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <form class="form sign-up" method="post" id="registerForm" action="/member/register">
+                    <div class="input-group">
+                        <input type="text" id="username" name="memberName" placeholder="Username" required autocomplete="username">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="id" name="memberId"  placeholder="Id" required autocomplete="username">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="address" name="memberAddr1"  placeholder="Address" required autocomplete="street-address">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="phoneNum"  name="memberPhone" placeholder="Phone Number" maxlength="13" required autocomplete="tel">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email"  name="memberEmail" placeholder="Email" required autocomplete="email">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="memberPw"  placeholder="Password" required autocomplete="new-password">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" placeholder="Confirm password" required autocomplete="new-password">
+                    </div>
+                    <button type="submit" style="margin-top: 50px;">회원가입</button>
+                    <p>
+                    <h5>이미 계정이 있나요? <a href="/member/login" class="pointer">로그인</a></h5>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+<!--    $('#registerForm').on('submit', function (event) {-->
+<!--        event.preventDefault(); // 폼의 기본 제출 동작 방지-->
+
+<!--        var password = $('#password').val();-->
+<!--        var confirmPassword = $('#confirmPassword').val();-->
+
+<!--        if (password !== confirmPassword) {-->
+<!--            alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');-->
+<!--            return;-->
+<!--        }-->
+
+<!--        var data = {-->
+<!--            username: $('#username').val(),-->
+<!--            id: $('#id').val(),-->
+<!--            address: $('#address').val(),-->
+<!--            phoneNum: $('#phoneNum').val(),-->
+<!--            email: $('#email').val(),-->
+<!--            password: password,-->
+<!--            confirmPassword: confirmPassword-->
+<!--        };-->
+
+<!--        $.ajax({-->
+<!--            type: 'POST',-->
+<!--            url: '/member/register',-->
+<!--            data: JSON.stringify(data),-->
+<!--            contentType: 'application/json; charset=utf-8',-->
+<!--            dataType: 'json'-->
+<!--        })-->
+<!--            .done(function (resp) {-->
+<!--                alert('회원가입이 완료되었습니다.');-->
+<!--                location.href = '/blog';-->
+<!--            })-->
+<!--            .fail(function (error) {-->
+<!--                alert(JSON.stringify(error));-->
+<!--            });-->
+<!--    });-->
+</script>
+</body>
+</html>

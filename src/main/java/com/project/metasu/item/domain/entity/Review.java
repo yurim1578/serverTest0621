@@ -1,23 +1,20 @@
 package com.project.metasu.item.domain.entity;
 
 import com.project.metasu.member.domain.entity.Member;
-import com.project.metasu.util.domain.CommonCodeDetail;
-import com.project.metasu.util.domain.CommonCodeMaster;
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review extends EssentialDate {
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long reviewNo;                        // 리뷰 번호
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int reviewNo;                        // 리뷰 번호
     @ManyToOne
     @JoinColumn(name = "itemCode", nullable=false)
     private ItemMaster itemCode;                 // 상품 코드
@@ -34,6 +31,18 @@ public class Review extends EssentialDate {
     private String adminContents;                // 관리자 답글
     @Column(nullable=false)
     private int reviewScore;                     // 리뷰 별점
-    private String reviewMasterImg;              // 리뷰 마스터 이미지
+    @Column(nullable=false)
+    private String reviewMasterImg;    // 리뷰 대표 이미지
 
+    //마이- ReviewDTO 객체를 인자로 받는 생성자를 추가
+    public Review(com.project.metasu.item.dto.ReviewDTO reviewDTO) {
+        this.itemCode = reviewDTO.getItemCode();
+        this.itemColorCode = reviewDTO.getItemColorCode();
+        this.memberId = reviewDTO.getMemberId();
+        this.reviewTitle = reviewDTO.getReviewTitle();
+        this.reviewContents = reviewDTO.getReviewContents();
+        this.reviewScore = reviewDTO.getReviewScore();
+        this.reviewMasterImg = reviewDTO.getReviewMasterImg();
+    }
 }
+

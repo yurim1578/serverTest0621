@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Entity
@@ -38,16 +37,4 @@ public class OrderMaster extends EssentialDate {
     private int orderAmount;                                       // 주문 총액
     @Column(nullable=false)
     private String orderStatus;                                    // 주문 상태
-
-    public OrderMaster(String orderNo, Member member, Contract contractNo, Delivery deliveryNo, Rental rentalNo, Payment paymentNo, Boolean orderDiscountYn, int orderAmount, String orderStatus) {
-        this.orderNo = orderNo;
-        this.memberId = member;
-        this.contractNo = contractNo;
-        this.deliveryNo = deliveryNo;
-        this.rentalNo = rentalNo;
-        this.paymentNo = paymentNo;
-        this.orderDiscountYn = orderDiscountYn;
-        this.orderAmount = orderAmount;
-        this.orderStatus = orderStatus;
-    }
 }

@@ -8,26 +8,28 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
-@Getter
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@Getter
 public class Member extends EssentialDate {
     @Id
     private String memberId;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberPw;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberName;
-    @Email @Column(nullable=false)
+    @Email
+    @Column(nullable = false)
     private String memberEmail;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberPhone;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberAddr1;
     private String memberAddr2;
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String memberAuth;
 
     @Builder
@@ -41,4 +43,7 @@ public class Member extends EssentialDate {
         this.memberAddr2 = memberAddr2;
         this.memberAuth = memberAuth;
     }
+
+
+
 }

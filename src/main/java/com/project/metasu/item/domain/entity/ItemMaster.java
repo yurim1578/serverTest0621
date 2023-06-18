@@ -1,18 +1,24 @@
 package com.project.metasu.item.domain.entity;
 
+import com.project.metasu.member.domain.entity.Member;
 import com.project.metasu.util.domain.EssentialDate;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemMaster extends EssentialDate {
+    //마이-사용자 정보를 참조할 수 있도록 추가
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
+
+
     @Id
     private String itemCode;                   // 상품 코드
     @Column(nullable=false)
@@ -33,8 +39,6 @@ public class ItemMaster extends EssentialDate {
     private LocalDateTime itemMakeDate;        // 제조일
     @Column(nullable=false)
     private String itemFrom;                   // 제조사
-    @Column(nullable=false)
-    private String item_desc;                  // 상품 상세설명
     @Column(nullable=false)
     private String itemMasterImg;              // 대표 이미지
 

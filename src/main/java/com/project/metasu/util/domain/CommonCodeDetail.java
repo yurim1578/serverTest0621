@@ -1,10 +1,8 @@
 package com.project.metasu.util.domain;
 
-import com.project.metasu.item.domain.entity.CartId;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Entity

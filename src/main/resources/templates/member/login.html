@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -6,114 +5,38 @@
     <meta charset="UTF-8">
     <title></title>
     <link href="/css/member.css" rel="stylesheet">
-
-
-
 </head>
 <body>
-<div id="container" class="container" >
+<div id="container" class="container">
 
     <!-- FORM SECTION -->
     <div class="row">
-        <!-- SIGN UP :id, 주소, 전화번호-->
-        <div class="col align-items-center flex-col sign-up">
-            <div class="form-wrapper align-items-center">
-                <form  class="form sign-up" action="/member/register">
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-user'></i>-->
-                        <input type="text" placeholder="Username" required>
-                    </div>
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-id'></i>-->
-                        <input type="text" placeholder="Id" required>
-                    </div>
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-address'></i>-->
-                        <input type="text" placeholder="address" required>
-                    </div>
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-phone'></i>-->
-                        <input type="text" id="phoneNum" placeholder="phoneNum" maxlength="13" required>
-                    </div>
 
-
-                    <div class="input-group">
-                        <!--                        <i class='bx bx-mail-send'></i>-->
-                        <input type="email" placeholder="Email" required>
-                    </div>
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-lock-alt'></i>-->
-                        <input type="password" placeholder="Password" required>
-                    </div>
-                    <div class="input-group">
-                        <!--                        <i class='bx bxs-lock-alt'></i>-->
-                        <input type="password" placeholder="Confirm password" required>
-                    </div>
-
-
-<!--                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--                        Launch demo modal-->
-<!--                    </button>-->
-
-<!--                    &lt;!&ndash; Modal &ndash;&gt;-->
-<!--                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--                        <div class="modal-dialog">-->
-<!--                            <div class="modal-content">-->
-<!--                                <div class="modal-header">-->
-<!--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                                </div>-->
-<!--                                <div class="modal-body">-->
-<!--                                    ...-->
-<!--                                </div>-->
-<!--                                <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                                    <button type="button" class="btn btn-primary">Save changes</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <!-- Button trigger modal -->
-                    <button type="button" onclick="openModal()" style="margin-top: 50px;">Sign Up</button>
-
-
-
-                    <p>
-                    <h5>
-                        이미 계정이있나요?   <b onclick="toggle()" class="pointer">로그인</b>
-                    </h5>
-                    </p>
-                </form>
-            </div>
-
-        </div>
-        <!-- END SIGN UP -->
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
-                <form class="form sign-in"  >
+                <form class="form sign-in" action="/member/login" method="post">
                     <div class="input-group">
                         <!--                        <i class='bx bxs-user'></i>-->
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" name="username" placeholder="id" required>
                     </div>
                     <div class="input-group">
                         <!--                        <i class='bx bxs-lock-alt'></i>-->
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" name="password" placeholder="password" required>
                     </div>
                     <button>
                         로그인
                     </button>
                     <p>
-                        <b>아이디 찾기</b>   |
+                        <b>아이디 찾기</b> |
                         <b>비밀번호 찾기</b>
                     </p>
                     <p>
                     <h5>
-                        계정이 없나요? <b onclick="toggle()" class="pointer">회원가입</b>
+                        계정이 없으신가요? <b onclick="redirectToRegister()" class="pointer">회원가입</b>
                     </h5>
-
                     </p>
+
                 </form>
             </div>
             <div class="form-wrapper">
@@ -128,8 +51,8 @@
         <!-- SIGN IN CONTENT -->
         <div class="col align-items-center flex-col">
             <div class="text sign-in">
-<!--                <h2 class="welcome">-->
-<!--                </h2> <br>-->
+                <!--                <h2 class="welcome">-->
+                <!--                </h2> <br>-->
                 <h2 class="welcome2">
                     META-SU
                 </h2>
@@ -139,17 +62,7 @@
             </div>
         </div>
         <!-- END SIGN IN CONTENT -->
-        <!-- SIGN UP CONTENT -->
-        <div class="col align-items-center flex-col">
-            <div class="img sign-up">
 
-            </div>
-            <div class="text sign-up">
-                <h2 class="welcome2">
-                    Join with us
-                </h2>
-            </div>
-        </div>
         <!-- END SIGN UP CONTENT -->
     </div>
     <!-- END CONTENT SECTION -->
@@ -163,12 +76,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal Title</h5>
+                <h3 class="modal-title">회원가입에 성공하였습니다!</h3>
                 <button type="button" onclick="closeModal()" class="close">&times;</button>
             </div>
-            <div class="modal-body">
-                <p>success</p>
-            </div>
+            <!--            <div class="modal-body">
+                            <p>This is the content of the modal.</p>
+                        </div>-->
             <div class="modal-footer">
                 <button type="button" onclick="closeModal()" class="btn btn-secondary">홈으로</button>
                 <button type="button" onclick="closeModal()" class="btn btn-secondary">로그인하기</button>
@@ -182,10 +95,13 @@
 
 </body>
 
-<script src="/js/member.js">
+<script src="/js/member.js"></script>
+    <script>
+        function redirectToRegister() {
+            location.href = "/member/register";
+        }
+    </script>
 
-
-</script>
 </html>
 
 

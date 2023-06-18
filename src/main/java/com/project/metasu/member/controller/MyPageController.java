@@ -1,40 +1,99 @@
 package com.project.metasu.member.controller;
 
-import com.project.metasu.item.repository.ItemRepository;
-import com.project.metasu.member.repository.MemberRepository;
+import com.project.metasu.item.domain.entity.ItemMaster;
+import com.project.metasu.item.repository.ItemMasterRepository;
+import com.project.metasu.member.domain.entity.Member;
+import com.project.metasu.member.dto.MemberDto;
+import com.project.metasu.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("member/mypage")
 public class MyPageController {
 
-  private MemberRepository memberRepository;
-  private ItemRepository itemRepository;
+  @Autowired
+  private final MemberService memberService;
+  @Autowired
+  private final ItemMasterRepository itemMasterRepository;
 
-
+  // 마이페이지 메인 화면
   @GetMapping("")
-  public String myPage(Model model) {
+  public String myPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    // 유저의 ID를 가져옴
+    String userId = userDetails.getUsername();
+    System.out.println(userId);
+
+    // 유저 정보를 가져옴
+    MemberDto memberDto = memberService.findMemberById(userId);
+
+    // 사용자 정보를 엔티티로 변환
+    Member member = memberDto.toEntity();
+
+    // 사용자가 소유한 모든 상품을 가져옴
+    List<ItemMaster> items = itemMasterRepository.findByMember(member);
+
+    model.addAttribute("member", memberDto);
+
+    // 첫 번째 항목이 존재하는 경우에만 출력
+    if (!items.isEmpty() && items.get(0) != null) {
+      model.addAttribute("item", items.get(0));
+    }
+
+    return "member/mypage";
+  }
+}
+
+ /* @GetMapping("")
+  public String myPage(Model model, Authentication authentication) {
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    String memberId = userDetails.getUsername();
+    System.out.println(memberId);
+
+    // 사용자 정보 가져오기
+    Member member = memberService.getInfo(memberId);
+    model.addAttribute("member", member);
+
     return "member/mypage";
   }
 
-/*
-  @GetMapping("/products")
-  public String showProductsPage() {
-    // 사용중인 제품 페이지로 이동하는 로직을 작성합니다.
-    return "member/mypage_category";
-  }
+  // 사용중인 제품 페이지
+  @GetMapping("/myitems")
+  public String myItems(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+    // 유저의 ID를 가져옴
+    String userId = userDetails.getUsername();
 
+    // 유저 정보를 가져옴
+    MemberDto memberDto = memberService.findMemberById(userId);
+
+    // 사용자 정보를 엔티티로 변환
+    Member member = memberDto.toEntity();
+
+    // 사용자가 소유한 모든 상품을 가져옴
+    List<ItemMaster> items = itemMasterRepository.findByMember(member);
+
+    model.addAttribute("member", memberDto);
+
+    // 첫 번째 항목이 존재하는 경우에만 출력
+    if (!items.isEmpty() && items.get(0) != null) {
+      model.addAttribute("item", items.get(0));
+    }
+
+    return "member/mypage";
+  }
+}*/
+
+
+/*
   @GetMapping("/payment")
   public String showPaymentPage() {
     // 렌탈 자동이체 페이지로 이동하는 로직을 작성합니다.
@@ -84,7 +143,7 @@ public class MyPageController {
   }
   */
 
-}
+
 
 
 

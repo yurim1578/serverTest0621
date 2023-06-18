@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Write a Review</title>
+</head>
+<body>
+<h1>Write a Review</h1>
+<form action="#" th:action="@{/review/save}" th:object="${review}" method="post">
+    <p>Item Code: <input type="text" th:field="*{itemCode}"/></p>
+    <p>Item Color Code: <input type="text" th:field="*{itemColorCode}"/></p>
+    <p>Title: <input type="text" th:field="*{reviewTitle}"/></p>
+    <p>Content: <textarea th:field="*{reviewContents}"></textarea></p>
+    <p>Score: <input type="number" th:field="*{reviewScore}"/></p>
+    <p>Review Master Image: <input type="text" th:field="*{reviewMasterImg}"/></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>

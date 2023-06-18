@@ -1,0 +1,141 @@
+<!-- localhost:8090/member/mypage/myitems -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>나의 상품</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: left;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>내 상품 목록</h1>
+
+<h3>사용자 정보</h3>
+<p th:text="${user.memberId}"></p> <!-- 사용자 아이디 -->
+<p th:text="${user.memberName}"></p> <!-- 사용자 이름 -->
+
+<h3>사용자의 상품 목록</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>상품 이미지</th>
+        <th>상품 이름</th>
+        <th>상품 코드</th>
+        <th>상품 가격</th>
+        <th>상품 크기</th>
+        <th>상품 무게</th>
+        <th>탱크 용량</th>
+        <th>설치 방식</th>
+        <th>제조일</th>
+        <th>제조사</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- items로부터 각 상품에 대한 정보를 가져와 표시 -->
+    <tr th:each="item : ${items}">
+        <td>
+            <img th:src="${item.itemMasterImg}"
+                 alt="Product Image" style="width: 100%; height: auto;">
+        </td>
+        <td th:text="${item.itemName}"></td>
+        <td th:text="${item.itemCode}"></td>
+        <td th:text="${item.itemPrice}"></td>
+        <td th:text="${item.itemSize}"></td>
+        <td th:text="${item.itemWeight}"></td>
+        <td th:text="${item.itemTankCapacity}"></td>
+        <td th:text="${item.itemIntalType}"></td>
+        <td th:text="${item.itemMakeDate}"></td>
+        <td th:text="${item.itemFrom}"></td>
+    </tr>
+
+
+
+
+    </tbody>
+</table>
+</body>
+</html>
+
+
+
+<!--
+&lt;!&ndash; localhost:8090/member/mypage/myitems &ndash;&gt;
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>나의 상품</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: left;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>내 상품 목록</h1>
+
+<h3>사용자 정보</h3>
+<p th:text="${user.memberId}"></p> &lt;!&ndash; 사용자 아이디 &ndash;&gt;
+<p th:text="${user.memberName}"></p> &lt;!&ndash; 사용자 이름 &ndash;&gt;
+
+<h3>사용자의 상품 목록</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>상품 이미지</th>
+        <th>상품 이름</th>
+        <th>상품 코드</th>
+        <th>상품 가격</th>
+        <th>상품 크기</th>
+        <th>상품 무게</th>
+        <th>탱크 용량</th>
+        <th>설치 방식</th>
+        <th>제조일</th>
+        <th>제조사</th>
+    </tr>
+    </thead>
+    <tbody>
+    &lt;!&ndash; items로부터 각 상품에 대한 정보를 가져와 표시 &ndash;&gt;
+    <tr th:each="item : ${items}">
+        <td>
+            <img th:src="${item.itemMasterImg}"
+                 alt="Product Image" style="width: 100%; height: auto;">
+        </td>
+        <td th:text="${item.itemName}"></td>
+        <td th:text="${item.itemCode}"></td>
+        <td th:text="${item.itemPrice}"></td>
+        <td th:text="${item.itemSize}"></td>
+        <td th:text="${item.itemWeight}"></td>
+        <td th:text="${item.itemTankCapacity}"></td>
+        <td th:text="${item.itemIntalType}"></td>
+        <td th:text="${item.itemMakeDate}"></td>
+        <td th:text="${item.itemFrom}"></td>
+    </tr>
+
+
+
+
+    </tbody>
+</table>
+</body>
+</html>
+-->
