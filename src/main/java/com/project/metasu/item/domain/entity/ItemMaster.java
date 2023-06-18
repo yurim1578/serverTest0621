@@ -41,4 +41,20 @@ public class ItemMaster extends EssentialDate {
     /*@OneToMany(mappedBy = "itemCode", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<ItemDetail> itemDetails = new ArrayList<>();*/
+
+    @Builder
+    public ItemMaster(String itemCode, String itemName, int itemPrice, String itemSize, int itemWeight, String itemWaterMethod, String itemTankCapacity, String itemIntalType, LocalDateTime itemMakeDate, String itemFrom, String item_desc, String itemMasterImg) {
+        this.itemCode = itemCode;
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.itemSize = itemSize;
+        this.itemWeight = itemWeight;
+        this.itemWaterMethod = itemWaterMethod;
+        this.itemTankCapacity = itemTankCapacity;
+        this.itemIntalType = itemIntalType;
+        this.itemMakeDate = itemMakeDate;
+        this.itemFrom = itemFrom;
+        this.item_desc = item_desc;
+        this.itemMasterImg = itemMasterImg;
+    }
 }
