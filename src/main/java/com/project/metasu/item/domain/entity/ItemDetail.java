@@ -24,4 +24,11 @@ public class ItemDetail extends EssentialDate {
 
     @Id
     private String itemColorCode;   // 상품 색상 코드
+
+    @Builder
+    public ItemDetail(String itemCode, ItemMaster itemMaster, String itemColorCode) {
+        this.itemCode = itemCode;
+        this.itemMaster = itemMaster;
+        this.itemColorCode = itemColorCode;
+    }
 }
