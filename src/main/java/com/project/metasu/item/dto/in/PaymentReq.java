@@ -30,14 +30,14 @@ public class PaymentReq {
 
         public Contract toEntity() {
             return Contract.builder()
-                    .contractNo(this.getContractNo())
-                    .contractName(this.getContractName())
-                    .contractPhone(this.getContractPhone())
-                    .contractEmail(this.getContractEmail())
-                    .contractAddr1(this.getContractAddr1())
-                    .contractAddr2(this.getContractAddr2())
-                    .contractStatus("CP") // 결제 대기
-                    .build();
+                .contractNo(this.getContractNo())
+                .contractName(this.getContractName())
+                .contractPhone(this.getContractPhone())
+                .contractEmail(this.getContractEmail())
+                .contractAddr1(this.getContractAddr1())
+                .contractAddr2(this.getContractAddr2())
+                .contractStatus("CP") // 결제 대기
+                .build();
         }
     }
     @Getter
@@ -52,16 +52,16 @@ public class PaymentReq {
         private String installTimeCode;     // 원하는 설치 시간
 
         public Delivery toEntity() {
-                return Delivery.builder()
-                        .deliveryNo(this.getDeliveryNo())
-                        .deliveryName(this.getDeliveryName())
-                        .deliveryPhone(this.getDeliveryPhone())
-                        .deliveryAddr1(this.getDeliveryAddr1())
-                        .deliveryAddr2(this.getDeliveryAddr2())
-                        .deliveryStatus("IP")
-                        .installDate(LocalDate.parse(this.getInstallDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
-                        .installTimeCode(this.getInstallTimeCode())
-                        .build();
+            return Delivery.builder()
+                .deliveryNo(this.getDeliveryNo())
+                .deliveryName(this.getDeliveryName())
+                .deliveryPhone(this.getDeliveryPhone())
+                .deliveryAddr1(this.getDeliveryAddr1())
+                .deliveryAddr2(this.getDeliveryAddr2())
+                .deliveryStatus("IP")
+                .installDate(LocalDate.parse(this.getInstallDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
+                .installTimeCode(this.getInstallTimeCode())
+                .build();
 
         }
     }
@@ -80,14 +80,14 @@ public class PaymentReq {
 
         public Rental toEntity() {
             return Rental.builder()
-                    .rentalNo(this.getRentalNo())
-                    .rentalPayAutoDate(this.getRentalPayAutoDate())
-                    .rentalRentalPayAutoYn(this.getRentalRentalPayAutoYn())
-                    .rentalPeriod(this.getRentalPeriod())
-                    .rentalStartDate(this.getRentalStartDate())
-                    .rentalEndDate(this.getRentalEndDate())
-                    .rentalStatus("RP")
-                    .build();
+                .rentalNo(this.getRentalNo())
+                .rentalPayAutoDate(this.getRentalPayAutoDate())
+                .rentalRentalPayAutoYn(this.getRentalRentalPayAutoYn())
+                .rentalPeriod(this.getRentalPeriod())
+                .rentalStartDate(this.getRentalStartDate())
+                .rentalEndDate(this.getRentalEndDate())
+                .rentalStatus("RP")
+                .build();
         }
     }
 
@@ -103,14 +103,14 @@ public class PaymentReq {
 
         public Payment toEntity() {
             return Payment.builder()
-                    .paymentNo(this.getPaymentNo())
-                    .paymentType(this.getPaymentType())
-                    .paymentCreditNumber(this.getPaymentCreditNumber())
-                    .paymentAccount(this.getPaymentAccount())
-                    .paymentBank(this.getPaymentBank())
-                    .paymentAmount(this.getPaymentAmount())
-                    .paymentStatus("PC") // 결제 완료
-                    .build();
+                .paymentNo(this.getPaymentNo())
+                .paymentType(this.getPaymentType())
+                .paymentCreditNumber(this.getPaymentCreditNumber())
+                .paymentAccount(this.getPaymentAccount())
+                .paymentBank(this.getPaymentBank())
+                .paymentAmount(this.getPaymentAmount())
+                .paymentStatus("PC") // 결제 완료
+                .build();
         }
     }
 
@@ -124,11 +124,11 @@ public class PaymentReq {
 
         public OrderMaster toEntity() {
             return OrderMaster.builder()
-                    .orderNo(this.getOrderNo())
-                    .orderDiscountYn(this.getOrderDiscountYn())
-                    .orderAmount(this.getOrderAmount())
-                    .orderStatus(this.getOrderStatus())
-                    .build();
+                .orderNo(this.getOrderNo())
+                .orderDiscountYn(this.getOrderDiscountYn())
+                .orderAmount(this.getOrderAmount())
+                .orderStatus(this.getOrderStatus())
+                .build();
         }
     }
 
