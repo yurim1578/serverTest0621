@@ -5,8 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Getter
@@ -27,4 +28,6 @@ public class Delivery extends EssentialDate {
     @Column(nullable=false)
     private LocalDateTime deliveryStartDate;   // 배달 시작일
     private LocalDateTime deliveryEndDate;     // 배달 종료일
+
+
 }

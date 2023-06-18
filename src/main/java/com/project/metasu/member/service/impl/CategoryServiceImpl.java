@@ -2,7 +2,7 @@ package com.project.metasu.member.service.impl;
 
 import com.project.metasu.item.domain.entity.ItemImg;
 import com.project.metasu.item.domain.entity.ItemMaster;
-import com.project.metasu.item.repository.ItemRepository;
+import com.project.metasu.item.repository.ItemMasterRepository;
 import com.project.metasu.member.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    private final ItemRepository itemRepository;
+    private final ItemMasterRepository itemMasterRepository;
     //private final ImgRepository imgRepository;
 
     @Override
@@ -29,15 +29,15 @@ public class CategoryServiceImpl implements CategoryService {
 
         Pageable pageable = PageRequest.of(page - 1, pagesize, Sort.by(sorts));
         if (capacity != null && !capacity.isEmpty()) {
-            return this.itemRepository.findByItemTankCapacityContainingIgnoreCase(pageable, capacity);
+            return this.itemMasterRepository.findByItemTankCapacityContainingIgnoreCase(pageable, capacity);
         } else if (type != null && !type.isEmpty()) {
-            return this.itemRepository.findByItemIntalTypeContainingIgnoreCase(pageable, type);
+            return this.itemMasterRepository.findByItemIntalTypeContainingIgnoreCase(pageable, type);
         } else if (from != null && !from.isEmpty()) {
-            return this.itemRepository.findByItemFromContainingIgnoreCase(pageable, from);
+            return this.itemMasterRepository.findByItemFromContainingIgnoreCase(pageable, from);
         } else if(method!=null&&!method.isEmpty()) {
-            return this.itemRepository.findByItemWaterMethodContainingIgnoreCase(pageable,method);
+            return this.itemMasterRepository.findByItemWaterMethodContainingIgnoreCase(pageable,method);
         }else{
-            return this.itemRepository.findAll(pageable);
+            return this.itemMasterRepository.findAll(pageable);
         }
     }
 

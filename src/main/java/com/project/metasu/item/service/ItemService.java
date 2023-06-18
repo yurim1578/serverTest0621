@@ -1,9 +1,7 @@
 package com.project.metasu.item.service;
 
 import com.project.metasu.item.dto.in.CartReq;
-import com.project.metasu.item.dto.in.OrderReq;
 import com.project.metasu.item.dto.in.PaymentReq;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
