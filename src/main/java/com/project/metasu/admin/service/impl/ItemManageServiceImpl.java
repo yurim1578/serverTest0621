@@ -1,10 +1,13 @@
 package com.project.metasu.admin.service.impl;
 
+import com.project.metasu.admin.repository.AdminItemDetailRepository;
+import com.project.metasu.admin.repository.AdminItemImgRepository;
+import com.project.metasu.admin.repository.AdminItemRepository;
+import com.project.metasu.admin.repository.AdminItemStockRepository;
 import com.project.metasu.admin.service.ItemManageService;
 import com.project.metasu.item.domain.dto.AdminItemDto;
 import com.project.metasu.item.domain.entity.ItemImg;
 import com.project.metasu.item.domain.entity.ItemMaster;
-import com.project.metasu.item.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

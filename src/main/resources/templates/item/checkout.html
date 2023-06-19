@@ -79,7 +79,7 @@
                                         <span class="top__text">Qty</span>
                                         <span class="top__text">Price</span>
                                     </li>
-                                    <div th:if="${#maps.isEmpty(rentalDto)}">
+                                    <div th:if="${rentalDto == null}">
                                         <div th:each="carts : ${cart}">  
                                             <span id="itemName" th:text="${carts.item_name}"></span>
                                             <span id="cartQty" th:text="${carts.cart_qty}"></span>
@@ -88,22 +88,37 @@
                                             <input type="hidden" id="itemCode" th:value="${carts.item_code}">
                                             <input type="hidden" id="itemColorCode" th:value="${carts.item_color_code}">
                                         </div>
+
+                                        <div id="salesPayBtn" class="checkout__order__total">
+                                            <ul>
+                                                <li>Total <span> </span></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <!--<div th:if="${#maps.isNotEmpty(rentalDto)}">
-                                            <span id="itemName" th:text="${carts.item_name}"></span>
-                                            <span id="cartQty" th:text="${carts.cart_qty}"></span>
-                                            <span id="itemSubTotalPrice" th:text="'￦ ' + ${carts.item_price * carts.cart_qty}"></span><br>
-                                            <span id="itemColorCodeName" th:text="${carts.item_color_code_name}" style="font-size: small;"></span>
-                                            <input type="hidden" id="itemCode" th:value="${carts.item_code}">
-                                            <input type="hidden" id="itemColorCode" th:value="${carts.item_color_code}">
-                                    </div>-->
+                                    <div th:if="${rentalDto != null}">
+                                            <span id="renItemName" th:text="${rentalDto.itemName}"></span>
+                                            <span id="renCartQty" th:text="1"></span>
+                                            <span id="renItemColorCodeName" th:text="${rentalDto.itemColorCodeName}" style="font-size: small;"></span><br>
+                                            <span>자동결제일</span>
+                                            <select name="자동결제일" id="renPayAutoDate">
+                                                <option value="5">5일</option>
+                                                <option value="10">10일</option>
+                                                <option value="25">25일</option>
+                                            </select>
+                                            <input type="hidden" id="renItemCode" th:value="${rentalDto.itemCode}">
+                                            <input type="hidden" id="renItemColorCode" th:value="${rentalDto.itemColorCode}">
+                                            <input type="hidden" id="rentalPeriod" th:value="${rentalDto.rentalPeriod}">
+
+                                            <div id="rentalPayBtn" class="checkout__order__total">
+                                                <ul>
+                                                    <li>월 ￦ <span id="renItemSubTotalPrice" th:text="${rentalDto.itemPrice/(12*rentalDto.rentalPeriod)}"></span><br></li>
+                                                    <li>Total ￦ <span id="renItemTotalPrice" th:text="${rentalDto.itemPrice}"></span><br></li>
+                                                </ul>
+                                            </div>
+                                    </div>
                                 </ul>
                             </div>
-                            <div class="checkout__order__total">
-                                <ul>
-                                    <li>Total <span> </span></li>
-                                </ul>
-                            </div>
+                            
                             <button type="button" class="site-btn">Place oder</button>
                         </div>
                     </div>
@@ -214,7 +229,7 @@
         total += price;
     });
 
-    $('.checkout__order__total span').text(total); //'￦ ' + 
+    $('.checkout__order__total#salesPayBtn span').text(total); //'￦ ' + 
 
     // 달력
     calendarInit();
@@ -486,7 +501,7 @@ function renderCalender(thisMonth) {
                             pg : 'inicis',
                             pay_method : 'card',
                             merchant_uid : 'merchant_' + new Date().getTime(),	
-                            name: "메타수",
+                            name: "메타수", // :todo
                             amount: 10,
                             buyer_email: "hyehellohi@gmail.com",
                             buyer_name: "METASU",
@@ -498,7 +513,7 @@ function renderCalender(thisMonth) {
                                 var param = {
                                     // 사용자 정보
                                     memberReq: {
-                                        memberId:  'hye'   
+                                        memberId:  'hye'   // 세션
                                     },
                                     // 계약자 정보
                                     contractReq: {
@@ -524,19 +539,28 @@ function renderCalender(thisMonth) {
                                         paymentType: rsp.pay_method,
                                         paymentCreditNumber: rsp.card_number,
                                         paymentBank:  rsp.card_name,
-                                        paymentAmount: $('.checkout__order__total span').text(),
+                                        // 구매일때 총액과 렌탈일때 총액
+                                        paymentAmount: $('.checkout__order__total#salesPayBtn span').text() == null || $('.checkout__order__total#salesPayBtn span').text() == '' ? $('#renItemSubTotalPrice').text() : $('.checkout__order__total#salesPayBtn span').text(),
                                         paymentStatus: 'PS'
                                     },
                                     // 주문 마스터 정보
                                       orderMasterReq: {
                                         orderDiscountYn: false,
-                                        orderAmount: $('.checkout__order__total span').text(),
+                                        // 구매일떄 총액과 렌탈일때 총액
+                                        orderAmount: $('.checkout__order__total#salesPayBtn span').text() == null || $('.checkout__order__total#salesPayBtn span').text() == '' ? $('#renItemTotalPrice').text() : $('.checkout__order__total#salesPayBtn span').text(),
                                         orderStatus:  'OS'
                                     },
-                                    // 바코드 정보
+                                    // 바코드 정보  
                                     itemStockReq: {
-                                        itemCode: $('#itemCode').val(),
-                                        itemColorCode: $('#itemColorCode').val(),
+                                        itemCode: $('#itemCode').val() == null ? $('#renItemCode').val() : $('#itemCode').val(),
+                                        itemColorCode: $('#itemColorCode').val() == null ? $('#renItemColorCode').val() : $('#itemColorCode').val()
+                                    },
+                                    // 렌탈 정보
+                                    rentalReq: {
+                                        itemCode: $('#renItemCode').val(),
+                                        itemColorCode : $('#renItemColorCode').val(),
+                                        rentalPeriod : $('#rentalPeriod').val(),
+                                        rentalPayAutoDate : $('#renPayAutoDate').val() 
                                     }
                             };
                             $.ajax({
@@ -545,11 +569,11 @@ function renderCalender(thisMonth) {
                                 data: JSON.stringify(param),
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json"
-                            }).done(function(resp) {
-                                console.log(resp);
-                                debugger;
+                            }).success(function(resp) {
+                                alert('결제가 완료되었습니다!');
+                                // todo: 합치면 confirm으로 mypage 혹은 main 페이지로 이동 
                             }).fail(function(error) {
-                                alert(error);
+                                alert('결제 실패!' + error);
                             });
 
                             } else {

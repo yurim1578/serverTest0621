@@ -12,10 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -66,7 +63,7 @@ public class ItemController {
     @PostMapping("/rentalOrder/{memberId}")
     public String rentalOrder(@PathVariable("memberId") String memberId,RentalReq req, Model model) {
         Map<String,Object> itemDto = itemService.findByRentalOrderInfo(req.getItemCode(), req.getItemColorCode());
-
+        ResponseEntity memberDto = itemService.findByMember(memberId);      // member 정보
         RentalRes rentalRes = RentalRes.builder()
                 .itemCode(req.getItemCode())
                 .itemColorCode(req.getItemColorCode())
@@ -77,6 +74,7 @@ public class ItemController {
                 .itemColorCodeName(String.valueOf(itemDto.get("item_color_code_name")))
                 .itemPrice((Integer) itemDto.get("item_price"))
                 .build();
+        model.addAttribute("member", memberDto.getBody());
         model.addAttribute("rentalDto", rentalRes);
         return "/item/checkout";
     }

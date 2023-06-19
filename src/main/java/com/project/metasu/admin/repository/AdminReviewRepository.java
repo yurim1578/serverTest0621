@@ -1,4 +1,4 @@
-package com.project.metasu.item.repository;
+package com.project.metasu.admin.repository;
 
 import com.project.metasu.item.domain.entity.Review;
 import com.project.metasu.member.domain.entity.Member;

@@ -1,7 +1,7 @@
 package com.project.metasu.admin.service.impl;
 
 import com.project.metasu.admin.service.OrderService;
-import com.project.metasu.item.repository.AdminOrderRepository;
+import com.project.metasu.admin.repository.AdminOrderRepository;
 import com.project.metasu.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

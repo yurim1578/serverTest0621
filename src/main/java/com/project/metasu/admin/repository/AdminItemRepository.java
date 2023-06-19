@@ -1,4 +1,4 @@
-package com.project.metasu.item.repository;
+package com.project.metasu.admin.repository;
 
 import com.project.metasu.item.domain.entity.ItemMaster;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -13,6 +13,6 @@ public class TestJobA extends QuartzJobBean {
 
   @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-    log.info("10초마다 JobA 실행");
+    //log.info("10초마다 JobA 실행");
   }
 }

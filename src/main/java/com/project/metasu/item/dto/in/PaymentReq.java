@@ -72,22 +72,24 @@ public class PaymentReq {
 
     @Getter
     public static class RentalReq {
-        private String RentalNo = "R_" + LocalDateTime.now();
-        private String RentalPayAutoDate;
-        private Boolean RentalRentalPayAutoYn;
-        private String RentalPeriod;
-        private LocalDateTime RentalStartDate;
-        private LocalDateTime RentalEndDate;
-        private String RentalStatus;
+        private String rentalNo = "R_" + LocalDateTime.now();
+        private String rentalPayAutoDate;
+        private Boolean rentalRentalPayAutoYn;
+        private String rentalPeriod;
+        private LocalDateTime rentalStartDate;
+        private LocalDateTime rentalEndDate;
+        private String rentalStatus;
 
         public Rental toEntity() {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime calculatedEndDate = now.plusYears(Long.parseLong(rentalPeriod));
             return Rental.builder()
                 .rentalNo(this.getRentalNo())
                 .rentalPayAutoDate(this.getRentalPayAutoDate())
                 .rentalRentalPayAutoYn(this.getRentalRentalPayAutoYn())
                 .rentalPeriod(this.getRentalPeriod())
-                .rentalStartDate(this.getRentalStartDate())
-                .rentalEndDate(this.getRentalEndDate())
+                .rentalStartDate(now)
+                .rentalEndDate(calculatedEndDate)
                 .rentalStatus("RP")
                 .build();
         }

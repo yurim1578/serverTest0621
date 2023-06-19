@@ -12,7 +12,7 @@ import static org.quartz.JobBuilder.newJob;
 
 @Configuration
 public class JobConfig {
-
+/*
   @Autowired
   private Scheduler scheduler;  //쿼츠 스케줄 객체
 
@@ -37,5 +37,5 @@ public class JobConfig {
     jobDataMap.putAll(params);
     //스케줄 생성
     return newJob(job).usingJobData(jobDataMap).build();
-  }
+  }*/
 }

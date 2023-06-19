@@ -1,6 +1,6 @@
 package com.project.metasu.admin.service.impl;
 
-import com.project.metasu.item.repository.AdminReviewRepository;
+import com.project.metasu.admin.repository.AdminReviewRepository;
 import com.project.metasu.admin.service.ReviewService;
 import com.project.metasu.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;

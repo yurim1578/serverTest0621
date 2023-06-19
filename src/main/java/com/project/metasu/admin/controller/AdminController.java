@@ -46,7 +46,7 @@ public class AdminController {
     }
 
     //관리자 로그인 세션이 존재
-    AdminTestSessionMember findMember = new AdminTestSessionMember("1","성이름");
+    AdminTestSessionMember findMember = new AdminTestSessionMember("hye","이혜경");
     //원래는 (SessionMember)session.getSession("url")해서 가져와야함
 
     //System.out.println(findMember);
@@ -97,7 +97,7 @@ public class AdminController {
       return "redirect:/admin/gostarter";
     }
     //관리자 로그인 세션이 존재
-    AdminTestSessionMember findMember = new AdminTestSessionMember("1","성이름");
+    AdminTestSessionMember findMember = new AdminTestSessionMember("hye","이혜경");
     //원래는 (SessionMember)session.getSession("url")해서 가져와야함
 
     //System.out.println(findMember);
@@ -127,7 +127,7 @@ public class AdminController {
       return "redirect:/admin/gostarter";
     }
     //관리자 로그인 세션이 존재
-    AdminTestSessionMember findMember = new AdminTestSessionMember("1","성이름");
+    AdminTestSessionMember findMember = new AdminTestSessionMember("hye","이혜경");
     //원래는 (SessionMember)session.getSession("url")해서 가져와야함
 
     //System.out.println(findMember);
@@ -149,7 +149,8 @@ public class AdminController {
     model.addAttribute("rental",rentalService.getRentalNPayment(rentalNo));
 
     //계약 정보->영수증, 계약서 관리
-    String contractNo=orderDetail.get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
+//    String contractNo=orderDetail.get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
+    String contractNo=String.valueOf(orderDetail.get("contract_no"));  //map의 contract_no컬럼의 값을 String으로 가져옴
     model.addAttribute("contract",orderService.getContract(contractNo));
     return "/admin/orderDetail";
   }

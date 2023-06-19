@@ -188,8 +188,8 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public ResponseEntity findByItemCode(String itemCode, String sortValue, Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber(), 2, Sort.by(Sort.Direction.DESC, sortValue));
-        // Page<Review> reviewDto = reviewRepository.findByItemCodeItemCode(itemCode, pageable);
-        return ResponseEntity.ok(null);
+         Page<Review> reviewDto = reviewRepository.findByItemCodeItemCode(itemCode, pageable);
+        return ResponseEntity.ok(reviewDto);
     }
 
     @Override
@@ -225,6 +225,7 @@ public class ItemServiceImpl implements ItemService {
                             .build())
                     .collect(Collectors.toList());
             List<OrderDetail> savedOrderDetails = orderDetailRepository.saveAll(orderDetails);
+            cartRepository.deleteByMemberId(req.getMemberReq().getMemberId()); //카트 삭제
         }else{ // 렌탈로 주문했을때
             OrderDetail orderDetail = orderDetailRepository.save(OrderDetail.builder()
                     .orderMaster(orderMaster)
@@ -233,7 +234,7 @@ public class ItemServiceImpl implements ItemService {
                     .build());
         }
 
-        cartRepository.deleteByMemberId(req.getMemberReq().getMemberId()); //카트 삭제
+
 
         return ResponseEntity.ok(HttpStatus.OK.value());
     }
