@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -180,6 +181,7 @@ public class AdminController {
 
   @PostMapping("/addItem")
   public String addItemProcess(@RequestBody@ModelAttribute("item") AdminItemDto item){
+    item.setItemCode("IC_" + LocalDateTime.now());
     itemService.setItem(item);
 //    System.out.println(item.getItemColorCode());
     return "redirect:/admin/itemManagement";
@@ -203,9 +205,7 @@ public class AdminController {
   }
 
   @PostMapping("/itemDetail/{code}/updateItem")
-  public String updateItemProcess(@PathVariable String code,@RequestBody@ModelAttribute("item") AdminItemDto item
-                                 //, @RequestBody@ModelAttribute("images") List<ItemImg> images
-                                  ){
+  public String updateItemProcess(@PathVariable String code,@RequestBody@ModelAttribute("item") AdminItemDto item){
 
     itemService.setItem(item);
 

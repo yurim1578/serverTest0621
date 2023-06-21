@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Getter@ToString
 public class AdminItemDto {
-   UUID id=UUID.randomUUID();
+
 
   private String itemCode;
   private String itemName;  //
@@ -34,7 +34,7 @@ public class AdminItemDto {
     private String itemImg3;
 
 
-  private String itemBarcode="IB__" + LocalDateTime.now() + "_"+ id; //item_stock->자동 추가
+  private String itemBarcode; //item_stock->자동 추가
 
   private Boolean salesYn=false;  //
 
@@ -44,7 +44,7 @@ public class AdminItemDto {
       , String itemFrom, String itemIntalType, String item_desc, String itemMasterImg,LocalDateTime itemMakeDate,String itemColorCode,String itemImg1,
                       String itemImg2,String itemImg3,int stockNum
      ) {
-    this.itemCode = "IC_" + LocalDateTime.now(); //key
+    this.itemCode=itemCode; //key
     this.itemName = itemName;
     this.itemPrice = itemPrice;
     this.itemSize = itemSize;
@@ -83,6 +83,24 @@ public class AdminItemDto {
         .build();
     return build;
   }
+
+  public ItemMaster toUEntity(){
+    ItemMaster build = ItemMaster.builder()
+        .itemCode(itemCode)
+        .itemName(itemName)
+        .item_desc(item_desc)
+        .itemFrom(itemFrom)
+        .itemSize(itemSize)
+        .itemIntalType(itemIntalType)
+        .itemMakeDate(itemMakeDate)  //제조일 자동입력
+        .itemPrice(itemPrice)
+        .itemTankCapacity(itemTankCapacity)
+        .itemMasterImg(itemMasterImg)
+        .itemWaterMethod(itemWaterMethod)
+        .itemWeight(itemWeight)
+        .build();
+    return build;
+  }
   public ItemDetail toDEntity(String itemCode,String itemColorCode){
     return ItemDetail.builder()
         .itemCode(this.itemCode)
@@ -102,12 +120,12 @@ public class AdminItemDto {
 
     return tmp;
   }
-  public ItemStock toSEntity(String itemColorCode){
+  public ItemStock toSEntity(String itemBarcode){
 
     return ItemStock.builder()
         .itemBarcode(itemBarcode)
         .itemMaster(toMEntity())
-        .itemColorCode(this.itemColorCode)
+        .itemColorCode(itemColorCode)
         .build();
   }
 

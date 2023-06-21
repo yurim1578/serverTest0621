@@ -14,8 +14,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -67,13 +71,20 @@ public class ItemManageServiceImpl implements ItemManageService {
       imageRepository.save(im.toIEntity(im.getItemCode(), im.getItemColorCode()));
 
       for (int j = 0; j < im.getStockNum(); j++) {
-        stockRepository.save(im.toSEntity(im.getItemColorCode()));
+        UUID id=UUID.randomUUID();
+        stockRepository.save(im.toSEntity("IB__" + LocalDateTime.now() + "_"+ id));
       }
 
     }
     return ResponseEntity.ok(HttpStatus.OK.value());
   }
 
+  @Transactional@Override
+  public ResponseEntity updateItem(AdminItemDto im) {
+    adminItemRepository.save(im.toUEntity());
+
+    return ResponseEntity.ok(HttpStatus.OK.value());
+  }
 
 }
 

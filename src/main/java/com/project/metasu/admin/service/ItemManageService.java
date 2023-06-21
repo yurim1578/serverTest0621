@@ -18,5 +18,7 @@ public interface ItemManageService {
   List<Map<String,Object>> getStockDetails(String itemCode);
 
   ResponseEntity setItem(AdminItemDto im);
+  ResponseEntity updateItem(AdminItemDto im);
+
 
 }
