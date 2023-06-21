@@ -85,8 +85,8 @@ public class AdminItemDto {
   }
   public ItemDetail toDEntity(String itemCode,String itemColorCode){
     return ItemDetail.builder()
-        .itemCode(itemCode)
-        .itemColorCode(itemColorCode)
+        .itemCode(this.itemCode)
+        .itemColorCode(this.itemColorCode)
         .build();
   }
   public ItemImg toIEntity(String itemCode,String itemColorCode){
@@ -95,7 +95,7 @@ public class AdminItemDto {
           .itemImg1(itemImg1)
           .itemImg2(itemImg2)
           .itemImg3(itemImg3)
-          .itemColorCode(itemColorCode)
+          .itemColorCode(this.itemColorCode)
           .itemMasterImg(itemMasterImg)
           .itemCode(itemCode)
           .build();
@@ -107,7 +107,7 @@ public class AdminItemDto {
     return ItemStock.builder()
         .itemBarcode(itemBarcode)
         .itemMaster(toMEntity())
-        .itemColorCode(itemColorCode)
+        .itemColorCode(this.itemColorCode)
         .build();
   }
 

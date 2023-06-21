@@ -19,7 +19,7 @@ public interface AdminOrderRepository extends JpaRepository<OrderMaster, String>
   List<Map<String,Object>> getOderList();
 
   @Query(value = "select c.contract_no, o.order_no, m.member_id, m.order_status, i.item_code, i.item_name, i.item_price, d.delivery_status, m.created_date " +
-      ",r.rental_status, r.rental_start_date, r.rental_end_date, r.rental_pay_auto_date, r.rental_rental_pay_auto_yn, r.rental_no " +
+      ",r.rental_status, r.rental_start_date, r.rental_end_date, r.rental_pay_auto_date, r.rental_pay_auto_yn, r.rental_no " +
       ", p.payment_status, p.payment_amount, p.payment_type " +
       "from order_detail o join order_master m on o.order_no=m.order_no join item_stock s on o.item_barcode=s.item_barcode " +
       "join payment p on p.payment_no=m.payment_no left outer join rental r on r.rental_no=m.rental_no join delivery d on d.delivery_no=m.delivery_no " +

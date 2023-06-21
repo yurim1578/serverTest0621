@@ -67,7 +67,6 @@ public class ItemManageServiceImpl implements ItemManageService {
       imageRepository.save(im.toIEntity(im.getItemCode(), im.getItemColorCode()));
 
       for (int j = 0; j < im.getStockNum(); j++) {
-
         stockRepository.save(im.toSEntity(im.getItemColorCode()));
       }
 
