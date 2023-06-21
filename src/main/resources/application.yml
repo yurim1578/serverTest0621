@@ -53,8 +53,3 @@ logging:
     #username: root
     #password: a123
     
-#아이템 사진 업로드 경로 - 서버 올릴시 수정 필요
-file:
-  dir:   C:\Users\CHOIYURIM\Desktop\MetanetInternProj\metasu\src\main\resources\static\uploadItemImg
-  lecture_dir: C:\Users\CHOIYURIM\Desktop\MetanetInternProj\metasu\src\main\resources\static\uploadItemImg
-  course_dir: C:\Users\CHOIYURIM\Desktop\MetanetInternProj\metasu\src\main\resources\static\uploadItemImg
