@@ -4,11 +4,13 @@ import com.project.metasu.admin.service.*;
 
 import com.project.metasu.item.domain.dto.AdminItemDto;
 import com.project.metasu.item.domain.entity.ItemMaster;
+import com.project.metasu.item.service.ItemService;
 import com.project.metasu.member.domain.dto.AdminMemberDto;
 import com.project.metasu.member.domain.dto.AdminTestSessionMember;
 import com.project.metasu.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,6 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-//git Test2
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -31,6 +32,7 @@ public class AdminController {
   private final ReviewService reviewService;
   private final ItemManageService itemService;
   private final RentalService rentalService;
+  private final ItemService item_itemService;
   //test
   @GetMapping("/gostarter")
   public String view2(Model model) {
@@ -59,7 +61,7 @@ public class AdminController {
       List<AdminMemberDto> adminMemberDto =new ArrayList<>();
 
       for(int i=0; i<member.size(); i++){
-        orderNum = orderService.findOrderNumById(member.get(i));
+        orderNum = orderService.findOrderNumById(member.get(i).getMemberId());
         reviewNum = reviewService.findReviewNumById(member.get(i));
 
         AdminMemberDto tmp=new AdminMemberDto(member.get(i).getMemberId(), member.get(i).getMemberPw(), member.get(i).getMemberName(),
@@ -78,7 +80,7 @@ public class AdminController {
   public String getMemberDetail(@PathVariable String id,Model model) {
     //System.out.println(id);
     Member member = memberService.findByMemberId(id);
-    int orderNum=orderService.findOrderNumById(member);
+    int orderNum=orderService.findOrderNumById(member.getMemberId());
     int reviewNum = reviewService.findReviewNumById(member);
 
     AdminMemberDto adminMemberDto = new AdminMemberDto(member.getMemberId(), member.getMemberPw(), member.getMemberName(),
@@ -110,15 +112,20 @@ public class AdminController {
   }
 
   @GetMapping("/itemDetail/{code}")
-  public String getItemDetail(@PathVariable String code, Model model){
+  public String getItemDetail(@PathVariable String code, Model model){//itemcode
     ItemMaster itemDetails = itemService.getItemDetails(code);
+    ResponseEntity itemImgDto = item_itemService.findItemImg(code);
     model.addAttribute("item",itemDetails); //
     model.addAttribute("images",itemService.getItemImg(code)); //list
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
-
+    if(itemImgDto.getBody()!=null) {
+      model.addAttribute("image", itemImgDto.getBody());
+    }
     return "/admin/itemDetail";
   }
+
+
 
   @GetMapping("/orderList")
   public String getOrderList(HttpServletRequest request, Model model){
@@ -165,33 +172,46 @@ public class AdminController {
     return "/admin/contract-print";
   }
 
-  //insert-19가지 필드
+  //insert
   @GetMapping("/addItem")
   public String addItem(Model model){
-    //model.addAttribute("colors",itemService.listColors());
     return "/admin/addItem";
   }
 
   @PostMapping("/addItem")
   public String addItemProcess(@RequestBody@ModelAttribute("item") AdminItemDto item){
     itemService.setItem(item);
+//    System.out.println(item.getItemColorCode());
     return "redirect:/admin/itemManagement";
   }
 
-  //updadte-16가지 필드
-  @GetMapping("/itemDetail/updateItem/{code}")
+  //updadte
+  @GetMapping("/itemDetail/{code}/updateItem")
   public String updateItem(@PathVariable String code, Model model){
     ItemMaster itemDetails = itemService.getItemDetails(code);
+    ResponseEntity itemImgDto = item_itemService.findItemImg(code);
     model.addAttribute("item",itemDetails); //
     model.addAttribute("images",itemService.getItemImg(code)); //list
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
+
+    if(itemImgDto.getBody()!=null) {
+      model.addAttribute("image", itemImgDto.getBody());
+    }
+
     return "/admin/updateItem";
   }
 
-  @PostMapping("/itemDetail/updateItem/{code}")
-  public String updateItemProcess(@PathVariable String code,@RequestBody@ModelAttribute("item") AdminItemDto item){
+  @PostMapping("/itemDetail/{code}/updateItem")
+  public String updateItemProcess(@PathVariable String code,@RequestBody@ModelAttribute("item") AdminItemDto item
+                                 //, @RequestBody@ModelAttribute("images") List<ItemImg> images
+                                  ){
+
     itemService.setItem(item);
-    return "redirect:/admin/itemDetail";
+
+    return "redirect:/admin/itemManagement";
   }
+
+
+
 }

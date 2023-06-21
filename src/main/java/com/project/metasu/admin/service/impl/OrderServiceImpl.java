@@ -2,7 +2,6 @@ package com.project.metasu.admin.service.impl;
 
 import com.project.metasu.admin.service.OrderService;
 import com.project.metasu.admin.repository.AdminOrderRepository;
-import com.project.metasu.member.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
   private final AdminOrderRepository adminOrderRepository;
 
   @Override
-  public int findOrderNumById(Member memberId){
+  public int findOrderNumById(String memberId){
     return adminOrderRepository.countByMemberId(memberId);
   }
 

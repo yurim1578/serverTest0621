@@ -22,7 +22,7 @@ public class JobConfig {
 
     try{
       //크론형식 지정 후 스케줄 시작
-      scheduler.scheduleJob(detail, runJobTrigger("0/10 * * * * ?"));
+      scheduler.scheduleJob(detail, runJobTrigger("* * * 1 * ?"));
     }catch(SchedulerException e){
       e.printStackTrace();
     }

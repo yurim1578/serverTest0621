@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminOrderRepository extends JpaRepository<OrderMaster, String> {
-  int countByMemberId(Member memberId);
+  int countByMemberId(String memberId);
 
   @Query(value="select o.order_no, m.member_id, m.order_status,c.sub_code_name, n.item_code, n.item_name " +
       "from order_detail o join order_master m on o.order_no=m.order_no " +
