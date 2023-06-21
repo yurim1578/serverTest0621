@@ -83,7 +83,7 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
-                   
+
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="tab-tab-box">
                                 <div id="rentalCare">
@@ -95,7 +95,7 @@
                                   <button id="btn3Year" class="ren-btn" th:value="3">3년약정</button>
                                 </div>
                               </div>
-                              <form id="rentalForm"  method="post" action="">  
+                              <form id="rentalForm"  method="post" action="">
                             <div class="product__details__button">
                                 <a href="#" class="cart-btn" id="goToOrderBtn">
                                     <span class="icon_bag_alt"></span>
@@ -112,7 +112,7 @@
                             <input type="hidden" name="rentalPayAutoDate" id="renFormRentalPayAutoDate">
                         </form>
                         </div>
-                       
+
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="tab-tab-box">
                             <div class="product__details__price">  ￦<span id="itemPrice" th:text="${post.itemPrice}"></span></div>  
@@ -374,13 +374,13 @@
 
     // 렌탈시 결제로 이동
     $('#goToOrderBtn').click(function() {
-    var itemColorCode = $('#choiceColor').val(); 
+    var itemColorCode = $('#choiceColor').val();
 
        if (itemColorCode === '') {
             alert('상품 색상을 선택하세요!');
         } else {
         // 필요한 데이터를 form에 설정
-      
+
         $('#renFormItemCode').attr('value',$('#itemCode').val());
         $('#renFormitemColorCode').attr('value',$('#choiceColor').val());
         $('#renFormRentalPeriod').attr('value',$('#rentalPeriod .ren-btn.active').val());
@@ -388,7 +388,7 @@
         $('#renFormRentalPayAutoDate').attr('value',5);
         alert($('#renFormRentalCare').val());
         $('#rentalForm').attr('action', cp + '/item/rentalOrder/' + memberId);
-        
+
         // form 제출
         $('#rentalForm').submit();
     }

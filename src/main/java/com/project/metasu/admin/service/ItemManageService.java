@@ -17,9 +17,6 @@ public interface ItemManageService {
 
   List<Map<String,Object>> getStockDetails(String itemCode);
 
-  public ResponseEntity setItem(AdminItemDto im);
+  ResponseEntity setItem(AdminItemDto im);
 
-//  List<Map<String,Object>> listColors();
-
-//  List<String> listColorNames();
 }

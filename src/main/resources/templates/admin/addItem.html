@@ -996,10 +996,6 @@ label {
               <input type="text" class="form-control" id="itemName" name="itemName" th:value="${itemName}" required="required">
 <!--              <p class="field-error" th:errors="${itemName}"></p>-->
 
-              <label>상품 코드</label>
-              <input type="text" class="form-control" id="itemCode" name="itemCode" th:value="${itemCode}" required="required">
-<!--              <p class="field-error" th:errors="${itemCode}"></p>-->
-
               <label>상품 크기</label>
               <input type="text" class="form-control" id="itemSize" name="itemSize" th:value="${itemSize}" required="required">
 <!--              <p class="field-error" th:errors="${itemSize}"></p>-->
@@ -1018,11 +1014,7 @@ label {
 
               <label>설치 방식</label>
               <input type="text" class="form-control" id="itemIntalType" name="itemIntalType" th:value="${itemIntalType}" required="required">
-<!--              <p class="field-error" th:errors="${itemIntalType}"></p>-->
 
-              <label>제조일</label>
-              <input type="text" class="form-control" id="itemMakeDate" name="itemMakeDate" th:value="${itemMakeDate}" required="required">
-<!--              <p class="field-error" th:errors="${itemMakeDate}"></p>-->
 
               <label>제조사</label>
               <input type="text" class="form-control" id="itemFrom" name="itemFrom" th:value="${itemFrom}" required="required">
@@ -1043,16 +1035,12 @@ label {
 <!--              <p class="field-error" th:errors="${itemPrice}"></p>-->
 
               <label>상세 설명</label>
-              <input type="text" class="form-control" id="itemDesc" name="itemDesc" th:value="${itemDesc}" required="required">
+              <input type="text" class="form-control" id="item_desc" name="item_desc" th:value="${item_desc}" required="required">
 <!--              <p class="field-error" th:errors="${itemDesc}"></p>-->
 
-              <label>상품 바코드</label>
-              <input type="text" class="form-control" id="itemBarcode" name="itemBarcode" th:value="${itemBarcode}" required="required">
-<!--              <p class="field-error" th:errors="${itemBarcode}"></p>-->
+              <label>제품 코드-색상 코드 에 따른 재고 수량</label>
+              <input type="text" class="form-control" id="stockNum" name="stockNum" th:value="${stockNum}" required="required">
 
-              <label>판매 여부</label>
-              <input type="text" class="form-control" item="salesYn" name="salesYn" th:value="${salesYn}" required="required">
-<!--              <p class="field-error" th:errors="${salesYn}"></p>-->
             </div>
           </div>
           <div class="row mt-4">

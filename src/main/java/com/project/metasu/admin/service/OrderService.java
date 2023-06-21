@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService {
-  int findOrderNumById(Member memberId);
+  int findOrderNumById(String memberId);
   List<Map<String,Object>> getOrderLists();
 
   Map<String,Object> getOrderDetail(String orderNo);

@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ItemManageServiceImpl implements ItemManageService {
+
 
   private final AdminItemRepository adminItemRepository;
   private final AdminItemImgRepository imageRepository;
@@ -55,19 +55,25 @@ public class ItemManageServiceImpl implements ItemManageService {
   public List<Map<String, Object>> getStockDetails(String itemCode) {
     return stockRepository.getColorStock(itemCode);
   }
-//하나의 트랜잭션에서 insert처리하기
+
+//하나의 트랜잭션에서 insert,update처리하기
+
   @Transactional@Override
-  public ResponseEntity setItem(AdminItemDto im){
-    System.out.println(im.toString());
-
+  public ResponseEntity setItem(AdminItemDto im) {
     adminItemRepository.save(im.toMEntity());
-    imageRepository.save(im.toIEntity());
-    detailRepository.save(im.toDEntity());
-    stockRepository.save(im.toSEntity());
+    if(im.getStockNum()!=0) {
+      //색상1개
+      detailRepository.save(im.toDEntity(im.getItemCode(), im.getItemColorCode()));
+      imageRepository.save(im.toIEntity(im.getItemCode(), im.getItemColorCode()));
 
+      for (int j = 0; j < im.getStockNum(); j++) {
+
+        stockRepository.save(im.toSEntity(im.getItemColorCode()));
+      }
+
+    }
     return ResponseEntity.ok(HttpStatus.OK.value());
   }
-
 
 
 }
