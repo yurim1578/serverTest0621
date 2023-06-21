@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemStock extends EssentialDate {
     @Id
-    private String itemBarcode;                                  // 상품 바코드(일련번호)
+    private String itemBarcode;                                 // 상품 바코드(일련번호)
 
     private String itemCode;
     @MapsId("itemCode")
     @ManyToOne
     @JoinColumn(name = "itemCode", nullable=false)
-    private ItemMaster itemMaster;                                 // 상품 코드
+    private ItemMaster itemMaster;                               // 상품 코드
 
     @Column(nullable=false)
     private String itemColorCode;                                // 상품 색상 코드

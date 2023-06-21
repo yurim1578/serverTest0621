@@ -32,7 +32,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
+  batch:
+    initialize-schema: always
+    job:
+      enabled: false
 spring.thymeleaf:
   prefix: classpath:/templates/
   suffix: .html

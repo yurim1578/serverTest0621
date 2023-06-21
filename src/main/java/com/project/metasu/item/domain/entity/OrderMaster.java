@@ -18,11 +18,11 @@ public class OrderMaster extends EssentialDate {
     @Id
     private String orderNo;                                        // 주문 번호
 
-    private String memberId;
-    private String contractNo;
-    private String deliveryNo;
-    private String rentalNo;
-    private String paymentNo;
+    private String memberId;                                       // 고객 아이디
+    private String contractNo;                                     // 계약 번호
+    private String deliveryNo;                                     // 배달 번호
+    private String rentalNo;                                       // 렌탈 번호
+    private String paymentNo;                                      // 결제 번호
 
     @MapsId("memberId")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,11 +46,11 @@ public class OrderMaster extends EssentialDate {
     @JoinColumn(name="paymentNo",nullable=false, insertable = false, updatable = false)
     private Payment payment;                                     // 결제 번호
     @Convert(converter = BooleanToYnConverter.class) @Column(nullable=false)
-    private Boolean orderDiscountYn;                               // 할인 여부
+    private Boolean orderDiscountYn;                             // 할인 여부
     @Column(nullable=false)
-    private int orderAmount;                                       // 주문 총액
+    private int orderAmount;                                     // 주문 총액
     @Column(nullable=false)
-    private String orderStatus;                                    // 주문 상태
+    private String orderStatus;                                  // 주문 상태
     @Builder
     public OrderMaster(String orderNo, Member member, Contract contract, Delivery delivery, Rental rental, Payment payment, Boolean orderDiscountYn, int orderAmount, String orderStatus) {
         this.orderNo = orderNo;

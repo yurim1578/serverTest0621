@@ -1,19 +1,18 @@
 package com.project.metasu.item.controller;
 
-import com.project.metasu.item.domain.entity.ItemMaster;
+import com.project.metasu.item.dto.in.PaymentReq;
 import com.project.metasu.item.dto.in.RentalReq;
 import com.project.metasu.item.dto.out.RentalRes;
 import com.project.metasu.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -23,9 +22,9 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/main")
+    @GetMapping("/test")
     public String view(Model model) {
-        return "/item/itemDetail";
+        return "/item/itemTest";
     }
 
     //상품 상세페이지
@@ -59,6 +58,13 @@ public class ItemController {
         return "/item/checkout";
     }
 
+    // 주문쪽 insert
+    @PostMapping("/addPayment")
+    public String addPayment(@RequestBody PaymentReq req) {
+        itemService.addPayment(req);
+        return "redirect:/item/info/1"; // todo: 합치기전이라 상품 상세페이지로 가게 고정해놓음
+    }
+
     // 렌탈 선택시 결제페이지 이동
     @PostMapping("/rentalOrder/{memberId}")
     public String rentalOrder(@PathVariable("memberId") String memberId,RentalReq req, Model model) {
@@ -88,4 +94,18 @@ public class ItemController {
         return "/item/review";
     }
 
+    // 렌탈로 주문시 정기결제 빌링키 생성 + 주문 트랜잭션 insert
+    @GetMapping("/billingSuccess")
+    public String billingSuccess(@RequestParam String authKey, @RequestParam String customerKey, @RequestParam("str") String str) throws IOException, InterruptedException {
+        itemService.autoPayment(authKey,customerKey,str);
+        return "redirect:/item/info/1"; // todo: 합치기전이라 상품 상세페이지로 가게 고정해놓음
+    }
+/*
+
+    // 배치돌아갈때 결제승인 요청 + 응답 + payment insert
+    @GetMapping("/acceptPayment/{rentalNo}")
+    public String acceptPayment(@PathVariable("rentalNo") String rentalNo) throws IOException, InterruptedException {
+        itemService.acceptPayment(rentalNo);
+        return "/item/itemTest";
+    }*/
 }

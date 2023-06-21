@@ -5,4 +5,5 @@ import com.project.metasu.item.domain.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PaymentRepository extends JpaRepository<Payment, String> {
+    Payment findTop1ByRentalNoOrderByCreatedDate(String rentalNo);
 }

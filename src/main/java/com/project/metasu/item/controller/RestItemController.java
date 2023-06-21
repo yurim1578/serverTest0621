@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -58,9 +63,5 @@ public class RestItemController {
         return result;
     }
 
-    @PostMapping("/addPayment")
-    public ResponseEntity addPayment(@RequestBody PaymentReq req) {
-        ResponseEntity result = itemService.addPayment(req);
-        return result;
-    }
+
 }

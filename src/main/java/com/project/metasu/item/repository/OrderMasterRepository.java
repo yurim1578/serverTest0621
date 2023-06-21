@@ -11,4 +11,5 @@ public interface OrderMasterRepository extends JpaRepository<OrderMaster, String
 
     // 20230618
     List<OrderMaster> findByMemberId(String memberId);
+    OrderMaster findByRentalNo(String rentalNo);
 }

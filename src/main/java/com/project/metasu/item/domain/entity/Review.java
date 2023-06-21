@@ -32,17 +32,7 @@ public class Review extends EssentialDate {
     @Column(nullable=false)
     private int reviewScore;                     // 리뷰 별점
     @Column(nullable=false)
-    private String reviewMasterImg;    // 리뷰 대표 이미지
+    private String reviewMasterImg;              // 리뷰 대표 이미지
 
-    //마이- ReviewDTO 객체를 인자로 받는 생성자를 추가
-    public Review(ReviewDTO reviewDTO) {
-        this.itemCode = reviewDTO.getItemCode();
-        this.itemColorCode = reviewDTO.getItemColorCode();
-        this.memberId = reviewDTO.getMemberId();
-        this.reviewTitle = reviewDTO.getReviewTitle();
-        this.reviewContents = reviewDTO.getReviewContents();
-        this.reviewScore = reviewDTO.getReviewScore();
-        this.reviewMasterImg = reviewDTO.getReviewMasterImg();
-    }
 }
 

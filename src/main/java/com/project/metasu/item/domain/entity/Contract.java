@@ -29,9 +29,6 @@ public class Contract extends EssentialDate {
     @Column(nullable=false)
     private String contractStatus;           // 계약 상태코드
 
-    /*public makeName(String name) {
-        return name + LocalDateTime;
-    }*/
     @Builder
     public Contract(String contractNo, String contractName, String contractPhone, String contractEmail, String contractAddr1, String contractAddr2, String contractRecieve, String contractStatus) {
         this.contractNo = contractNo;

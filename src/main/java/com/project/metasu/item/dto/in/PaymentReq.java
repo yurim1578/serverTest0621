@@ -24,6 +24,7 @@ public class PaymentReq {
     private Integer orderQty;
 
     @Getter
+    @Setter
     public static class ContractReq {
         private String contractNo = "C_" + LocalDateTime.now();
         private String contractName;        // 계약자 이름
@@ -45,6 +46,7 @@ public class PaymentReq {
         }
     }
     @Getter
+    @Setter
     public static class DeliveryReq {
         private String deliveryNo = "D_" + LocalDateTime.now();
         private String deliveryName;        // 배달받는사람 이름
@@ -71,10 +73,11 @@ public class PaymentReq {
     }
 
     @Getter
+    @Setter
     public static class RentalReq {
         private String rentalNo = "R_" + LocalDateTime.now();
         private String rentalPayAutoDate;
-        private Boolean rentalRentalPayAutoYn;
+        private Boolean rentalPayAutoYn;
         private String rentalPeriod;
         private LocalDateTime rentalStartDate;
         private LocalDateTime rentalEndDate;
@@ -86,7 +89,7 @@ public class PaymentReq {
             return Rental.builder()
                 .rentalNo(this.getRentalNo())
                 .rentalPayAutoDate(this.getRentalPayAutoDate())
-                .rentalRentalPayAutoYn(this.getRentalRentalPayAutoYn())
+                .rentalPayAutoYn(true)
                 .rentalPeriod(this.getRentalPeriod())
                 .rentalStartDate(now)
                 .rentalEndDate(calculatedEndDate)
@@ -96,6 +99,7 @@ public class PaymentReq {
     }
 
     @Getter
+    @Setter
     public static class PayReq {
         private String paymentNo;
         private String paymentType;
@@ -107,7 +111,7 @@ public class PaymentReq {
 
         public Payment toEntity() {
             return Payment.builder()
-                .paymentNo(this.getPaymentNo())
+                .paymentNo("P_" + LocalDateTime.now())
                 .paymentType(this.getPaymentType())
                 .paymentCreditNumber(this.getPaymentCreditNumber())
                 .paymentAccount(this.getPaymentAccount())
@@ -120,6 +124,7 @@ public class PaymentReq {
 
 
     @Getter
+    @Setter
     public static class OrderMasterReq {
         private String orderNo;
         private Boolean orderDiscountYn;
@@ -137,6 +142,7 @@ public class PaymentReq {
     }
 
     @Getter
+    @Setter
     public static class OrderDetailReq {
         private OrderMaster orderMaster;
         private ItemStock itemStock;
@@ -153,12 +159,14 @@ public class PaymentReq {
         }
     }
     @Getter
+    @Setter
     public static class ItemStockReq {
           private String itemCode;
           private String itemColorCode;
     }
 
     @Getter
+    @Setter
     public static class MemberReq {
         private Member member;
     }

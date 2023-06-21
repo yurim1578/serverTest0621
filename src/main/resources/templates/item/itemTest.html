@@ -4,25 +4,57 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
     <th:block layout:fragment="content">
-        테스트 입니다
+        <button id="payBtn">결제</button>
     </th:block>
 
-    <th:block layout:fragment="css">
-        <style>
-
-            .container {
-              border: 1px solid #000000; /* 전체 테두리에 선을 추가합니다 */
-              padding: 10px; /* 내부 여백을 조절합니다 */
-            }
-
-            .nav-tabs {
-              justify-content: flex-start; /* 탭을 왼쪽으로 정렬합니다 */
-            }
-
-        </style>
-    </th:block>
+    
 
     <th:block layout:fragment="script">
-        <script></script>
+       <!-- 아임포트 결제 API -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+  
+
+<script>
+ const cp = $(location).attr('origin'); //contextPath
+$(document).ready(function() {
+
+  $('#payBtn').on('click', function() {
+
+    var clientKey = 'test_ck_OAQ92ymxN34eZq00Bo4VajRKXvdk'
+    var tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화하기
+
+    
+    tossPayments.requestBillingAuth('카드', { // 결제수단 파라미터
+  // 빌링키 발급 요청을 위한 파라미터
+      customerKey: uuidv4() ,
+      successUrl: cp + '/item/billingSuccess',
+      failUrl: 'http://localhost:8080/fail',
+    })
+    .catch(function (error) {
+      if (error.code === 'USER_CANCEL') {
+        // 결제 고객이 결제창을 닫았을 때 에러 처리
+      } else if (error.code === 'INVALID_CARD_COMPANY') {
+        // 유효하지 않은 카드 코드에 대한 에러 처리
+      }
+    })
+
+
+
+    });
+
+      function uuidv4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+}
+
+
+   
+
+});
+
+</script>
     </th:block>
 </html>

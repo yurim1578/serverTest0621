@@ -29,7 +29,7 @@ public class Delivery extends EssentialDate {
     @Column(nullable=false)
     private LocalDate installDate;             // 원하는 설치 날짜
     @Column(nullable=false)
-    private String installTimeCode;             // 원하는 설치 시간
+    private String installTimeCode;            // 원하는 설치 시간
 
     @Builder
     public Delivery(String deliveryNo, String deliveryName, String deliveryPhone, String deliveryAddr1, String deliveryAddr2, String deliveryStatus, LocalDate installDate, String installTimeCode) {

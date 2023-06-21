@@ -23,7 +23,7 @@ public class Rental extends EssentialDate {
     private String RentalPayAutoDate;                           // 렌탈 자동 결제일
     @Convert(converter = BooleanToYnConverter.class)
     @Column(nullable=false)
-    private Boolean RentalRentalPayAutoYn;                      // 렌탈 자동 결제 유무
+    private Boolean RentalPayAutoYn;                            // 렌탈 자동 결제 유무
     @Column(nullable=false)
     private String RentalPeriod;                                // 렌탈 약정기간
     @Column(nullable=false)
@@ -31,17 +31,22 @@ public class Rental extends EssentialDate {
     @Column(nullable=false)
     private LocalDateTime RentalEndDate;                        // 렌탈 종료일
     @Column(nullable=false)
-    private String RentalStatus;
+    private String RentalStatus;                                // 렌탈 상태코드
+    @Column
+    private String billingKey;                                  // 빌링 키 (토스 정기결제)
+    @Column
+    private String customerKey;                                 // 커스텀 키 (토스 정기결제)
 
     @Builder
-    public Rental(String rentalNo, String rentalPayAutoDate, Boolean rentalRentalPayAutoYn, String rentalPeriod, LocalDateTime rentalStartDate, LocalDateTime rentalEndDate, String rentalStatus) {
-        RentalNo = rentalNo;
-        RentalPayAutoDate = rentalPayAutoDate;
-        RentalRentalPayAutoYn = rentalRentalPayAutoYn;
-        RentalPeriod = rentalPeriod;
-        RentalStartDate = rentalStartDate;
-        RentalEndDate = rentalEndDate;
-        RentalStatus = rentalStatus;
+    public Rental(String rentalNo, String rentalPayAutoDate, Boolean rentalPayAutoYn, String rentalPeriod, LocalDateTime rentalStartDate, LocalDateTime rentalEndDate, String rentalStatus, String billingKey, String customerKey) {
+        this.RentalNo = rentalNo;
+        this.RentalPayAutoDate = rentalPayAutoDate;
+        this.RentalPayAutoYn = rentalPayAutoYn;
+        this.RentalPeriod = rentalPeriod;
+        this.RentalStartDate = rentalStartDate;
+        this.RentalEndDate = rentalEndDate;
+        this.RentalStatus = rentalStatus;
+        this.billingKey = billingKey;
+        this.customerKey = customerKey;
     }
-
 }

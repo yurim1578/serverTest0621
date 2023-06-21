@@ -14,12 +14,6 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemMaster extends EssentialDate {
-    //마이-사용자 정보를 참조할 수 있도록 추가
-    // 20230618
-    /*@ManyToOne
-    @JoinColumn(name="member_id")
-    private Member member;*/
-
     @Id
     private String itemCode;                   // 상품 코드
     @Column(nullable=false)
@@ -44,10 +38,6 @@ public class ItemMaster extends EssentialDate {
     private String item_desc;                  // 상품 상세설명
     @Column(nullable=false)
     private String itemMasterImg;              // 대표 이미지
-
-    /*@OneToMany(mappedBy = "itemCode", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    private List<ItemDetail> itemDetails = new ArrayList<>();*/
 
     @Builder
     public ItemMaster(String itemCode, String itemName, int itemPrice, String itemSize, int itemWeight, String itemWaterMethod, String itemTankCapacity, String itemIntalType, LocalDateTime itemMakeDate, String itemFrom, String item_desc, String itemMasterImg) {
