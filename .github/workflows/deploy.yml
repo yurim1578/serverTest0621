@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
    
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: test-github-actions-s3-bucket-metasu
   CODE_DEPLOY_APPLICATION_NAME: metasuTest
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: my-code-deployment-group
