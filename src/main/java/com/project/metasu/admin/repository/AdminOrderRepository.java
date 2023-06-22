@@ -12,7 +12,7 @@ import java.util.Map;
 public interface AdminOrderRepository extends JpaRepository<OrderMaster, String> {
   int countByMemberId(String memberId);
 
-  @Query(value="select o.order_no, m.member_id, m.order_status,c.sub_code_name, n.item_code, n.item_name " +
+  @Query(value="select m.order_no, m.member_id, m.order_status,c.sub_code_name, n.item_code, n.item_name " +
       "from order_detail o join order_master m on o.order_no=m.order_no " +
       "join item_stock i on o.item_barcode=i.item_barcode " +
       "join item_master n on i.item_code=n.item_code join common_code_detail c on m.order_status=c.sub_code where c.code='OD'",nativeQuery = true)
@@ -25,7 +25,7 @@ public interface AdminOrderRepository extends JpaRepository<OrderMaster, String>
       "join payment p on p.payment_no=m.payment_no left outer join rental r on r.rental_no=m.rental_no join delivery d on d.delivery_no=m.delivery_no " +
       "join item_master i on i.item_code=s.item_code join contract c on c.contract_no=m.contract_no " +
       "where m.order_no=:orderNo",nativeQuery = true)
-  Map<String,Object> getOrderDetail(@Param("orderNo")String orderNo);
+  List<Map<String,Object>> getOrderDetail(@Param("orderNo")String orderNo);
 
   @Query(value="select c.*, o.order_no from order_master o join contract c on c.contract_no=o.contract_no where c.contract_no=:contractNo",nativeQuery = true)
   Map<String,Object> findContract(@Param("contractNo") String contractNo);

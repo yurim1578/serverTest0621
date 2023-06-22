@@ -9,6 +9,6 @@ public interface OrderService {
   int findOrderNumById(String memberId);
   List<Map<String,Object>> getOrderLists();
 
-  Map<String,Object> getOrderDetail(String orderNo);
+  List<Map<String,Object>> getOrderDetail(String orderNo);
   Map<String,Object> getContract(String contactNo);
 }

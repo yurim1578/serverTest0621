@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public Map<String, Object> getOrderDetail(String orderNo) {
+  public List<Map<String, Object>> getOrderDetail(String orderNo) {
     return adminOrderRepository.getOrderDetail(orderNo);
   }
 

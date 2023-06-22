@@ -149,26 +149,26 @@ public class AdminController {
 
   @GetMapping("/orderDetail/{no}")
   public String getOrderDetail(@PathVariable String no, Model model){
-    Map<String, Object> orderDetail = orderService.getOrderDetail(no);  //map
+    List<Map<String, Object>> orderDetail = orderService.getOrderDetail(no);  //map
     model.addAttribute("order",orderDetail);
 
     //rental 정보 가져오기-관리
-    String rentalNo= (String) orderDetail.get("rental_no");
+    String rentalNo= (String) orderDetail.get(0).get("rental_no");
     model.addAttribute("rental",rentalService.getRentalNPayment(rentalNo));
 
     //계약 정보->영수증, 계약서 관리
 //    String contractNo=orderDetail.get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
-    String contractNo=String.valueOf(orderDetail.get("contract_no"));  //map의 contract_no컬럼의 값을 String으로 가져옴
+    String contractNo=String.valueOf(orderDetail.get(0).get("contract_no"));  //map의 contract_no컬럼의 값을 String으로 가져옴
     model.addAttribute("contract",orderService.getContract(contractNo));
     return "/admin/orderDetail";
   }
 
   @GetMapping("/orderDetail/contract/{no}")
   public String getInvoice(@PathVariable String no,Model model){
-    Map<String, Object> orderDetail = orderService.getOrderDetail(no);  //map
+    List<Map<String, Object>> orderDetail = orderService.getOrderDetail(no);  //map
     model.addAttribute("order",orderDetail);
 
-    String contractNo=orderDetail.get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
+    String contractNo=orderDetail.get(0).get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
     model.addAttribute("contract",orderService.getContract(contractNo));
     return "/admin/contract-print";
   }
