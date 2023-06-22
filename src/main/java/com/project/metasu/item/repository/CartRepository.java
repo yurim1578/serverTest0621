@@ -2,6 +2,7 @@ package com.project.metasu.item.repository;
 
 import com.project.metasu.item.domain.entity.Cart;
 import com.project.metasu.item.domain.entity.CartId;
+import com.project.metasu.member.domain.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +30,5 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
             + "WHERE cd.code = 'IC' and c.member_id = :memberId", nativeQuery = true)
     List<Map<String,Object>> findAllByMemberId(@Param("memberId") String memberId);
 
+    Long countAllByMember(Member member);
 }

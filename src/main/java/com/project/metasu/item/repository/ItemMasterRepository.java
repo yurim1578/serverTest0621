@@ -1,5 +1,6 @@
 package com.project.metasu.item.repository;
 
+import com.project.metasu.home.Dto.HomeItemDto;
 import com.project.metasu.item.domain.entity.ItemMaster;
 import com.project.metasu.member.domain.entity.Member;
 import org.springframework.data.domain.Page;
@@ -7,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public interface ItemMasterRepository extends JpaRepository<ItemMaster, String> {
     // 사용자 ID를 기반으로 항목 세부 정보를 가져오는 메서드->ItemMasterService에서 해당 메소드를 호출
     // 20230618
@@ -37,6 +40,17 @@ public interface ItemMasterRepository extends JpaRepository<ItemMaster, String> 
             + "where m.item_code = :itemCode and c.code = 'IC' and id.item_color_code = :itemColorCode", nativeQuery = true)
     Map<String,Object> findByRentalOrderInfo(@Param("itemCode") String itemCode,
                                              @Param("itemColorCode") String itemColorCode); // 렌탈시 주문목록에서 보여줘야할 추가 정보들
+
+    @Query("select new com.project.metasu.home.Dto.HomeItemDto(im.itemCode, im.itemName, im.itemPrice, im.itemMasterImg, im.itemName, im.createdDate)from ItemMaster im order by im.createdDate desc")
+    List<HomeItemDto> findHomeItem();
+
+    ItemMaster findByItemName(String itemName);
+
+    @Query("SELECT im FROM ItemMaster im " +
+            "JOIN Review rv ON im = rv.itemCode " +
+            "GROUP BY im " +
+            "ORDER BY COUNT(rv.itemCode) DESC, AVG(rv.reviewScore) DESC")
+    List<ItemMaster> findTop5BestSellerItem(Pageable pageable);
 
 }
 

@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/member/register").permitAll()
             .antMatchers("/member/login").permitAll()
             .antMatchers("/member/mypage").authenticated()
+//            .anyRequest().authenticated() //where anyrequest? if I access to other request like /cart I can get access without login
             .and()
             .formLogin()
             .loginPage("/member/login")
@@ -41,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .logout()
             .logoutUrl("/logout")
+            .invalidateHttpSession(true) //invalidate session after click logout
+            .deleteCookies("JSESSIONID") //delete cookie session
             .logoutSuccessUrl("/member/login")
             .and()
             .csrf().disable();
