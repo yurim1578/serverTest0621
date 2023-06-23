@@ -36,4 +36,9 @@ public class OrderServiceImpl implements OrderService {
   public Map<String, Object> getContract(String contactNo) {
     return adminOrderRepository.findContract(contactNo);
   }
+
+  @Override
+  public List<Map<String, Object>> getSubCodeName(String orderNo) {
+    return adminOrderRepository.findSubCodeName(orderNo);
+  }
 }

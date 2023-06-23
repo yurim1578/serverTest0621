@@ -36,6 +36,14 @@ spring:
     initialize-schema: always
     job:
       enabled: false
+spring.servlet.multipart.enabled : true
+spring.servlet.multipart.location : /Users/CHOIYURIM/Desktop/MetanetInternProj/
+spring.servlet.multipart.max-request-size : 40MB
+spring.servlet.multipart.max-file-size : 10MB
+com:
+  project:
+    metasu.upload.path : /Users/CHOIYURIM/Desktop/MetanetInternProj/
+
 spring.thymeleaf:
   prefix: classpath:/templates/
   suffix: .html

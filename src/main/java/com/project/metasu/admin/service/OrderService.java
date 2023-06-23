@@ -11,4 +11,6 @@ public interface OrderService {
 
   List<Map<String,Object>> getOrderDetail(String orderNo);
   Map<String,Object> getContract(String contactNo);
+
+  List<Map<String,Object>> getSubCodeName(String orderNo);
 }

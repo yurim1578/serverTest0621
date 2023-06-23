@@ -45,6 +45,7 @@ public class PaymentReq {
         }
     }
     @Getter
+    @Setter
     public static class DeliveryReq {
         private String deliveryNo = "D_" + LocalDateTime.now();
         private String deliveryName;        // 배달받는사람 이름

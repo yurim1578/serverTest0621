@@ -123,7 +123,7 @@ public class AdminController {
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
 
-      model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
+    model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
 
     return "/admin/itemDetail";
   }
@@ -149,7 +149,7 @@ public class AdminController {
     }
   }
 
-  @GetMapping("/orderDetail/{no}")
+  @GetMapping("/orderDetail/{no}")  //OrderNo
   public String getOrderDetail(@PathVariable String no, Model model){
     List<Map<String, Object>> orderDetail = orderService.getOrderDetail(no);  //map
     model.addAttribute("order",orderDetail);
@@ -162,7 +162,24 @@ public class AdminController {
 //    String contractNo=orderDetail.get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
     String contractNo=String.valueOf(orderDetail.get(0).get("contract_no"));  //map의 contract_no컬럼의 값을 String으로 가져옴
     model.addAttribute("contract",orderService.getContract(contractNo));
-    return "/admin/orderDetail";
+
+    //상태코드 이름 order by code - 계약, 배달, 주문, 결제, 렌탈 순서
+    List<Map<String,Object>> subCodeName=orderService.getSubCodeName(no);
+    String cStatusName=subCodeName.get(0).get("sub_code_name").toString();
+    String dStatusName=subCodeName.get(1).get("sub_code_name").toString();
+    String oStatusName=subCodeName.get(2).get("sub_code_name").toString();
+    String pStatusName=subCodeName.get(3).get("sub_code_name").toString();
+
+    model.addAttribute("cStatusName",cStatusName);
+    model.addAttribute("dStatusName",dStatusName);
+    model.addAttribute("oStatusName",oStatusName);
+    model.addAttribute("pStatusName",pStatusName);
+
+      String rStatusName = subCodeName.get(4).get("sub_code_name").toString();
+      model.addAttribute("rStatusName",rStatusName);
+
+
+    return "admin/orderDetail";
   }
 
   @GetMapping("/orderDetail/contract/{no}")
@@ -170,15 +187,34 @@ public class AdminController {
     List<Map<String, Object>> orderDetail = orderService.getOrderDetail(no);  //map
     model.addAttribute("order",orderDetail);
 
+    //rental 정보 가져오기-관리
+    String rentalNo= (String) orderDetail.get(0).get("rental_no");
+    model.addAttribute("rental",rentalService.getRentalNPayment(rentalNo));
+
     String contractNo=orderDetail.get(0).get("contract_no").toString();  //map의 contract_no컬럼의 값을 String으로 가져옴
     model.addAttribute("contract",orderService.getContract(contractNo));
-    return "/admin/contract-print";
+
+    //상태코드 이름 order by code - 계약, 배달, 주문, 결제, 렌탈 순서
+    List<Map<String,Object>> subCodeName=orderService.getSubCodeName(no);
+    String cStatusName=subCodeName.get(0).get("sub_code_name").toString();
+    String dStatusName=subCodeName.get(1).get("sub_code_name").toString();
+    String oStatusName=subCodeName.get(2).get("sub_code_name").toString();
+    String pStatusName=subCodeName.get(3).get("sub_code_name").toString();
+
+    model.addAttribute("cStatusName",cStatusName);
+    model.addAttribute("dStatusName",dStatusName);
+    model.addAttribute("oStatusName",oStatusName);
+    model.addAttribute("pStatusName",pStatusName);
+
+      String rStatusName = subCodeName.get(4).get("sub_code_name").toString();
+      model.addAttribute("rStatusName",rStatusName);
+
+    return "admin/contract-print";
   }
 
   //insert
   @GetMapping("/addItem")
-  public String addItem(Model model){
-    return "/admin/addItem";
+  public void addItem(){
   }
 
   @PostMapping("/addItem")
@@ -199,7 +235,7 @@ public class AdminController {
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
 
-    model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
+      model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
 
 
     return "/admin/updateItem";
