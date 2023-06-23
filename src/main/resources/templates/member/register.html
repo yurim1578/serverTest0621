@@ -1,85 +1,96 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title></title>
     <link href="/css/member.css" rel="stylesheet">
 </head>
 <body>
+
 <div id="container" class="container">
     <div class="row">
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
                 <form class="form sign-up" method="post" id="registerForm" action="/member/register">
                     <div class="input-group">
-                        <input type="text" id="username" name="memberName" placeholder="Username" required autocomplete="username">
+                        <input type="text" id="username" name="memberName" th:value="${memberDto.memberName}" placeholder="Username" required autocomplete="username">
                     </div>
                     <div class="input-group">
-                        <input type="text" id="id" name="memberId"  placeholder="Id" required autocomplete="username">
+                        <input type="text" id="id" name="memberId"  th:value="${memberDto.memberId}" placeholder="Id" required autocomplete="username">
                     </div>
                     <div class="input-group">
-                        <input type="text" id="address" name="memberAddr1"  placeholder="Address" required autocomplete="street-address">
+                        <input type="text" id="address" name="memberAddr1" th:value="${memberDto.memberAddr1}" placeholder="Address" required autocomplete="street-address">
                     </div>
                     <div class="input-group">
-                        <input type="text" id="phoneNum"  name="memberPhone" placeholder="Phone Number" maxlength="13" required autocomplete="tel">
+                        <input type="tel" id="phoneNum"  name="memberPhone" th:value="${memberDto.memberPhone}" placeholder="Phone Number" maxlength="13" required autocomplete="tel">
                     </div>
                     <div class="input-group">
-                        <input type="email" id="email"  name="memberEmail" placeholder="Email" required autocomplete="email">
+                        <input type="email" id="email"  name="memberEmail" th:value="${memberDto.memberEmail}" placeholder="Email" required autocomplete="email">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="password" name="memberPw"  placeholder="Password" required autocomplete="new-password">
+                        <input type="password" id="password" name="memberPw"  th:value="${memberDto.memberPw}" placeholder="Password" required autocomplete="new-password">
                     </div>
                     <div class="input-group">
-                        <input type="password" id="confirmPassword" placeholder="Confirm password" required autocomplete="new-password">
+                        <input type="password" id="confirmPassword" th:value="${memberDto.memberPw}" placeholder="Confirm password" required autocomplete="new-password">
                     </div>
-                    <button type="submit" style="margin-top: 50px;">회원가입</button>
+                    <button type="button" style="margin-top: 50px;" onclick="submitForm()">회원가입</button>
                     <p>
                     <h5>이미 계정이 있나요? <a href="/member/login" class="pointer">로그인</a></h5>
                     </p>
+
+
                 </form>
+
+                <span th:if="${memberDto.memberId != null}"><!-- 아이디 중복체크 -->
+                    <script>
+                        alert('중복된 아이디입니다.');
+                        let id = document.getElementById('id');
+                        id.value='';
+                    </script>
+                </span>
             </div>
         </div>
+        <!-- END FORM SECTION -->
+        <!-- CONTENT SECTION -->
+        <div class="row content-row">
+            <!-- SIGN IN CONTENT -->
+            <div class="col align-items-center flex-col">
+                <div class="text sign-in">
+                    <!--                <h2 class="welcome">-->
+                    <!--                </h2> <br>-->
+                    <h2 class="welcome2">
+                        META-SU
+                    </h2>
+                </div>
+                <div class="img sign-in">
+
+                </div>
+            </div>
+            <!-- END SIGN IN CONTENT -->
+
+            <!-- END SIGN UP CONTENT -->
+        </div>
+        <!-- END CONTENT SECTION -->
     </div>
+
 </div>
-
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
-<!--    $('#registerForm').on('submit', function (event) {-->
-<!--        event.preventDefault(); // 폼의 기본 제출 동작 방지-->
+    function submitForm() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
 
-<!--        var password = $('#password').val();-->
-<!--        var confirmPassword = $('#confirmPassword').val();-->
-
-<!--        if (password !== confirmPassword) {-->
-<!--            alert('비밀번호가 일치하지 않습니다. 다시 입력해주세요.');-->
-<!--            return;-->
-<!--        }-->
-
-<!--        var data = {-->
-<!--            username: $('#username').val(),-->
-<!--            id: $('#id').val(),-->
-<!--            address: $('#address').val(),-->
-<!--            phoneNum: $('#phoneNum').val(),-->
-<!--            email: $('#email').val(),-->
-<!--            password: password,-->
-<!--            confirmPassword: confirmPassword-->
-<!--        };-->
-
-<!--        $.ajax({-->
-<!--            type: 'POST',-->
-<!--            url: '/member/register',-->
-<!--            data: JSON.stringify(data),-->
-<!--            contentType: 'application/json; charset=utf-8',-->
-<!--            dataType: 'json'-->
-<!--        })-->
-<!--            .done(function (resp) {-->
-<!--                alert('회원가입이 완료되었습니다.');-->
-<!--                location.href = '/blog';-->
-<!--            })-->
-<!--            .fail(function (error) {-->
-<!--                alert(JSON.stringify(error));-->
-<!--            });-->
-<!--    });-->
+        if (password !== confirmPassword) {
+            alert("비밀번호가 일치하지 않습니다.");
+            false;
+        } else {
+            // 비밀번호가 일치하면 폼을 제출
+            document.getElementById("registerForm").submit();
+        }
+    }
 </script>
 </body>
 </html>

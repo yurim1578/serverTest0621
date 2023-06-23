@@ -5,11 +5,15 @@ import com.project.metasu.home.Dto.HomeItemDto;
 import com.project.metasu.home.Service.HomeService;
 import com.project.metasu.item.domain.entity.ItemMaster;
 import com.project.metasu.item.service.ItemService;
+import com.project.metasu.member.domain.entity.Member;
+import com.project.metasu.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +32,17 @@ import static java.util.stream.Collectors.*;
 public class HomeController {
   private final HomeService homeService;
   private final ItemService itemService;
+  private final MemberService memberService;
 
   @GetMapping("/main")
-  public String home(Model model, String memberId) {
+  public String home(Model model, String memberId,Authentication authentication) {
+    if (authentication != null) {
+      UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+      String memberId2 = userDetails.getUsername();
+      System.out.println(memberId2);
+      Member member = memberService.getInfo(memberId2);  // 로그인한 유저의 ID로 Member객체를 불러옴.
+      model.addAttribute("member", member);
+    }
     List<HomeItemDto> itemMaster = homeService.findAllItems().stream().limit(8).collect(Collectors.toList());
     model.addAttribute("itemLists", itemMaster);
     model.addAttribute("itemSubmit", new HomeAddCartDto());

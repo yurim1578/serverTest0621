@@ -1,6 +1,5 @@
 package com.project.metasu.item.domain.entity;
 
-import com.project.metasu.item.dto.ReviewDTO;
 import com.project.metasu.member.domain.entity.Member;
 import com.project.metasu.util.domain.EssentialDate;
 import lombok.AccessLevel;

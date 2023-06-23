@@ -7,6 +7,7 @@ import com.project.metasu.member.dto.MemberDto;
 import com.project.metasu.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -25,32 +26,62 @@ public class MyPageController {
   private final ItemMasterRepository itemMasterRepository;
 
   // 마이페이지 메인 화면
+//  @GetMapping("")
+//  public String myPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+//    // 유저의 ID를 가져옴
+//    String userId = userDetails.getUsername();
+//    System.out.println(userId);
+//
+//    // 유저 정보를 가져옴
+//    MemberDto memberDto = memberService.findMemberById(userId);
+//
+//    // 사용자 정보를 엔티티로 변환
+//    Member member = memberDto.toEntity();
+//
+//    // 사용자가 소유한 모든 상품을 가져옴
+//    // 20230618
+//    // List<ItemMaster> items = itemMasterRepository.findByMember(member);
+//
+//    model.addAttribute("member", memberDto);
+//
+//    // 첫 번째 항목이 존재하는 경우에만 출력
+//    // 20230618
+//    /*if (!items.isEmpty() && items.get(0) != null) {
+//      model.addAttribute("item", items.get(0));
+//    }*/
+//
+//    return "member/mypage";
+//  }
+
   @GetMapping("")
-  public String myPage(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-    // 유저의 ID를 가져옴
-    String userId = userDetails.getUsername();
-    System.out.println(userId);
-
-    // 유저 정보를 가져옴
-    MemberDto memberDto = memberService.findMemberById(userId);
-
-    // 사용자 정보를 엔티티로 변환
-    Member member = memberDto.toEntity();
-
-    // 사용자가 소유한 모든 상품을 가져옴
-    // 20230618
-    // List<ItemMaster> items = itemMasterRepository.findByMember(member);
-
-    model.addAttribute("member", memberDto);
-
-    // 첫 번째 항목이 존재하는 경우에만 출력
-    // 20230618
-    /*if (!items.isEmpty() && items.get(0) != null) {
-      model.addAttribute("item", items.get(0));
-    }*/
+  public String myPage(Model model, Authentication authentication) {
+    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    String memberId = userDetails.getUsername();
+    Member member = memberService.getInfo(memberId);
+    model.addAttribute("member", member);
 
     return "member/mypage";
   }
+//  @GetMapping("/myitems")
+//  public String myItems(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+//    // 유저의 ID를 가져옴
+//    String userId = userDetails.getUsername();
+//
+//    // 유저 정보를 가져옴
+//    MemberDto memberDto = memberService.findMemberById(userId);
+//
+//    // 사용자 정보를 엔티티로 변환
+//    Member member = memberDto.toEntity();
+//
+//    // 사용자가 소유한 모든 상품을 가져옴
+//    List<ItemMaster> items = itemMasterRepository.findByMember(member);
+//
+//    // 유저 정보와 상품 리스트를 모델에 추가
+//    model.addAttribute("user", memberDto);
+//    model.addAttribute("items", items);
+//
+//    return "mypage/myitems";   //'/resources/templates/mypage/myitems.html'
+//  }
 }
 
  /* @GetMapping("")

@@ -1,30 +1,25 @@
+
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
-<head>
-    <title>Bootstrap 5 Website Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
+<th:block layout:fragment="content">
     <style>
-    .col-sm-8 > p:first-child {
-      margin-top: 0;
-    }
+  .hidden-input {
+    display: none;
+  }
+</style>
+    <body>
+    </div>
+    <div th:unless="${not #lists.isEmpty(items)}">
+        <!-- items가 비어 있는 경우 -->
+        <p>No items found.</p>
+    </div>
 
-    .col-sm-8 > h4:first-child {
-      margin-top: 0;
-    }
-  </style>
+    <!-- db 연결 부분 -->
 
-</head>
-
-<body>
-
-    <div layout:fragment="content">
+    <!--&lt;!&ndash; Page Preloder &ndash;&gt;-->
+    <!--<div id="preloaded">-->
+    <!--    <div class="loader"></div>-->
+    <!--</div>-->
 
     <!-- Breadcrumb Begin -->
     <div class="breadcrumb-option">
@@ -33,7 +28,7 @@
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
                         <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>mypage</span>
+                        <span>Shop</span>
                     </div>
                 </div>
             </div>
@@ -41,142 +36,484 @@
     </div>
     <!-- Breadcrumb End -->
 
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="shop__sidebar">
+                        <div class="sidebar__categories">
+                            <div class="section-title">
+                                <h4>Categories</h4>
+                            </div>
+                            <div class="categories__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-heading active">
+                                            <a data-toggle="collapse" data-target="#collapseOne">기능</a>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li><a href="/member/category?capacity=냉">냉온정수기</a></li>
+                                                    <li><a href="/member/category?capacity=냉">냉정수기</a></li>
+                                                    <li><a href="/member/category?capacity=온">온정수기</a></li>
+                                                    <li><a href="/member/category?capacity=정수">정수전용</a></li>
+                                                    <li><a href="/member/category?capacity=얼음">얼음</a></li>
+                                                    <li><a href="/member/category?capacity=탄산">탄산</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseTwo">형태</a>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li><a href="/member/category?type=데스크탑">데스크탑</a></li>
+                                                    <li><a href="/member/category?type=빌트인">빌트인</a></li>
+                                                    <li><a href="/member/category?type=스탠드">스탠드</a></li>
+                                                    <li><a href="/member/category?type=언더싱크">언더싱크</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseThree">제조사</a>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
 
-    <div class="container mt-5">
-        <div class="row">
-<!--            마이페이지 관리부분 사이드바 시작 -->
-            <div class="sidebar__categories">
-                <div class="section-title">
-                    <h4>마이페이지</h4>
-                </div>
-                <div class="categories__accordion">
-                    <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-heading">
-                                <a data-toggle="collapse" data-target="#collapseFive">제품관리</a>
-                            </div>
-                            <div id="collapseFive" class="collapse" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a href="/member/mypage/products">사용중인 제품</a></li>
-                                    </ul>
+                                                    <li><a href="/member/category?from=코웨이">코웨이</a></li>
+                                                    <li><a href="/member/category?from=삼성">삼성</a></li>
+                                                    <li><a href="/member/category?from=LG">LG</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseFour">정수방식</a>
+                                        </div>
+                                        <div id="collapseFour" class="collapse" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li><a href="/member/category?method=탱크">탱크형</a></li>
+                                                    <li><a href="/member/category?method=직수">직수형</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a data-toggle="collapse" data-target="#collapseSix">렌탈/구매</a>
+                                        </div>
+                                        <div id="collapseSix" class="collapse" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <ul>
+                                                    <li><a href="/member/category">렌탈</a></li>
+                                                    <li><a href="/member/category">구매</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-heading active">
-                                <a data-toggle="collapse" data-target="#collapseOne">결제관리</a>
+                        <div class="sidebar__filter">
+                            <div class="section-title">
+                                <h4>Shop by price</h4>
                             </div>
-                            <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a href="#">렌탈 자동이체</a></li>
-                                        <li><a href="#">납부방법 변경</a></li>
-                                        <li><a href="#">위시리스트(중)</a></li>
-                                    </ul>
+                            <div class="filter-range-wrap">
+                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content" data-min="33" data-max="99"></div>
+                                <div class="range-slider">
+                                    <div class="price-input">
+                                        <p>Price:</p>
+                                        <input type="text" id="minamount">
+                                        <input type="text" id="maxamount">
+                                    </div>
                                 </div>
                             </div>
+                            <a href="#">Filter</a>
                         </div>
-                        <div class="card">
-                            <div class="card-heading">
-                                <a data-toggle="collapse" data-target="#collapseTwo">쇼핑관리</a>
+                        <div class="sidebar__sizes">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
                             </div>
-                            <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a href="#">주문내역</a></li>
-                                        <li><a href="#">반품 교환 내역</a></li>
-                                    </ul>
-                                </div>
+                            <div class="size__list">
+                                <label for="xxs">
+                                    xxs
+                                    <input type="checkbox" id="xxs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xs">
+                                    xs
+                                    <input type="checkbox" id="xs">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xss">
+                                    xs-s
+                                    <input type="checkbox" id="xss">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="s">
+                                    s
+                                    <input type="checkbox" id="s">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="m">
+                                    m
+                                    <input type="checkbox" id="m">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="ml">
+                                    m-l
+                                    <input type="checkbox" id="ml">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="l">
+                                    l
+                                    <input type="checkbox" id="l">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="xl">
+                                    xl
+                                    <input type="checkbox" id="xl">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-heading">
-                                <a data-toggle="collapse" data-target="#collapseThree">활동관리</a>
+                        <div class="sidebar__color">
+                            <div class="section-title">
+                                <h4>Shop by size</h4>
                             </div>
-                            <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a href="#">나의 리뷰</a></li>
-                                    </ul>
-                                </div>
+                            <div class="size__list color__list">
+                                <label for="black">
+                                    Blacks
+                                    <input type="checkbox" id="black">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="whites">
+                                    Whites
+                                    <input type="checkbox" id="whites">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="reds">
+                                    Reds
+                                    <input type="checkbox" id="reds">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greys">
+                                    Greys
+                                    <input type="checkbox" id="greys">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="blues">
+                                    Blues
+                                    <input type="checkbox" id="blues">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="beige">
+                                    Beige Tones
+                                    <input type="checkbox" id="beige">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="greens">
+                                    Greens
+                                    <input type="checkbox" id="greens">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="yellows">
+                                    Yellows
+                                    <input type="checkbox" id="yellows">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-heading">
-                                <a data-toggle="collapse" data-target="#collapseFour">회원관리</a>
-                            </div>
-                            <div id="collapseFour" class="collapse" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a href="#">회원 수정</a></li>
-                                        <li><a href="#">회원 탈퇴</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
+                <div class="col-lg-9 col-md-9">
+                    <form  id="myForm2" th:action="@{/member/category}" method="get">
+                        <select class="form-select" name="sort" Id="sort" onchange="submitForm()">
+                            <option value="최신순" th:selected="${sort == '최신순'}">최신순</option>
+                            <option value="과거순" th:selected="${sort == '과거순'}">과거순</option>
+                            <option value="낮은 가격순" th:selected="${sort == '낮은 가격순'}">낮은 가격순</option>
+                            <option value="높은 가격순" th:selected="${sort == '높은 가격순'}">높은 가격순</option>
+                        </select>
+                    </form>
+
+                    <div class="row">
+                        <!-- db 출력 -->
+                        <div class="col-lg-4 col-md-6" th:each="item : ${items}">
+                            <!-- 상품을 표시하는 그리드 컬럼 -->
+                            <div class="product__item">
+                                <!-- 상품 아이템 -->
+                                <div  class="product__item__pic set-bg" th:style="'background-image: url(' + ${item.itemMasterImg} + ')'">
+                                    <!-- 상품 이미지 -->
+                                    <ul class="product__hover">
+                                        <!-- 상품에 대한 추가 작업을 위한 호버 목록 -> 카테고리연결 -->
+                                        <li><a th:href="@{/item/info/{itemCode}(itemCode=${item.itemCode})}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+
+                                    <h6><a href="#" th:text="${item.itemCode}"></a></h6>
+                                    <!-- 상품 텍스트 정보 -->
+                                    <h6><a href="#" th:text="${item.itemName}"></a></h6>
+                                    <!-- 상품 이름 링크 -->
+                                    <div class="product__price" th:text="'₩' + ${item.itemPrice}"></div>
+                                    <!-- 상품 가격 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div th:unless="${not #lists.isEmpty(products)}">
+                 &lt;!&ndash; products.content가 비어 있는 경우 &ndash;&gt;
+                     <p>No items found.</p>
+                 </div>-->
+                <div th:unless="${not #lists.isEmpty(items)}">
+                    <!-- Content to display when products list is empty -->
+                    <p>No items found.</p>
+                </div>
+                <form  id="myForm" th:action="@{/member/category}"  method="get">
+                    <input type="text" id="currentPage" name="page" class="hidden-input">
+                    <input type="text" id="capacityInput" name="capacity" class="hidden-input">
+                    <input type="text" id="fromInput" name="from" class="hidden-input">
+                    <input type="text" id="methodInput" name="method" class="hidden-input">
+                    <input type="text" id="sortInput" name="sort" class="hidden-input">
+                </form>
+
             </div>
-<!--마이페이지 변하는 영역-->
-            <div class="col-sm-8">
-              <h5 class="my-5">사용중인 제품</h5><hr>
-                <!--        Card 카드 시작-->
-                    <div class="card" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">제품명 item_name</h5>
-<!--                            <p class="card-text"> </p>-->
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">제품코드</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">주문번호, 렌탈/구매 여부, 설치 주소, 설치일</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
-                    </div>
-                <!--        Card 카드 끝-->
+        </div>
+    </section>
 
 
+    <!--
+      이 코드는 상품 목록을 표시하기 위한 HTML 코드입니다.
+      각 부분에 주석을 추가하여 코드의 동작을 설명하겠습니다.
+    -->
 
-                <div class="col-sm-8">
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="..." class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">상품 이름이뜨게</h5>
-                                    <p class="card-text">대표이미지,상품코드,상품가격,직수방식이 뜨게</p>
-                                    <!-- items로부터 각 상품에 대한 정보를 가져와 표시 -->
-                                    <tr th:each="item : ${items}">
-                                        <td th:text="${item.itemCode}"></td>
-                                        <td th:text="${item.itemName}"></td>
-                                        <td th:text="${item.itemPrice}"></td>
-<!--                                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!--
+      <div class="col-lg-4 col-md-6" th:each="product : ${products.content}">
+          - 반복문을 사용하여 products.content 목록의 각 product에 대해 그리드 컬럼을 생성합니다.
+          - 대형 장치에서는 4개의 컬럼, 중형 장치에서는 6개의 컬럼을 생성합니다.
+          - product는 현재 반복되고 있는 상품 객체를 나타냅니다.
+    -->
 
+    <!--
+      <div class="product__item">
+          - 각 상품 아이템을 감싸는 div입니다.
+    -->
 
-            </div>
+    <!--
+      <div class="product__item__pic set-bg" th:style="'background-image: url(' + ${product.itemMasterImg} + ')'">
+          - 상품 이미지를 배경 이미지로 설정하는 div입니다.
+          - th:style을 사용하여 동적으로 배경 이미지 URL을 설정합니다.
+          - product.itemMasterImg는 상품의 이미지 경로를 나타냅니다.
+    -->
 
-<!--마이페이지 변하는 영역 끝-->
+    <!--
+      <ul class="product__hover">
+          - 상품에 대한 추가 작업을 위한 호버 목록을 생성하는 ul 요소입니다.
+    -->
 
+    <!--
+      <li><a href="img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
+          - 이미지 팝업을 위한 링크를 생성하는 li 요소입니다.
+          - 이미지 팝업 링크는 "img/shop/shop-1.jpg"를 대상으로 합니다.
+          - 화살표 아이콘을 표시하는 span 요소가 포함되어 있습니다.
+    -->
 
+    <!--
+      <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+          - 좋아요 아이콘을 위한 링크를 생성하는 li 요소입니다.
+          - 좋아요 아이콘을 표시하는 span 요소가 포함되어 있습니다.
+    -->
 
-<!--    <div class="mt-5 p-4 bg-dark text-white text-center">
-        <p>Footer</p>
-    </div>-->
-</div>
-</div>
+    <!--
+      <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+          - 장바구니 아이콘을 위한 링크를 생성하는 li 요소입니다.
+          - 장바구니 아이콘을 표시하는 span 요소가 포함되어 있습니다.
+    -->
+
+    <!--
+      <h6><a href="#" th:text="${product.itemName}"></a></h6>
+          - 상품 이름을 표시하는 링크를 생성하는 h6 요소입니다.
+          - 링크의 텍스트는 product.itemName 속성으로 설정됩니다.
+    -->
+
+    <!--
+      <div class="product__price" th:text="'₩' + ${product.itemPrice}"></div>
+          - 상품 가격을 표시하는 div입니다.
+          - 가격 앞에 '₩' 기호를 추가하여 텍스트로 표시합니다.
+          - 가격은 product.itemPrice 속성으로 설정됩니다.
+    -->
+
+    <!--
+      </div>
+          - 상품 아이템을 감싸는 div를 닫습니다.
+    -->
+
+    <!--
     </div>
-</body>
+        - 그리드 컬럼을 감싸는 div를 닫습니다.
+    -->
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:onclick="goToPage(1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <!-- 페이지 번호를 동적으로 생성 -->
+
+
+            <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPage)}" th:class="${currentPage == pageNumber} ? 'active' : ''">
+                <!--                <a class="page-link" th:href="@{/member/category(page=${pageNumber})}"><span th:text="${pageNumber}"></span></a>-->
+                <a class="page-link" th:onclick="goToPage([[${pageNumber}]]) ;"><span th:text="${pageNumber}"></span></a>
+            </li>
+
+
+
+            <li class="page-item">
+                <a class="page-link" th:onclick="goToPage([[${totalPage}]])" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- Shop Section End -->
+
+    <!-- Instagram Begin -->
+    <div class="instagram">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+                    <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
+                        <div class="instagram__text">
+                            <i class="fa fa-instagram"></i>
+                            <a href="#">@ ashion_shop</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Instagram End -->
+
+
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
+        </div>
+    </div>
+    <!-- Search End -->
+    <!--
+        &lt;!&ndash; Js Plugins &ndash;&gt;
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/main.js"></script>-->
+    <script th:inline="javascript">
+    function submitForm() {
+        document.getElementById("myForm2").submit();
+    }
+  window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var fromParam = urlParams.get('from');
+    var methodParam = urlParams.get('method');
+    var capacityParam = urlParams.get('capacity');
+    var sortParam = urlParams.get('sort');
+    document.getElementById("fromInput").value = fromParam;
+    document.getElementById("methodInput").value = methodParam;
+    document.getElementById("capacityInput").value = capacityParam;
+    document.getElementById("sortInput").value = sortParam;
+  };
+
+  function goToPage(pageNumber) {
+    var pageNum = pageNumber;
+    var fromParam = document.getElementById("fromInput").value;
+    var methodParam = document.getElementById("methodInput").value;
+    var capacityParam =document.getElementById("capacityInput").value;
+    var sortParam = document.getElementById("sortInput").value;
+    // 페이지 값 설정
+    document.getElementById("currentPage").value = pageNum;
+
+    // 폼 전송
+    document.getElementById("myForm").submit();
+     return false;
+  }
+
+</script>
+    <script th:inline="javascript">
+    function redirectToController(url) {
+        window.location.href = url;
+    }
+</script>
+    </body>
+
+</th:block>
+
 </html>

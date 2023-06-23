@@ -22,10 +22,22 @@ public class CategoryServiceImpl implements CategoryService {
     //private final ImgRepository imgRepository;
 
     @Override
-    public Page<ItemMaster> getList(int page, int pagesize, String capacity, String type, String from, String method) {
+    public Page<ItemMaster> getList(int page, int pagesize, String capacity, String type, String from, String method, String sort) {
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("itemMakeDate")); // 제조일자 내림차순 정렬
 
+        if(sort==null){
+            sorts.add(Sort.Order.desc("itemMakeDate"));
+        }else if(sort.equals("최신순")) {
+            sorts.add(Sort.Order.desc("itemMakeDate")); // 제조일자 내림차순 정렬
+        } else if(sort.equals("과거순")){
+            sorts.add(Sort.Order.asc("itemMakeDate")); // 제조일자 내림차순 정렬
+        } else if(sort.equals("낮은 가격순")){
+            sorts.add(Sort.Order.asc("itemPrice"));
+        } else if(sort.equals("높은 가격순")){
+            sorts.add(Sort.Order.desc("itemPrice"));
+        }else{
+            sorts.add(Sort.Order.desc("itemMakeDate"));
+        }
 
         Pageable pageable = PageRequest.of(page - 1, pagesize, Sort.by(sorts));
         if (capacity != null && !capacity.isEmpty()) {

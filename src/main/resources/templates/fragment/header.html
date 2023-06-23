@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko"
-	  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+	  xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="headerFragment">
 	<!-- Page Preloder -->
-	<div id="preloder">
+	<div id="preloder" style="display: none;">
 		<div class="loader"></div>
 	</div>
 
@@ -14,24 +14,19 @@
 		<ul class="offcanvas__widget">
 			<li><span class="icon_search search-switch"></span></li>
 			<li><a href="#"><span class="icon_heart_alt"></span>
-				<div class="tip" id="like">2</div>
+				<div class="tip">2</div>
 			</a></li>
 			<li><a href="@{/cart/{memberId}(memberId=${dto2.memberId})}"><span class="icon_bag_alt"></span>
-				<div class="tip" id="cart">2</div>
+				<div class="tip"><span th:text="${totalCart}"></span></div>
 			</a></li>
 		</ul>
 		<div class="offcanvas__logo">
-			<a href="./index.html"><img th:src="@{/img/logo.png}" alt=""></a>
+			<a th:href="@{/home/main}"><img th:src="@{/img/logo.png}" alt=""></a>
 		</div>
 		<div id="mobile-menu-wrap"></div>
-		<!--					check if user is authenticated. if yes, show logout button. if not show the login/register button-->
-<!--
-		<div sec:authorize="isAuthenticated()" class="offcanvas__auth">
-			<a th:href="@{/logout}">Logout</a>
-		</div> -->
-		<div th:if="!${#request.userPrincipal}" class="offcanvas__auth">
-			<a th:href="@{/member/login}">Login</a>
-			<a th:href="@{/member/register}">Register</a>
+		<div class="offcanvas__auth">
+			<a href="#">Login</a>
+			<a href="#">Register</a>
 		</div>
 	</div>
 	<!-- Offcanvas Menu End -->
@@ -42,38 +37,45 @@
 			<div class="row">
 				<div class="col-xl-3 col-lg-2">
 					<div class="header__logo">
-						<a th:href="@{/home/home}"><img th:src="@{/img/logo.png}" alt="" style="max-width:60%"></a>
+						<a th:href="@{/home/main}"><img th:src="@{/img/logo.png}" alt="" style="max-width:60%"></a>
 					</div>
 				</div>
 				<div class="col-xl-6 col-lg-7">
 					<nav class="header__menu">
 						<ul>
-							<li><a th:href="@{/home/home}">PRODUCT</a>
+							<li><a th:href="@{/member/category}">PRODUCT</a>
 								<ul class="dropdown">
-									<li><a href="./product-details.html">Product Details</a></li>
-									<li><a href="./shop-cart.html">Shop Cart</a></li>
-									<li><a href="./checkout.html">Checkout</a></li>
-									<li><a href="./blog-details.html">Blog Details</a></li>
+									<li><a th:href="@{/member/category}">Product Details</a></li>
+									<li><a th:href="@{/member/category}">Shop Cart</a></li>
+									<li><a th:href="@{/member/category}">Checkout</a></li>
+									<li><a th:href="@{/member/category}">Blog Details</a></li>
 								</ul>
 							</li>
 							<li><a href="#">SERVICE</a></li>
 							<li><a href="#">EVENT</a></li>
 							<li><a href="./shop.html">Q&A</a></li>
-							<li><a href="#">Pages</a></li>
+							<li><a  th:href="@{/member/mypage}">MyPage</a></li>
 						</ul>
 					</nav>
 				</div>
 				<div class="col-lg-3">
 					<div class="header__right">
-<!--					check if user is authenticated. if yes, show logout button. if not show the login/register button-->
-<!--						<div sec:authorize="isAuthenticated()" class="header__right__auth">
-							<a th:href="@{/logout}">Logout</a>
-						</div> -->
-						<div th:if="!${#request.userPrincipal}" class="header__right__auth">
-							<a th:href="@{/member/login}">Login</a>
-							<a th:href="@{/member/register}">Register</a>
+						<div class="header__right__auth" style="display: block;">
+
+                        <span th:if="${member != null}">
+
+                           <b th:text="|${member.memberName}님 환영합니다.&emsp; |"></b>
+							<!--                           <a href="#" th:if="${#strings.equals(member.memberAuth,'AD')}">관리자 페이지로</a>-->
+                           <a th:href="@{/member/logout}">로그아웃</a>
+                        </span>
+
+							<span th:unless="${member != null}">
+                        <a th:href="@{/member/login}">Login</a>
+                        <a th:href="@{/member/register}">Register</a>
+                        </span>
 						</div>
-						<ul class="header__right__widget">
+						<br>
+						<ul class="header__right__widget" style=" display: inline-block; margin-right: 65px;">
 							<li><span class="icon_search search-switch"></span></li>
 							<li><a href="#"><span class="icon_heart_alt"></span>
 								<div class="tip">2</div>

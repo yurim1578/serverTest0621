@@ -26,27 +26,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.userDetailsService(userDetailsService)
-            .passwordEncoder(passwordEncoder());
+        .passwordEncoder(passwordEncoder());
   }
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .antMatchers("/member/register").permitAll()
-            .antMatchers("/member/login").permitAll()
-            .antMatchers("/member/mypage").authenticated()
-//            .anyRequest().authenticated() //where anyrequest? if I access to other request like /cart I can get access without login
-            .and()
-            .formLogin()
-            .loginPage("/member/login")
-            .defaultSuccessUrl("/member/mypage")
-            .and()
-            .logout()
-            .logoutUrl("/logout")
-            .invalidateHttpSession(true) //invalidate session after click logout
-            .deleteCookies("JSESSIONID") //delete cookie session
-            .logoutSuccessUrl("/member/login")
-            .and()
-            .csrf().disable();
+        .antMatchers("/member/register").permitAll()
+        .antMatchers("/member/login").permitAll()
+        .antMatchers("/member/mypage/**").authenticated()
+        .antMatchers("/member/update/confirm").authenticated()
+        //어드민 추가
+        .antMatchers("/admin/**").authenticated()
+        //상품 쪽 권한 제한 추가
+        .antMatchers("/item/cart/**").authenticated()
+        .antMatchers("/item/salesOrder/**").authenticated()
+        .antMatchers("/item/rentalOrder/**").authenticated()
+        .and()
+        .formLogin()
+        .loginPage("/member/login")
+        .defaultSuccessUrl("/home/main")  // 성공 시 이동
+        .failureUrl("/member/error")  // 실패 시 해당 URL로 이동
+        .and()
+        .logout()
+        .logoutUrl("/member/logout")
+        .logoutSuccessUrl("/member/login")
+        .and()
+        .csrf().disable();
   }
   @Bean
   public BCryptPasswordEncoder encoder() {

@@ -33,11 +33,50 @@ body {
     overflow: hidden;
 }
 
+/*meta-su메타수 폼, 글씨 !!!*/
 .row {
     display: flex;
-    flex-wrap: wrap;
+      justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;     /* 수직 중앙 정렬 */
     height: 100vh;
+    flex-wrap: wrap;
 }
+h2.welcome2 {
+    width: max-content;
+}
+.welcome2 {
+    width: 500px;
+    font-family: welcome;
+    font-size: 120px;
+    margin: 2rem;
+    position: absolute;
+    top: 40%;
+    left: 115%;
+    /* transform: translate(-50%, -50%); */
+}
+.form-wrapper {
+    width: 100%;
+        max-width: 35rem;
+
+}
+.form {
+    height: 100%;
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 1.5rem;
+    width: 150%; /* 폼 크기를 1.5배 확대 */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transform: scale(1.4);
+
+/*    transition: .5s ease-in-out;
+
+    transition-delay: 1s;*/
+}
+
+
+
+
+
 
 .col {
     width: 50%;
@@ -50,22 +89,9 @@ body {
     text-align: center;
 }
 
-.form-wrapper {
-    width: 100%;
-        max-width: 35rem;
 
-}
 
-.form {
-    padding: 1rem;
-    background-color: var(--white);
-    border-radius: 1.5rem;
-    width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    transform: scale(1);
-    transition: .5s ease-in-out;
-    transition-delay: 1s;
-}
+
 
 .input-group {
     position: relative;
@@ -357,12 +383,12 @@ body {
     transition: 0.5s ease-in-out;
 
 }
-.welcome2{
+/*.welcome2{
     font-family:welcome;
-    font-size: 80px;
+    font-size: 100px;
      margin: 2rem 0;
      transition: 0.5s ease-in-out;
-}
+}*/
 
 
 

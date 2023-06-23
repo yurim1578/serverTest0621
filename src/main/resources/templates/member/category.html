@@ -1,7 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <th:block layout:fragment="content">
+    <style>
+  .hidden-input {
+    display: none;
+  }
 
+  .pagination {
+        display: flex;
+        justify-content: center;
+    }
+
+
+</style>
     <body>
     </div>
     <div th:unless="${not #lists.isEmpty(items)}">
@@ -22,7 +34,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                        <a th:href="@{/home/main}"><i class="fa fa-home"></i> Home</a>
                         <span>Shop</span>
                     </div>
                 </div>
@@ -45,14 +57,14 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-heading active">
-                                            <a data-toggle="collapse" data-target="#collapseOne">기능</a>
+                                            <a data-toggle="collapse" data-target="#collapseOne" class="collapsed" aria-expanded="false">기능</a>
                                         </div>
                                         <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <ul>
-                                                    <li><a href="/member/category?capacity=냉온">냉온정수기</a></li>
-                                                    <li><a href="/member/category?capacity=냉정">냉정수기</a></li>
-                                                    <li><a href="/member/category?capacity=온정">온정수기</a></li>
+                                                    <li><a href="/member/category?capacity=냉">냉온정수기</a></li>
+                                                    <li><a href="/member/category?capacity=냉">냉정수기</a></li>
+                                                    <li><a href="/member/category?capacity=온">온정수기</a></li>
                                                     <li><a href="/member/category?capacity=정수">정수전용</a></li>
                                                     <li><a href="/member/category?capacity=얼음">얼음</a></li>
                                                     <li><a href="/member/category?capacity=탄산">탄산</a></li>
@@ -62,7 +74,7 @@
                                     </div>
                                     <div class="card">
                                         <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseTwo">형태</a>
+                                            <a data-toggle="collapse" data-target="#collapseTwo" >형태</a>
                                         </div>
                                         <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
                                             <div class="card-body">
@@ -82,7 +94,6 @@
                                         <div id="collapseThree" class="collapse" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <ul>
-
                                                     <li><a href="/member/category?from=코웨이">코웨이</a></li>
                                                     <li><a href="/member/category?from=삼성">삼성</a></li>
                                                     <li><a href="/member/category?from=LG">LG</a></li>
@@ -110,8 +121,8 @@
                                         <div id="collapseSix" class="collapse" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <ul>
-                                                    <li><a href="#">렌탈</a></li>
-                                                    <li><a href="#">구매</a></li>
+                                                    <li><a href="/member/category">렌탈</a></li>
+                                                    <li><a href="/member/category">구매</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -119,7 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sidebar__filter">
+                        <!--<div class="sidebar__filter">
                             <div class="section-title">
                                 <h4>Shop by price</h4>
                             </div>
@@ -228,33 +239,41 @@
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-9">
+
+                <div class="col-lg-9 col-md-9  mb-3">
+                    <form  id="myForm2" th:action="@{/member/category}" method="get">
+                        <div style="text-align: right;">
+                            <select class="form-select" name="sort" id="sort" onchange="submitForm()">
+                                <option value="최신순">최신순</option>
+                                <option value="과거순">과거순</option>
+                                <option value="낮은 가격순">낮은 가격순</option>
+                                <option value="높은 가격순">높은 가격순</option>
+                            </select>
+                        </div>
+
+                    </form>
+
                     <div class="row">
                         <!-- db 출력 -->
                         <div class="col-lg-4 col-md-6" th:each="item : ${items}">
                             <!-- 상품을 표시하는 그리드 컬럼 -->
                             <div class="product__item">
                                 <!-- 상품 아이템 -->
-                                <div class="product__item__pic set-bg" th:style="'background-image: url(' + ${item.itemMasterImg} + ')'">
+                                <div  class="product__item__pic set-bg" th:style="'background-image: url(' + ${item.itemMasterImg} + ')'">
                                     <!-- 상품 이미지 -->
                                     <ul class="product__hover">
-                                        <!-- 상품에 대한 추가 작업을 위한 호버 목록 -->
-                                        <li><a href="img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                                        <!-- 이미지 팝업 링크 -->
-                                        <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                        <!-- 좋아요 아이콘 링크 -->
-                                        <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                                        <!-- 장바구니 아이콘 링크 -->
+                                        <!-- 상품에 대한 추가 작업을 위한 호버 목록 -> 카테고리연결 -->
+                                        <li><a th:href="@{/item/info/{itemCode}(itemCode=${item.itemCode})}" class="image-popup"><span class="arrow_expand"></span></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
 
-
+                                    <h6><a href="#" th:text="${item.itemCode}"></a></h6>
                                     <!-- 상품 텍스트 정보 -->
-                                    <h6><a href="#" th:text="${item.itemName}"></a></h6>
+                                    <h5 style="color: #00a8e3;"><a href="#" th:text="${item.itemName}"></a></h5>
                                     <!-- 상품 이름 링크 -->
                                     <div class="product__price" th:text="'₩' + ${item.itemPrice}"></div>
                                     <!-- 상품 가격 -->
@@ -263,96 +282,32 @@
                         </div>
                     </div>
                 </div>
-               <!-- <div th:unless="${not #lists.isEmpty(products)}">
-                &lt;!&ndash; products.content가 비어 있는 경우 &ndash;&gt;
-                    <p>No items found.</p>
-                </div>-->
+                <!-- <div th:unless="${not #lists.isEmpty(products)}">
+                 &lt;!&ndash; products.content가 비어 있는 경우 &ndash;&gt;
+                     <p>No items found.</p>
+                 </div>-->
                 <div th:unless="${not #lists.isEmpty(items)}">
                     <!-- Content to display when products list is empty -->
                     <p>No items found.</p>
                 </div>
-
-
+                <form  id="myForm" th:action="@{/member/category}"  method="get">
+                    <input type="text" id="currentPage" name="page" class="hidden-input">
+                    <input type="text" id="capacityInput" name="capacity" class="hidden-input">
+                    <input type="text" id="fromInput" name="from" class="hidden-input">
+                    <input type="text" id="methodInput" name="method" class="hidden-input">
+                    <input type="text" id="sortInput" name="sort" class="hidden-input">
+                </form>
 
             </div>
         </div>
     </section>
 
 
-                        <!--
-                          이 코드는 상품 목록을 표시하기 위한 HTML 코드입니다.
-                          각 부분에 주석을 추가하여 코드의 동작을 설명하겠습니다.
-                        -->
 
-                        <!--
-                          <div class="col-lg-4 col-md-6" th:each="product : ${products.content}">
-                              - 반복문을 사용하여 products.content 목록의 각 product에 대해 그리드 컬럼을 생성합니다.
-                              - 대형 장치에서는 4개의 컬럼, 중형 장치에서는 6개의 컬럼을 생성합니다.
-                              - product는 현재 반복되고 있는 상품 객체를 나타냅니다.
-                        -->
-
-                        <!--
-                          <div class="product__item">
-                              - 각 상품 아이템을 감싸는 div입니다.
-                        -->
-
-                        <!--
-                          <div class="product__item__pic set-bg" th:style="'background-image: url(' + ${product.itemMasterImg} + ')'">
-                              - 상품 이미지를 배경 이미지로 설정하는 div입니다.
-                              - th:style을 사용하여 동적으로 배경 이미지 URL을 설정합니다.
-                              - product.itemMasterImg는 상품의 이미지 경로를 나타냅니다.
-                        -->
-
-                        <!--
-                          <ul class="product__hover">
-                              - 상품에 대한 추가 작업을 위한 호버 목록을 생성하는 ul 요소입니다.
-                        -->
-
-                        <!--
-                          <li><a href="img/shop/shop-1.jpg" class="image-popup"><span class="arrow_expand"></span></a></li>
-                              - 이미지 팝업을 위한 링크를 생성하는 li 요소입니다.
-                              - 이미지 팝업 링크는 "img/shop/shop-1.jpg"를 대상으로 합니다.
-                              - 화살표 아이콘을 표시하는 span 요소가 포함되어 있습니다.
-                        -->
-
-                        <!--
-                          <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                              - 좋아요 아이콘을 위한 링크를 생성하는 li 요소입니다.
-                              - 좋아요 아이콘을 표시하는 span 요소가 포함되어 있습니다.
-                        -->
-
-                        <!--
-                          <li><a href="#"><span class="icon_bag_alt"></span></a></li>
-                              - 장바구니 아이콘을 위한 링크를 생성하는 li 요소입니다.
-                              - 장바구니 아이콘을 표시하는 span 요소가 포함되어 있습니다.
-                        -->
-
-                        <!--
-                          <h6><a href="#" th:text="${product.itemName}"></a></h6>
-                              - 상품 이름을 표시하는 링크를 생성하는 h6 요소입니다.
-                              - 링크의 텍스트는 product.itemName 속성으로 설정됩니다.
-                        -->
-
-                        <!--
-                          <div class="product__price" th:text="'₩' + ${product.itemPrice}"></div>
-                              - 상품 가격을 표시하는 div입니다.
-                              - 가격 앞에 '₩' 기호를 추가하여 텍스트로 표시합니다.
-                              - 가격은 product.itemPrice 속성으로 설정됩니다.
-                        -->
-
-                        <!--
-                          </div>
-                              - 상품 아이템을 감싸는 div를 닫습니다.
-                        -->
-
-                        <!--
-                        </div>
-                            - 그리드 컬럼을 감싸는 div를 닫습니다.
-                        -->
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
+                <a class="page-link" th:onclick="goToPage(1)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -361,13 +316,14 @@
 
 
             <li class="page-item" th:each="pageNumber : ${#numbers.sequence(1, totalPage)}" th:class="${currentPage == pageNumber} ? 'active' : ''">
-                <a class="page-link" th:href="@{/member/category(page=${pageNumber})}"><span th:text="${pageNumber}"></span></a>
+                <!--                <a class="page-link" th:href="@{/member/category(page=${pageNumber})}"><span th:text="${pageNumber}"></span></a>-->
+                <a class="page-link" th:onclick="goToPage([[${pageNumber}]]) ;"><span th:text="${pageNumber}"></span></a>
             </li>
 
 
 
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
+                <a class="page-link" th:onclick="goToPage([[${totalPage}]])" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -381,7 +337,7 @@
     <div class="instagram">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-sm-4 p-0" style="background-size: contain;">
+                <div class="col-lg-2 col-md-4 col-sm-4 p-0">
                     <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
                         <div class="instagram__text">
                             <i class="fa fa-instagram"></i>
@@ -446,20 +402,539 @@
         </div>
     </div>
     <!-- Search End -->
-<!--
-    &lt;!&ndash; Js Plugins &ndash;&gt;
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.nicescroll.min.js"></script>
-    <script src="js/main.js"></script>-->
+    <!--
+        &lt;!&ndash; Js Plugins &ndash;&gt;
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.magnific-popup.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/mixitup.min.js"></script>
+        <script src="js/jquery.countdown.min.js"></script>
+        <script src="js/jquery.slicknav.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/jquery.nicescroll.min.js"></script>
+        <script src="js/main.js"></script>-->
+    <script th:inline="javascript">
+    function submitForm() {
+        document.getElementById("myForm2").submit();
+    }
+  window.onload = function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var fromParam = urlParams.get('from');
+    var methodParam = urlParams.get('method');
+    var capacityParam = urlParams.get('capacity');
+    var sortParam = urlParams.get('sort');
+    document.getElementById("fromInput").value = fromParam;
+    document.getElementById("methodInput").value = methodParam;
+    document.getElementById("capacityInput").value = capacityParam;
+    document.getElementById("sortInput").value = sortParam;
+  };
+
+  function goToPage(pageNumber) {
+    var pageNum = pageNumber;
+    var fromParam = document.getElementById("fromInput").value;
+    var methodParam = document.getElementById("methodInput").value;
+    var capacityParam =document.getElementById("capacityInput").value;
+    var sortParam = document.getElementById("sortInput").value;
+    // 페이지 값 설정
+    document.getElementById("currentPage").value = pageNum;
+
+    // 폼 전송
+    document.getElementById("myForm").submit();
+     return false;
+  }
+
+</script>
+    <script th:inline="javascript">
+    function redirectToController(url) {
+        window.location.href = url;
+    }
+</script>
     </body>
 
 </th:block>
 
 </html>
+
+
+
+
+<!--
+:root {
+&#45;&#45;primary-color: #00a8e3;
+&#45;&#45;secondary-color: #006ae3;
+&#45;&#45;black: #000000;
+&#45;&#45;white: #ffffff;
+&#45;&#45;gray: #efefef;
+&#45;&#45;gray-2: #757575;
+
+&#45;&#45;facebook-color: #4267B2;
+&#45;&#45;google-color: #DB4437;
+&#45;&#45;twitter-color: #1DA1F2;
+&#45;&#45;insta-color: #E1306C;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+font-family: 'Poppins', sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html,
+body {
+height: 100vh;
+overflow: hidden;
+}
+
+.container {
+position: relative;
+min-height: 100vh;
+overflow: hidden;
+}
+
+/*meta-su메타수 폼, 글씨 !!!*/
+.row {
+display: flex;
+justify-content: flex-start; /* 왼쪽 정렬 */
+align-items: center;     /* 수직 중앙 정렬 */
+height: 100vh;
+flex-wrap: wrap;
+}
+h2.welcome2 {
+width: max-content;
+}
+.welcome2 {
+width: 500px;
+font-family: welcome;
+font-size: 120px;
+margin: 2rem;
+position: absolute;
+top: 40%;
+left: 115%;
+/* transform: translate(-50%, -50%); */
+}
+.form-wrapper {
+width: 100%;
+max-width: 35rem;
+
+}
+.form {
+height: 100%;
+padding: 1rem;
+background-color: var(&#45;&#45;white);
+border-radius: 1.5rem;
+width: 150%; /* 폼 크기를 1.5배 확대 */
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+transform: scale(1.4);
+
+/*    transition: .5s ease-in-out;
+
+transition-delay: 1s;*/
+}
+
+
+
+
+
+
+.col {
+width: 50%;
+}
+
+.align-items-center {
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+
+
+
+
+.input-group {
+position: relative;
+width: 100%;
+margin: 1rem 0;
+}
+
+.input-group i {
+position: absolute;
+top: 50%;
+left: 1rem;
+transform: translateY(-50%);
+font-size: 1.4rem;
+color: var(&#45;&#45;gray-2);
+}
+
+.input-group input {
+width: 100%;
+padding: 1rem 3rem;
+font-size: 1rem;
+background-color: var(&#45;&#45;gray);
+border-radius: .5rem;
+border: 0.125rem solid var(&#45;&#45;white);
+outline: none;
+}
+
+.input-group input:focus {
+border: 0.125rem solid var(&#45;&#45;primary-color);
+}
+
+.form button {
+cursor: pointer;
+width: 100%;
+padding: .6rem 0;
+border-radius: .5rem;
+border: none;
+background-color: var(&#45;&#45;primary-color);
+color: var(&#45;&#45;white);
+font-size: 1.2rem;
+outline: none;
+}
+
+.form p {
+margin: 1rem 0;
+font-size: .7rem;
+}
+
+.flex-col {
+flex-direction: column;
+}
+
+.social-list {
+margin: 2rem 0;
+padding: 1rem;
+border-radius: 1.5rem;
+width: 100%;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+transform: scale(0);
+transition: .5s ease-in-out;
+transition-delay: 1.2s;
+}
+
+.social-list>div {
+color: var(&#45;&#45;white);
+margin: 0 .5rem;
+padding: .7rem;
+cursor: pointer;
+border-radius: .5rem;
+cursor: pointer;
+transform: scale(0);
+transition: .5s ease-in-out;
+}
+
+.social-list>div:nth-child(1) {
+transition-delay: 1.4s;
+}
+
+.social-list>div:nth-child(2) {
+transition-delay: 1.6s;
+}
+
+.social-list>div:nth-child(3) {
+transition-delay: 1.8s;
+}
+
+.social-list>div:nth-child(4) {
+transition-delay: 2s;
+}
+
+.social-list>div>i {
+font-size: 1.5rem;
+transition: .4s ease-in-out;
+}
+
+.social-list>div:hover i {
+transform: scale(1.5);
+}
+
+.facebook-bg {
+background-color: var(&#45;&#45;facebook-color);
+}
+
+.google-bg {
+background-color: var(&#45;&#45;google-color);
+}
+
+.twitter-bg {
+background-color: var(&#45;&#45;twitter-color);
+}
+
+.insta-bg {
+background-color: var(&#45;&#45;insta-color);
+}
+
+.pointer {
+cursor: pointer;
+color: #00a8e3;
+font-size: 12px;
+}
+
+.container.sign-in .form.sign-in,
+.container.sign-in .social-list.sign-in,
+.container.sign-in .social-list.sign-in>div,
+.container.sign-up .form.sign-up,
+.container.sign-up .social-list.sign-up,
+.container.sign-up .social-list.sign-up>div {
+transform: scale(1.2);
+}
+
+.content-row {
+position: absolute;
+top: 0;
+left: 0;
+pointer-events: none;
+z-index: 6;
+width: 100%;
+}
+
+.text {
+margin: 4rem;
+color: var(&#45;&#45;white);
+}
+
+
+
+
+
+
+
+
+.text p {
+font-weight: 600;
+transition: 1s ease-in-out;
+transition-delay: .0s;
+}
+
+.img img {
+width: 30vw;
+transition: 1s ease-in-out;
+transition-delay: .4s;
+}
+
+.text.sign-in h2,
+.text.sign-in p,
+.img.sign-in img {
+transform: translateX(-250%);
+}
+
+.text.sign-up h2,
+.text.sign-up p,
+.img.sign-up img {
+transform: translateX(250%);
+}
+
+.container.sign-in .text.sign-in h2,
+.container.sign-in .text.sign-in p,
+.container.sign-in .img.sign-in img,
+.container.sign-up .text.sign-up h2,
+.container.sign-up .text.sign-up p,
+.container.sign-up .img.sign-up img {
+transform: translateX(0);
+}
+
+/* BACKGROUND */
+
+.container::before {
+content: "";
+position: absolute;
+top: 0;
+right: 0;
+height: 100vh;
+width: 300vw;
+transform: translate(35%, 0);
+background-image: linear-gradient(-45deg, var(&#45;&#45;primary-color) 0%, var(&#45;&#45;secondary-color) 100%);
+/* transition: 1s ease-in-out;*/
+/* z-index: 6; */
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+border-bottom-right-radius: max(50vw, 50vh);
+border-top-left-radius: max(50vw, 50vh);
+}
+
+.container.sign-in::before {
+/* transform: translate(0, 0);*/
+right: 50%;
+}
+
+.container.sign-up::before {
+/*transform: translate(100%, 0);*/
+right: 50%;
+}
+
+/* RESPONSIVE */
+
+@media only screen and (max-width: 425px) {
+
+.container::before,
+.container.sign-in::before,
+.container.sign-up::before {
+height: 100vh;
+border-bottom-right-radius: 0;
+border-top-left-radius: 0;
+z-index: 0;
+transform: none;
+right: 0;
+}
+
+.container.sign-in .col.sign-up {
+transform: translateY(100%);
+}
+
+.container.sign-in .col.sign-in,
+.container.sign-up .col.sign-up {
+transform: translateY(0);
+}
+
+.content-row {
+align-items: flex-start !important;
+}
+
+.content-row .col {
+transform: translateY(0);
+background-color: unset;
+}
+
+.col {
+width: 100%;
+position: absolute;
+padding: 2rem;
+background-color: var(&#45;&#45;white);
+border-top-left-radius: 2rem;
+border-top-right-radius: 2rem;
+transform: translateY(100%);
+transition: 1s ease-in-out;
+}
+
+.row {
+align-items: flex-end;
+justify-content: flex-end;
+}
+
+.form,
+.social-list {
+box-shadow: none;
+margin: 0;
+padding: 0;
+}
+
+.text {
+margin: 0;
+}
+
+.text p {
+display: none;
+}
+
+.text h2 {
+margin: .5rem;
+font-size: 2rem;
+}
+}
+/*member.html  font*/
+@font-face {
+src: url("/fonts/Exo Soft W05 Extra Bold.otf");
+font-family: welcome; /*font 이름*/
+}
+.welcome{
+font-family:welcome;
+font-size: 30px;
+transition: 0.5s ease-in-out;
+
+}
+/*.welcome2{
+font-family:welcome;
+font-size: 100px;
+margin: 2rem 0;
+transition: 0.5s ease-in-out;
+}*/
+
+
+
+.container {
+text-align: center;
+
+}
+
+.btn {
+background-color: #007bff;
+color: #fff;
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+}
+
+.modal {
+display: none;
+position: fixed;
+z-index: 8;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog {
+margin: 30px auto;
+max-width: 500px;
+background-color: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 20px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid #ccc;
+padding-bottom: 10px;
+}
+
+.modal-title {
+font-family: 'Poppins', sans-serif;
+font-size: 24px;
+}
+
+.close {
+font-family: 'Poppins', sans-serif;
+color: black;
+font-size: 24px;
+cursor: pointer;
+background-color: white;
+border: none;
+outline: none;
+}
+
+.modal-body {
+padding: 10px 0;
+}
+
+.modal-footer {
+font-family: 'Poppins', sans-serif;
+
+padding-top: 10px;
+text-align: right;
+}
+
+.btn-secondary {
+font-family: 'Poppins', sans-serif;
+background-color: #00a8e3fh;
+border-color: #00a8e3fh;
+color: #fff;
+padding: 8px 16px;
+border: none;
+cursor: pointer;
+}
+
+.btn-secondary:hover {
+background-color: #5a6268;
+}
+
+-->

@@ -38,6 +38,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -51,7 +52,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByMemberId(username);
+
+//        Optional<Member> member = this.memberRepository.findByMemberId(memberId);
+//        return member.isPresent()? member.get() : null;
+
+        Optional<Member> optionalMember = memberRepository.findByMemberId(username);
+        Member member;
+        member = optionalMember.get();
+        // Member 객체를 사용하는 코드 작성
         if (member == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }

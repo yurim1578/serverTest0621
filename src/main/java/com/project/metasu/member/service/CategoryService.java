@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface CategoryService {
 
-public Page<ItemMaster> getList(int page,int pageSize,String capacity ,String type,String from,String method);
+  public Page<ItemMaster> getList(int page,int pageSize,String capacity ,String type,String from,String method,String sort);
 
-public List<ItemImg> getImg();
+  public List<ItemImg> getImg();
 
 
 
