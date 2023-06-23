@@ -11,8 +11,8 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                    <a href="#">Women’s </a>
-                    <span>Essential structured blazer</span>
+                    <a href="#">Item </a>
+                    <span>Info</span>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <div class="product__details__pic">
+                <div class="product__details__pic" style="margin-top: 30px;">
                     <div class="product__details__pic__left product__thumb nice-scroll" id="itemImgs">
                       <a class="pt" href="#product-1" id="itemImg1">
                             <img th:src="${img.itemImg1}" alt="">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="product__details__text">
+                <div class="product__details__text" style="margin-left: 55px;">
                     <span th:text="${post.itemName}" style="font-size: larger; font-weight: bold;"></span>
                     <div class="product__details__widget" style="margin-top: 4px;">
                         <ul>
@@ -86,24 +86,24 @@
 
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="tab-tab-box">
-                                <div id="rentalCare">
+                                <div id="rentalCare" style="margin-left: -11px;">
                                   <button id="btnVisit" class="ren-btn" th:value="방문관리">방문관리</button>
                                   <button id="btnSelf" class="ren-btn" th:value="자가관리">자가관리</button>
                                 </div>
-                                <div id="rentalPeriod">
+                                <div id="rentalPeriod" style="margin-left: -11px;">
                                   <button id="btn6Year" class="ren-btn" th:value="6">6년약정</button>
                                   <button id="btn3Year" class="ren-btn" th:value="3">3년약정</button>
                                 </div>
+                                <div id="renInfoPrice" style="font-size: 22px; font-weight: 600; color: #00a8e3; margin-top: 6px;">
+                                    ￦ 월&nbsp;<span id="renItemSubPrice" th:text="${post.itemPrice}"></span>
+                                    ￦ Total&nbsp;<span id="renItemPrice" th:text="${post.itemPrice}"></span>
+                                </div>
                               </div>
                               <form id="rentalForm"  method="post" action="">
-                            <div class="product__details__button">
+                            <div class="product__details__button" style="margin-top: -29px;">
                                 <a href="#" class="cart-btn" id="goToOrderBtn">
                                     <span class="icon_bag_alt"></span>
                                     Go to order</a>
-                                <ul>
-                                    <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                                    <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                                </ul>
                             </div>
                             <input type="hidden" name="itemCode" id="renFormItemCode">
                             <input type="hidden" name="itemColorCode" id="renFormitemColorCode">
@@ -156,16 +156,7 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <h6>Description</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
+                            <p th:text="${post.item_desc}"></p>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <h6>Specification</h6>
@@ -217,6 +208,11 @@
 
     const cp = $(location).attr('origin'); //contextPath
     var memberId = 'hye'; // todo: 로그인 합칠때 memberId 받아오기
+
+    // 가격에 쉼표 추가 함수
+    function addCommas(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
    
     // 리뷰
     function sendReview(sortValue, page){
@@ -260,6 +256,16 @@
 
     // 초기 페이지 로딩 시 기본 설정
     $('#btnVisit, #btn6Year').addClass('active');
+    var beforeParsing = $('#itemPrice').text(); // 쉼표 찍기전 가격 저장
+    
+    // 월 단위 가격 가져오기
+    var renInfoSavePrice = parseInt(beforeParsing);
+    var monthPrice = renInfoSavePrice/(12*6);
+    // 업데이트된 가격에 쉼표 추가  
+    $('#renItemSubPrice').text(addCommas(Math.floor(monthPrice).toLocaleString('en-US')));
+    $('#renItemPrice').text(addCommas($('#renItemPrice').text()));
+    
+
 
     // 자가관리와 방문관리 버튼에 대한 클릭 이벤트 핸들러
     $('#btnSelf').click(function() {
@@ -284,6 +290,10 @@
         $(this).addClass('active');
 
         var renData = $(this).text();
+        var price = renInfoSavePrice/(12*6);
+
+        // 업데이트된 가격에 쉼표 추가  
+        $('#renItemSubPrice').text(addCommas(Math.floor(price).toLocaleString('en-US')));
     
     });
 
@@ -292,10 +302,17 @@
         $(this).addClass('active');
 
         var renData = $(this).text();
+        // 업데이트된 가격에 쉼표 추가  
+        var price = renInfoSavePrice/(12*3);
 
+        // 업데이트된 가격에 쉼표 추가  
+        $('#renItemSubPrice').text(addCommas(Math.floor(price).toLocaleString('en-US')));
     });
-
-
+    
+  
+    // 구매시 가격에 쉼표 추가
+    $('#itemPrice').text(addCommas($('#itemPrice').text()));         // 가격에 쉼표추가   
+    
     $('input[name="color__radio"]').click(function() {
         var itemColorCode = $(this).attr('id'); // 선택된 색상 가져오기
         var itemCode = $('#itemCode').val();
@@ -324,6 +341,36 @@
             console.error(error);
         }
         });
+    });
+
+
+     
+    /*-------------------
+		Quantity change
+	--------------------- */
+
+
+    var proQty = $('.pro-qty');
+    var itemPriceFix = parseInt(beforeParsing);
+    proQty.prepend('<span class="dec qtybtn" id="decQtyBtn">-</span>');
+    proQty.append('<span class="inc qtybtn" id="incQtyBtn">+</span>');
+    proQty.on('click', '.qtybtn', function () {
+        var $button = $(this);
+        var oldValue = $button.parent().find('input').val();
+        if ($button.hasClass('inc')) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button.parent().find('input').val(newVal);
+		// 구매시 가격에 쉼표 추가
+	    $('#itemPrice').text(addCommas(itemPriceFix * newVal));         // 가격에 쉼표추가
+		
     });
 
     // 구매시
@@ -386,7 +433,6 @@
         $('#renFormRentalPeriod').attr('value',$('#rentalPeriod .ren-btn.active').val());
         $('#renFormRentalCare').attr('value',$('#rentalCare .ren-btn.active').val());
         $('#renFormRentalPayAutoDate').attr('value',5);
-        alert($('#renFormRentalCare').val());
         $('#rentalForm').attr('action', cp + '/item/rentalOrder/' + memberId);
 
         // form 제출
@@ -410,6 +456,7 @@
 </th:block>
 <th:block layout:fragment="css">
 <style>
+
 .product__details__text .nav::before, .product__details__text .nav::after {
     top: 55px;
 }
@@ -461,8 +508,8 @@
 }
 
 .tab-tab-box{
-    background: #E8F5FF;
-    height: 150px;
+    background: #fff;
+    height: 210px;
     margin-bottom: 17px;
 }
 
@@ -476,7 +523,7 @@
   margin-top: 19px;
   margin-left: 12px;
   margin-bottom: 10px;
-  border: solid 2px #000000;
+  border: solid 3px #00a8e3;
   color: #000000;
 }
 

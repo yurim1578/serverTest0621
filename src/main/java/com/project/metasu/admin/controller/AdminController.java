@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -120,9 +122,9 @@ public class AdminController {
     model.addAttribute("images",itemService.getItemImg(code)); //list
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
-    if(itemImgDto.getBody()!=null) {
-      model.addAttribute("image", itemImgDto.getBody());
-    }
+
+      model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
+
     return "/admin/itemDetail";
   }
 
@@ -197,9 +199,8 @@ public class AdminController {
     model.addAttribute("stocks",itemService.getStockList(code));  //map
     model.addAttribute("colors",itemService.getStockDetails(code)); //map
 
-    if(itemImgDto.getBody()!=null) {
-      model.addAttribute("image", itemImgDto.getBody());
-    }
+    model.addAttribute("image", Objects.requireNonNull(itemImgDto.getBody()));
+
 
     return "/admin/updateItem";
   }

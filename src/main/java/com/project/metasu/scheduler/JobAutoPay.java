@@ -1,5 +1,5 @@
 
-package com.project.metasu.config;
+package com.project.metasu.scheduler;
 
 import com.project.metasu.item.domain.entity.Rental;
 import com.project.metasu.item.repository.RentalRepository;
@@ -26,10 +26,10 @@ public class JobAutoPay extends QuartzJobBean {
   @Autowired
   private ItemService itemService;
 
-  @Override
+    @Override
   protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-    log.info("배치 start");
-    String today = "25";
+    log.info("결제승인 배치 start");
+    String today = "10";
     //String today = String.valueOf(LocalDate.now().getDayOfMonth());
     log.info("today : " + LocalDate.now().getDayOfMonth());
 
@@ -42,7 +42,7 @@ public class JobAutoPay extends QuartzJobBean {
             try {
                 ResponseEntity status = itemService.acceptPayment(e.getRentalNo()); // 토스측에 결제 승인 요청 + 승인시 payment save
 
-                if (status.getStatusCode() == HttpStatus.OK) {  // 결제 승인이 성공적으로 이루어진 경우
+                    if (status.getStatusCode() == HttpStatus.OK) {  // 결제 승인이 성공적으로 이루어진 경우
                     log.info("결제 승인완료!");
 
                 } else {  // 결제 승인이 실패했거나 다른 상태 코드일 경우

@@ -1,6 +1,8 @@
 
-package com.project.metasu.config;
+package com.project.metasu.scheduler.config;
 
+import com.project.metasu.scheduler.JobAutoPay;
+import com.project.metasu.scheduler.JobReturnItem;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +22,14 @@ public class JobConfig {
   @PostConstruct
   public void run(){
     JobDetail detail= runJobDetail(JobAutoPay.class, new HashMap<>());
+    JobDetail returnItem = runJobDetail(JobReturnItem.class, new HashMap<>());
 
     try{
       //크론형식 지정 후 스케줄 시작
       //scheduler.scheduleJob(detail, runJobTrigger("0 * * ? * * *")); // 1분에 한번
+      //scheduler.scheduleJob(returnItem, runJobTrigger("0 * * ? * * *")); // 1분에 한번
       scheduler.scheduleJob(detail, runJobTrigger("0 0 0 1/1 * ? *")); // 하루에 한번
+      scheduler.scheduleJob(returnItem, runJobTrigger("0 0 0 1/1 * ? *")); // 하루에 한번
       //scheduler.scheduleJob(detail, runJobTrigger("0 */5 * ? * * *"));
 
     }catch(SchedulerException e){
@@ -42,5 +47,6 @@ public class JobConfig {
     //스케줄 생성
     return newJob(job).usingJobData(jobDataMap).build();
   }
+
 }
 
