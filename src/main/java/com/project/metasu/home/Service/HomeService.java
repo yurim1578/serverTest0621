@@ -28,7 +28,7 @@ public class HomeService {
   }
   public boolean itemExistInCart(HomeAddCartDto dto){
 //    Member member = memberService.getCurrentUser();
-    Member member = memberService.findMemberById("nhu").toEntity();
+    Member member = memberService.findMemberById("hye").toEntity();
 
 
     return cartRepository.existsByItemCodeAndItemColorCodeAndMemberId(dto.getItemCode(), dto.getItemColorCode(), member.getMemberId());
@@ -37,7 +37,7 @@ public class HomeService {
   @Transactional
   public void addItemToCart(HomeAddCartDto dto) {
 //   Member member = memberService.getCurrentUser();
-    Member member = memberService.findMemberById("nhu").toEntity();
+    Member member = memberService.findMemberById("hye").toEntity();
 
     ItemMaster itemMaster = this.findItemByItemCode(dto.getItemCode());
     int defaultQuantity = 1;
@@ -57,7 +57,7 @@ public class HomeService {
 
   public Long countTotalNumberInCart(){
 //    Member member = memberService.getCurrentUser();
-    Member member = memberService.findMemberById("nhu").toEntity();
+    Member member = memberService.findMemberById("hye").toEntity();
     return cartRepository.countAllByMember(member);
   }
 

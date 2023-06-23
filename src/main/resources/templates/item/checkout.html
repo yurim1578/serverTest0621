@@ -79,7 +79,7 @@
                                         <span class="top__text">Qty</span>
                                         <span class="top__text">Price</span>
                                     </li>
-                                    <div th:if="${rentalDto == null}">
+                                    <div th:if="${rentalDto == null}" id="salesOrderForm">
                                         <div th:each="carts : ${cart}">  
                                             <span id="itemName" th:text="${carts.item_name}"></span>
                                             <span id="cartQty" th:text="${carts.cart_qty}"></span>
@@ -111,8 +111,8 @@
 
                                             <div id="rentalPayBtn" class="checkout__order__total">
                                                 <ul>
-                                                    <li>월 ￦ <span id="renItemSubTotalPrice" th:text="${rentalDto.itemPrice/(12*rentalDto.rentalPeriod)}"></span><br></li>
-                                                    <li>Total ￦ <span id="renItemTotalPrice" th:text="${rentalDto.itemPrice}"></span><br></li>
+                                                    <li>월&nbsp; <span id="renItemSubTotalPrice" th:text="${rentalDto.itemPrice/(12*rentalDto.rentalPeriod)}"></span><br></li>
+                                                    <li>Total&nbsp; <span id="renItemTotalPrice" th:text="${rentalDto.itemPrice}"></span><br></li>
                                                 </ul>
                                             </div>
                                     </div>
@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div class="row" style="width: 100%; margin-top: 50px;" data-section="deliverySection">
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
                             <h5>배달지 정보</h5>
                             <div class="row" style="padding-left: 0;">
                                 <!-- <div class="col-lg-6 col-md-6 col-sm-6"> -->
@@ -162,7 +162,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <h5>설치 희망일</h5>
                             	<!-- 달력 -->
 								<div class="sec_cal" style="margin-left: -50px; height: 220px;" >
@@ -190,7 +190,7 @@
                                   </div>
                                 <div>
                                     <input type="hidden" id="installDate" value="">
-                                     <select name="설치 시간" id="installTime">
+                                     <select  name="설치 시간" id="installTime">
                                         <option value="T1">9:00~10:00</option>
                                         <option value="T2">10:00~11:00</option>
                                         <option value="T3">11:00~12:00</option>
@@ -221,16 +221,25 @@
 	var emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;	//이메일 정규식(abc@gmail.com)
     var oldDate = null; // 선택한 DELEVERY DATE 저장
     const cp = $(location).attr('origin'); //contextPath
-
+    var beforeCommaTotalPrice = $('#renItemTotalPrice').text();  
+    var total = 0;                   // 구매가격에 쉼표추가
     $(document).ready(function() {
-    var total = 0;
     $('.checkout__form__checkbox input').prop("checked", true); 
-    $('.checkout__order__product #itemSubTotalPrice').each(function() {
-        var price = parseFloat($(this).text().replace('￦ ', ''));
+
+  
+    beforeRenCommaTotalPrice = $('#renItemTotalPrice').text();
+    beforeRenCommaSubTotalPrice =  $('#renItemSubTotalPrice').text();
+    
+    $('#renItemTotalPrice').text(addCommas($('#renItemTotalPrice').text()));         // 렌탈가격에 쉼표 추가   
+    $('#renItemSubTotalPrice').text(addCommas( $('#renItemSubTotalPrice').text()));  // 렌탈가격에 쉼표 추가 
+   
+    $('.checkout__order__product #itemSubTotalPrice').each(function() {              // 구매 가격에 쉼표 추가
+        $(this).text(addCommas($(this).text()));
+        var price = parseFloat($(this).text().replace('￦ ', '').replace(/,/g, ''));
         total += price;
     });
 
-    $('.checkout__order__total#salesPayBtn span').text(total); //'￦ ' + 
+    $('.checkout__order__total#salesPayBtn span').text(addCommas(total)); //'￦ ' + 
 
     // 달력
     calendarInit();
@@ -528,8 +537,7 @@ function renderCalender(thisMonth) {
                             orderMasterReq: {
                                 orderDiscountYn: false,
                                 // 구매일떄 총액과 렌탈일때 총액
-                                orderAmount: $('.checkout__order__total#salesPayBtn span').text() == null || $('.checkout__order__total#salesPayBtn span').text() == '' ? $('#renItemTotalPrice').text() : $('.checkout__order__total#salesPayBtn span').text(),
-                                orderStatus:  'OS'
+                                orderAmount: $('.checkout__order__total#salesPayBtn span').text() == null || $('.checkout__order__total#salesPayBtn span').text() == '' ? beforeRenCommaTotalPrice : total
                             },
                             // 바코드 정보  
                             itemStockReq: {
@@ -547,7 +555,7 @@ function renderCalender(thisMonth) {
                             };
 
                             param.payReq = {                      
-                                paymentAmount: $('#renItemSubTotalPrice').text()
+                                paymentAmount: beforeRenCommaTotalPrice
                             };
                             
                             var url = cp + '/item/billingSuccess?a=a';
@@ -590,8 +598,7 @@ function renderCalender(thisMonth) {
                                         paymentType: rsp.pay_method,
                                         paymentCreditNumber: rsp.card_number,
                                         paymentBank:  rsp.card_name,
-                                        // 구매일때 총액과 렌탈일때 총액
-                                        paymentAmount: $('.checkout__order__total#salesPayBtn span').text() == null || $('.checkout__order__total#salesPayBtn span').text() == '' ? $('#renItemSubTotalPrice').text() : $('.checkout__order__total#salesPayBtn span').text(),
+                                        paymentAmount: total,
                                         paymentStatus: 'PS'
                                     };
 
@@ -600,7 +607,17 @@ function renderCalender(thisMonth) {
                                         url: "/item/addPayment",
                                         data: JSON.stringify(param),
                                         contentType: "application/json; charset=utf-8",
-                                        dataType: "json"
+                                        dataType: "json",
+                                        success: function(response) {
+                                            alert("결제성공!");
+                                            location.href = cp + "/item/info/1";
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.log("결제 정보 전송이 실패했습니다.");
+                                            console.log("에러 메시지: " + error);
+                                            alert("결제성공!");
+                                            location.href = cp + "/item/info/1";
+                                        }
                                     });
                                 } else {
                                     alert(rsp.error_msg);
@@ -613,6 +630,11 @@ function renderCalender(thisMonth) {
                     } 
                 });
     });
+
+    // 쉼표 추가 함수
+    function addCommas(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
         </script>
     </th:block>

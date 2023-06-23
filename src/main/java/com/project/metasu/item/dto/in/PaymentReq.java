@@ -24,7 +24,6 @@ public class PaymentReq {
     private Integer orderQty;
 
     @Getter
-    @Setter
     public static class ContractReq {
         private String contractNo = "C_" + LocalDateTime.now();
         private String contractName;        // 계약자 이름
@@ -41,12 +40,11 @@ public class PaymentReq {
                 .contractEmail(this.getContractEmail())
                 .contractAddr1(this.getContractAddr1())
                 .contractAddr2(this.getContractAddr2())
-                .contractStatus("CP") // 결제 대기
+                .contractStatus("CI") // 계약중
                 .build();
         }
     }
     @Getter
-    @Setter
     public static class DeliveryReq {
         private String deliveryNo = "D_" + LocalDateTime.now();
         private String deliveryName;        // 배달받는사람 이름
@@ -64,7 +62,7 @@ public class PaymentReq {
                 .deliveryPhone(this.getDeliveryPhone())
                 .deliveryAddr1(this.getDeliveryAddr1())
                 .deliveryAddr2(this.getDeliveryAddr2())
-                .deliveryStatus("IP")
+                .deliveryStatus("IP") // 설치 대기
                 .installDate(LocalDate.parse(this.getInstallDate(), DateTimeFormatter.ofPattern("yyyyMMdd")))
                 .installTimeCode(this.getInstallTimeCode())
                 .build();
@@ -73,7 +71,6 @@ public class PaymentReq {
     }
 
     @Getter
-    @Setter
     public static class RentalReq {
         private String rentalNo = "R_" + LocalDateTime.now();
         private String rentalPayAutoDate;
@@ -93,13 +90,12 @@ public class PaymentReq {
                 .rentalPeriod(this.getRentalPeriod())
                 .rentalStartDate(now)
                 .rentalEndDate(calculatedEndDate)
-                .rentalStatus("RP")
+                .rentalStatus("RI") // 렌탈중
                 .build();
         }
     }
 
     @Getter
-    @Setter
     public static class PayReq {
         private String paymentNo;
         private String paymentType;
@@ -124,25 +120,15 @@ public class PaymentReq {
 
 
     @Getter
-    @Setter
     public static class OrderMasterReq {
         private String orderNo;
         private Boolean orderDiscountYn;
         private Integer orderAmount;
-        private String orderStatus;
+        private String orderStatus = "OS";
 
-        /*public OrderMaster toEntity() {
-            return OrderMaster.builder()
-                .orderNo(this.getOrderNo())
-                .orderDiscountYn(this.getOrderDiscountYn())
-                .orderAmount(this.getOrderAmount())
-                .orderStatus(this.getOrderStatus())
-                .build();
-        }*/
     }
 
     @Getter
-    @Setter
     public static class OrderDetailReq {
         private OrderMaster orderMaster;
         private ItemStock itemStock;
@@ -159,14 +145,12 @@ public class PaymentReq {
         }
     }
     @Getter
-    @Setter
     public static class ItemStockReq {
           private String itemCode;
           private String itemColorCode;
     }
 
     @Getter
-    @Setter
     public static class MemberReq {
         private Member member;
     }

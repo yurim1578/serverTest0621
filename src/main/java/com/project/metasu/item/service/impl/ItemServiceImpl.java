@@ -278,24 +278,24 @@ public class ItemServiceImpl implements ItemService {
                     .build());
 
             // 주문 마스터 save
-        OrderMaster orderMaster = orderMasterRepository.save(OrderMaster.builder()
-                .orderNo("O_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
-                .member(paymentReq.getMemberReq())
-                .contract(contractRepository.save(paymentReq.getContractReq().toEntity())) // 계약 save
-                .delivery(deliveryRepository.save(paymentReq.getDeliveryReq().toEntity())) // 설치(배달) sve
-                .rental(rental)
-                .payment(payment)
-                .orderDiscountYn(paymentReq.getOrderMasterReq().getOrderDiscountYn())
-                .orderAmount(paymentReq.getOrderMasterReq().getOrderAmount())
-                .orderStatus(paymentReq.getOrderMasterReq().getOrderStatus())
-                .build());
-        // 주문 디테일 save
-        OrderDetail orderDetail = orderDetailRepository.save(OrderDetail.builder()
-                .orderMaster(orderMaster)
-                //itemStock에서 바코드 find 후 build, 판매여부 Y로 update
-                .itemStock(itemStockRepository.findTop1ByItemCodeAndItemColorCodeAndSalesYn(paymentReq.getItemStockReq().getItemCode(), paymentReq.getItemStockReq().getItemColorCode(), false))
-                .rental(rental)
-                .build());
+            OrderMaster orderMaster = orderMasterRepository.save(OrderMaster.builder()
+                    .orderNo("O_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))
+                    .member(paymentReq.getMemberReq())
+                    .contract(contractRepository.save(paymentReq.getContractReq().toEntity())) // 계약 save
+                    .delivery(deliveryRepository.save(paymentReq.getDeliveryReq().toEntity())) // 설치(배달) sve
+                    .rental(rental)
+                    .payment(payment)
+                    .orderDiscountYn(paymentReq.getOrderMasterReq().getOrderDiscountYn())
+                    .orderAmount(paymentReq.getOrderMasterReq().getOrderAmount())
+                    .orderStatus(paymentReq.getOrderMasterReq().getOrderStatus())
+                    .build());
+            // 주문 디테일 save
+            OrderDetail orderDetail = orderDetailRepository.save(OrderDetail.builder()
+                    .orderMaster(orderMaster)
+                    //itemStock에서 바코드 find 후 build, 판매여부 Y로 update
+                    .itemStock(itemStockRepository.findTop1ByItemCodeAndItemColorCodeAndSalesYn(paymentReq.getItemStockReq().getItemCode(), paymentReq.getItemStockReq().getItemColorCode(), false))
+                    .rental(rental)
+                    .build());
 
             return ResponseEntity.ok(rental.getRentalNo());
 

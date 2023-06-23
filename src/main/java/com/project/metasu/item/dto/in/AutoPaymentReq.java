@@ -64,7 +64,7 @@ public class AutoPaymentReq {
                             .rentalPeriod(this.getRentalPeriod())
                             .rentalStartDate(now)
                             .rentalEndDate(calculatedEndDate)
-                            .rentalStatus("RP")
+                            .rentalStatus("RC")
                             .billingKey(this.getBillingKey())
                             .customerKey(this.getCustomerKey())
                             .build();

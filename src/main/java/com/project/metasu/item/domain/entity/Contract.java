@@ -40,4 +40,8 @@ public class Contract extends EssentialDate {
         this.contractRecieve = contractRecieve;
         this.contractStatus = contractStatus;
     }
+
+    public void setContractStatus(String contractStatus) {
+        this.contractStatus = contractStatus;
+    }
 }

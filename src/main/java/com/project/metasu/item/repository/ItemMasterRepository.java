@@ -2,7 +2,6 @@ package com.project.metasu.item.repository;
 
 import com.project.metasu.home.Dto.HomeItemDto;
 import com.project.metasu.item.domain.entity.ItemMaster;
-import com.project.metasu.member.domain.entity.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

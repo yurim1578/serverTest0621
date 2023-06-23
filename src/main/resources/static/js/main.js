@@ -205,7 +205,7 @@ Created: Colorib
     /*-------------------
 		Quantity change
 	--------------------- */
-    var proQty = $('.pro-qty');
+     /* var proQty = $('.pro-qty');
     var itemPriceFix = parseInt($('#itemPrice').text());
     proQty.prepend('<span class="dec qtybtn" id="decQtyBtn">-</span>');
     proQty.append('<span class="inc qtybtn" id="incQtyBtn">+</span>');
@@ -225,7 +225,7 @@ Created: Colorib
         $button.parent().find('input').val(newVal);
         $('#itemPrice').text(itemPriceFix * newVal);
     });
-    
+    */
     /*-------------------
 		Radio Btn
 	--------------------- */
