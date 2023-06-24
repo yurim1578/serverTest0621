@@ -145,7 +145,7 @@ public class AdminController {
       return "redirect:/admin/gostarter";
     }else {
       model.addAttribute("orders",orderService.getOrderLists());
-      return "/admin/orderManagement";
+      return "admin/orderManagement";
     }
   }
 
