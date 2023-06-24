@@ -9,7 +9,7 @@ env:
   S3_BUCKET_NAME: metasu-test-github-actions-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: metasu-test-app
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: metasu-test-codedeploy-group
-  working-directory: ./serverTest0621
+  working-directory: scripts
   
 permissions:
   contents: read
