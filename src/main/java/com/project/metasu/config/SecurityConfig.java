@@ -36,11 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/member/mypage/**").authenticated()
         .antMatchers("/member/update/confirm").authenticated()
         //어드민 추가
-        .antMatchers("/admin/**").authenticated()
+        //.antMatchers("/admin/**").authenticated()
         //상품 쪽 권한 제한 추가
-        .antMatchers("/item/cart/**").authenticated()
-        .antMatchers("/item/salesOrder/**").authenticated()
-        .antMatchers("/item/rentalOrder/**").authenticated()
+        //.antMatchers("/item/cart/**").authenticated()
+        //.antMatchers("/item/salesOrder/**").authenticated()
+        //.antMatchers("/item/rentalOrder/**").authenticated()
         .and()
         .formLogin()
         .loginPage("/member/login")

@@ -86,7 +86,7 @@ public class MemberController {
     member.setMemberPw(password);
     member.setMemberName(name);
     member.setMemberEmail(email);
-    member.setMemberPhone(phone);
+    member.setMemberPhone("콜");
     //member.setMemberAuth(auth);
     member.setMemberAddr1(addr);
     memberRepository.save(member.toEntity());
