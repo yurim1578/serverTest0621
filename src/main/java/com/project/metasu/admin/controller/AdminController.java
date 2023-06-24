@@ -35,6 +35,7 @@ public class AdminController {
   private final ReviewService reviewService;
   private final ItemManageService itemService;
   private final RentalService rentalService;
+  private final ItemService item_itemService;
   //test
   @GetMapping("/gostarter")
   public String view2(Model model) {
