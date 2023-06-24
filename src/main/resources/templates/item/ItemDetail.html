@@ -213,7 +213,7 @@
     function addCommas(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-   
+
     // 리뷰
     function sendReview(sortValue, page){
         var url = cp + '/item/reviewOfItemCode';
@@ -257,14 +257,14 @@
     // 초기 페이지 로딩 시 기본 설정
     $('#btnVisit, #btn6Year').addClass('active');
     var beforeParsing = $('#itemPrice').text(); // 쉼표 찍기전 가격 저장
-    
+
     // 월 단위 가격 가져오기
     var renInfoSavePrice = parseInt(beforeParsing);
     var monthPrice = renInfoSavePrice/(12*6);
-    // 업데이트된 가격에 쉼표 추가  
+    // 업데이트된 가격에 쉼표 추가
     $('#renItemSubPrice').text(addCommas(Math.floor(monthPrice).toLocaleString('en-US')));
     $('#renItemPrice').text(addCommas($('#renItemPrice').text()));
-    
+
 
 
     // 자가관리와 방문관리 버튼에 대한 클릭 이벤트 핸들러
@@ -292,9 +292,9 @@
         var renData = $(this).text();
         var price = renInfoSavePrice/(12*6);
 
-        // 업데이트된 가격에 쉼표 추가  
+        // 업데이트된 가격에 쉼표 추가
         $('#renItemSubPrice').text(addCommas(Math.floor(price).toLocaleString('en-US')));
-    
+
     });
 
     $('#btn3Year').click(function() {
@@ -302,17 +302,17 @@
         $(this).addClass('active');
 
         var renData = $(this).text();
-        // 업데이트된 가격에 쉼표 추가  
+        // 업데이트된 가격에 쉼표 추가
         var price = renInfoSavePrice/(12*3);
 
-        // 업데이트된 가격에 쉼표 추가  
+        // 업데이트된 가격에 쉼표 추가
         $('#renItemSubPrice').text(addCommas(Math.floor(price).toLocaleString('en-US')));
     });
-    
-  
+
+
     // 구매시 가격에 쉼표 추가
-    $('#itemPrice').text(addCommas($('#itemPrice').text()));         // 가격에 쉼표추가   
-    
+    $('#itemPrice').text(addCommas($('#itemPrice').text()));         // 가격에 쉼표추가
+
     $('input[name="color__radio"]').click(function() {
         var itemColorCode = $(this).attr('id'); // 선택된 색상 가져오기
         var itemCode = $('#itemCode').val();
@@ -344,7 +344,7 @@
     });
 
 
-     
+
     /*-------------------
 		Quantity change
 	--------------------- */
@@ -370,7 +370,7 @@
         $button.parent().find('input').val(newVal);
 		// 구매시 가격에 쉼표 추가
 	    $('#itemPrice').text(addCommas(itemPriceFix * newVal));         // 가격에 쉼표추가
-		
+
     });
 
     // 구매시
